@@ -10,3 +10,9 @@ npm-shrinkwrap.json
 
 # macOS
 .DS_Store
+
+# TS
+dist
+
+# DB
+db.sqlite
