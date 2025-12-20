@@ -1,32 +1,9 @@
-import argon2 from "argon2";
 import {userRepo} from "../users/user.repo";
 import {User} from "../users/user.model";
 import {UserRole} from "../users/user-role";
+import {hashPassword, verifyPassword, needsRehash, getDummyHash} from "../security/password";
 
-const ARGON2_OPTIONS = {
-    type: argon2.argon2id,
-    memoryCost: 65536,
-    timeCost: 3,
-    parallelism: 1
-};
-
-const DUMMY_HASH = "$argon2id$v=19$m=65536,t=3,p=1$AAAAAAAAAAAAAAAAAAAAAA$BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
-
-
-export async function hashPassword(password: string): Promise<string> {
-    return argon2.hash(password, ARGON2_OPTIONS);
-}
-
-export async function verifyPassword(hash: string, password: string): Promise<boolean> {
-    return argon2.verify(hash, password);
-}
-
-export async function needsRehash(hash: string): Promise<boolean> {
-    return argon2.needsRehash(hash, ARGON2_OPTIONS);
-}
-
-
-export async function registerUser(username: string, password: string): Promise<User> {
+async function registerUser(username: string, password: string): Promise<User> {
     const passwordHash = await hashPassword(password);
     return userRepo.create({
         username: username,
@@ -35,10 +12,10 @@ export async function registerUser(username: string, password: string): Promise<
     });
 }
 
-export async function loginUser(username: string, password: string): Promise<User | null> {
+async function loginUser(username: string, password: string): Promise<User | null> {
     const user = await userRepo.findByUsername(username);
 
-    const hashToCheck = user ? user.password_hash : DUMMY_HASH;
+    const hashToCheck = user ? user.password_hash : getDummyHash();
 
     const validPassword = await verifyPassword(hashToCheck, password);
     if (!user || !validPassword) return null;
@@ -52,7 +29,7 @@ export async function loginUser(username: string, password: string): Promise<Use
     return user;
 }
 
-export async function changePassword(userId: number, currentPassword: string, newPassword: string): Promise<void> {
+async function changePassword(userId: number, currentPassword: string, newPassword: string): Promise<void> {
     const user = await userRepo.findById(userId);
     if (!user)
         throw new Error("User not found");
@@ -64,3 +41,9 @@ export async function changePassword(userId: number, currentPassword: string, ne
     const newHash = await hashPassword(newPassword);
     await userRepo.updatePassword(userId, newHash);
 }
+
+export const authService = {
+    registerUser,
+    loginUser,
+    changePassword,
+};

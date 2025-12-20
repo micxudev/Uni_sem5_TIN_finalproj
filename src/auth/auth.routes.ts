@@ -1,5 +1,5 @@
 import express, {Request, Response} from "express";
-import {registerUser, loginUser, changePassword} from "./auth.service";
+import {authService} from "./auth.service";
 import {createSession, destroySession} from "./auth.session";
 
 export const authRouter = express.Router();
@@ -14,7 +14,7 @@ authRouter.post("/register", async (req: Request, res: Response) => {
         return res.status(400).json({error: "username must be at least 3 chars.",});
 
     try {
-        const user = await registerUser(username, password);
+        const user = await authService.registerUser(username, password);
         res.status(201).json({id: user.id});
     } catch (err) {
         res.status(400).json({error: "username already taken"});
@@ -27,7 +27,7 @@ authRouter.post("/login", async (req: Request, res: Response) => {
     if (typeof username !== "string" || typeof password !== "string")
         return res.status(400).json({error: "strings 'username' and 'password' are required"});
 
-    const user = await loginUser(username, password);
+    const user = await authService.loginUser(username, password);
 
     if (!user)
         return res.status(401).json({error: "Invalid credentials"});
@@ -51,7 +51,7 @@ authRouter.post("/change-password", async (req: Request, res: Response) => {
         return res.status(400).json({error: "strings 'currentPassword' and 'newPassword' are required"});
 
     try {
-        await changePassword(
+        await authService.changePassword(
             req.session.userId,
             currentPassword,
             newPassword
