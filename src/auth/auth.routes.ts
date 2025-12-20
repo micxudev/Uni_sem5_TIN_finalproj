@@ -1,6 +1,6 @@
 import express, {Request, Response} from "express";
 import {authService} from "./auth.service";
-import {createSession, destroySession} from "./auth.session";
+import {sessionService} from "./auth.session";
 
 export const authRouter = express.Router();
 
@@ -32,12 +32,12 @@ authRouter.post("/login", async (req: Request, res: Response) => {
     if (!user)
         return res.status(401).json({error: "Invalid credentials"});
 
-    createSession(req, user);
+    sessionService.create(req, user);
     res.json({success: true});
 });
 
 authRouter.post("/logout", async (req: Request, res: Response) => {
-    await destroySession(req);
+    await sessionService.destroy(req);
     res.json({success: true});
 });
 

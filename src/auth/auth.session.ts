@@ -4,12 +4,12 @@ import {User} from "../users/user.model";
 
 const SQLiteStore = require("connect-sqlite3")(session);
 
-export function createSession(req: Request, user: User): void {
+function create(req: Request, user: User): void {
     req.session.userId = user.id;
     req.session.role = user.role;
 }
 
-export function destroySession(req: Request): Promise<void> {
+function destroy(req: Request): Promise<void> {
     return new Promise((resolve, reject) => {
         req.session.destroy(err => {
             if (err) reject(err);
@@ -18,7 +18,7 @@ export function destroySession(req: Request): Promise<void> {
     });
 }
 
-export function createSessionMiddleware() {
+function createMiddleware() {
     return session({
         name: "sid",
         store: new SQLiteStore({db: "db.sqlite", table: "sessions"}),
@@ -32,4 +32,10 @@ export function createSessionMiddleware() {
             maxAge: 1000 * 60 * 15 // 15 mins
         },
     });
+}
+
+export const sessionService = {
+    create,
+    destroy,
+    createMiddleware,
 }

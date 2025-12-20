@@ -4,7 +4,7 @@ import path from "path";
 import {send404, send500} from "./helpers/errors";
 import {initSchema} from "./db/db.init-schema";
 import {seedSampleData} from "./db/db.sample-data";
-import {createSessionMiddleware} from "./auth/auth.session";
+import {sessionService} from "./auth/auth.session";
 import {authRouter} from "./auth/auth.routes";
 
 
@@ -37,7 +37,7 @@ app.use(express.static(path.join(ROOT_DIR, "public")));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-app.use(createSessionMiddleware());
+app.use(sessionService.createMiddleware());
 
 
 // ----------< Routes >----------
