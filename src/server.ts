@@ -66,13 +66,13 @@ app.use("/auth", authRouter);
 
 
 // ----------< Errors >----------
-app.use((_req: Request, res: Response) => {
-    return send404(res);
+app.use((err: Error, _req: Request, res: Response, next: NextFunction) => {
+    if ("body" in err)
+        return res.status(400).json({error: "Invalid JSON payload"}); // Temp format
+    next(err);
 });
-
-app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => {
-    return send500(res);
-});
+app.use((_req: Request, res: Response) => send404(res));
+app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => send500(res));
 
 
 // ----------< Start >----------
