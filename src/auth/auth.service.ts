@@ -51,3 +51,16 @@ export async function loginUser(username: string, password: string): Promise<Use
 
     return user;
 }
+
+export async function changePassword(userId: number, currentPassword: string, newPassword: string): Promise<void> {
+    const user = await userRepo.findById(userId);
+    if (!user)
+        throw new Error("User not found");
+
+    const validPassword = await verifyPassword(user.password_hash, currentPassword);
+    if (!validPassword)
+        throw new Error("Invalid current password");
+
+    const newHash = await hashPassword(newPassword);
+    await userRepo.updatePassword(userId, newHash);
+}

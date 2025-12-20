@@ -2,6 +2,11 @@ import {db} from "../db/db.connection";
 import {User} from "./user.model";
 
 export const userRepo = {
+    async findById(id: number): Promise<User | undefined> {
+        const sql = "SELECT * FROM users WHERE id = ?";
+        return db.get<User>(sql, [id]);
+    },
+
     async findByUsername(username: string): Promise<User | undefined> {
         const sql = "SELECT * FROM users WHERE username = ?";
         return db.get<User>(sql, [username]);

@@ -1,5 +1,5 @@
 import express, {Request, Response} from "express";
-import {registerUser, loginUser} from "./auth.service";
+import {registerUser, loginUser, changePassword} from "./auth.service";
 import {createSession, destroySession} from "./auth.session";
 
 export const authRouter = express.Router();
@@ -39,4 +39,26 @@ authRouter.post("/login", async (req: Request, res: Response) => {
 authRouter.post("/logout", async (req: Request, res: Response) => {
     await destroySession(req);
     res.json({success: true});
+});
+
+authRouter.post("/change-password", async (req: Request, res: Response) => {
+    if (!req.session.userId)
+        return res.status(401).json({error: "Not authenticated"});
+
+    const {currentPassword, newPassword} = req.body ?? {};
+
+    if (typeof currentPassword !== "string" || typeof newPassword !== "string")
+        return res.status(400).json({error: "strings 'currentPassword' and 'newPassword' are required"});
+
+    try {
+        await changePassword(
+            req.session.userId,
+            currentPassword,
+            newPassword
+        );
+
+        res.json({success: true});
+    } catch (err) {
+        res.status(400).json({error: "Invalid current password"});
+    }
 });
