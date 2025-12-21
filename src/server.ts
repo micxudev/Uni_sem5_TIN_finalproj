@@ -7,6 +7,7 @@ import {seedSampleData} from "./db/db.sample-data";
 import {sessionService} from "./auth/auth.session";
 import {authRouter} from "./auth/auth.routes";
 import {skinsRouter} from "./skins/skin.routes";
+import {AuthorizationError} from "./common/errors";
 
 
 // ----------< DB init >----------
@@ -47,13 +48,16 @@ app.use("/skins", skinsRouter);
 
 
 // ----------< Errors >----------
-app.use((err: Error, _req: Request, res: Response, next: NextFunction) => {
-    if ("body" in err)
-        return res.status(400).json({error: "Invalid JSON payload"}); // Temp format
-    next(err);
-});
 app.use((_req: Request, res: Response) => send404(res));
-app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => send500(res));
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+    if ("body" in err) // Invalid JSON body (from express.json)
+        return res.status(400).json({error: "Invalid JSON payload"});
+
+    if (err instanceof AuthorizationError)
+        return res.status(403).json({error: err.message});
+
+    send500(res)
+});
 
 
 // ----------< Start >----------

@@ -1,5 +1,6 @@
 import {db} from "../db/db.connection";
 import {Skin} from "./skin.model";
+import {PlayerSkinDto} from "./skin.dtos";
 
 async function findById(id: number): Promise<Skin | undefined> {
     const sql = "SELECT * FROM skins WHERE id = ?";
@@ -9,6 +10,17 @@ async function findById(id: number): Promise<Skin | undefined> {
 async function findPage(limit: number, offset: number): Promise<Skin[]> {
     const sql = "SELECT * FROM skins LIMIT ? OFFSET ?";
     return db.all<Skin>(sql, [limit, offset]);
+}
+
+async function findSkinsByUserId(userId: number): Promise<PlayerSkinDto[]> {
+    const sql = `
+        SELECT s.name, s.rarity, ps.source, ps.obtained_at
+        FROM skins s
+                 JOIN player_skins ps ON s.id = ps.skin_id
+        WHERE ps.user_id = ?
+        ORDER BY ps.obtained_at DESC;
+    `;
+    return db.all<PlayerSkinDto>(sql, [userId]);
 }
 
 async function countAll(): Promise<number> {
@@ -38,6 +50,7 @@ async function deleteById(id: number): Promise<boolean> {
 export const skinRepo = {
     findById,
     findPage,
+    findSkinsByUserId,
     countAll,
     create,
     update,

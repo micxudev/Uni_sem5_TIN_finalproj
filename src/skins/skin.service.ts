@@ -1,7 +1,10 @@
+import {PaginationInput, PaginatedResult, Pagination} from "../common/pagination";
+import {AuthorizationError} from "../common/errors";
+import {UserRole} from "../users/user-role";
 import {skinRepo} from "./skin.repo";
 import {Skin} from "./skin.model";
 import {SkinRarity} from "./skin-rarity";
-import {PaginationInput, PaginatedResult, Pagination} from "../common/pagination";
+import {UserAccessContext, PlayerSkinDto} from "./skin.dtos";
 
 async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Skin>> {
     const pagination = Pagination.from(input);
@@ -42,10 +45,18 @@ async function deleteById(id: number): Promise<void> {
     if (!deleted) throw new Error("Skin not found");
 }
 
+async function getUserSkins(input: UserAccessContext): Promise<PlayerSkinDto[]> {
+    if (input.requesterRole === UserRole.PLAYER && input.requesterId !== input.targetUserId)
+        throw new AuthorizationError("Players can only view own skins");
+
+    return skinRepo.findSkinsByUserId(input.targetUserId);
+}
+
 export const skinService = {
     getPaginated,
     getById,
     create,
     update,
     deleteById,
+    getUserSkins,
 };
