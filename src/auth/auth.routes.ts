@@ -1,8 +1,8 @@
-import express, {Request, Response} from "express";
+import {Router, Request, Response} from "express";
 import {authService} from "./auth.service";
 import {sessionService} from "./auth.session";
 
-export const authRouter = express.Router();
+export const authRouter = Router();
 
 authRouter.post("/register", async (req: Request, res: Response) => {
     const {username, password} = req.body ?? {};

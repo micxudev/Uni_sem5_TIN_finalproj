@@ -6,6 +6,7 @@ import {initSchema} from "./db/db.init-schema";
 import {seedSampleData} from "./db/db.sample-data";
 import {sessionService} from "./auth/auth.session";
 import {authRouter} from "./auth/auth.routes";
+import {skinsRouter} from "./skins/skin.routes";
 
 
 // ----------< DB init >----------
@@ -42,6 +43,7 @@ app.use(sessionService.createMiddleware());
 
 // ----------< Routes >----------
 app.use("/auth", authRouter);
+app.use("/skins", skinsRouter);
 
 
 // ----------< Errors >----------
