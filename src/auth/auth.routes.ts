@@ -42,7 +42,8 @@ authRouter.post("/logout", async (req: Request, res: Response) => {
 });
 
 authRouter.post("/change-password", async (req: Request, res: Response) => {
-    if (!req.session.userId)
+    const userId = req.session.userId;
+    if (!userId)
         return res.status(401).json({error: "Not authenticated"});
 
     const {currentPassword, newPassword} = req.body ?? {};
@@ -52,7 +53,7 @@ authRouter.post("/change-password", async (req: Request, res: Response) => {
 
     try {
         await authService.changePassword(
-            req.session.userId,
+            userId,
             currentPassword,
             newPassword
         );
