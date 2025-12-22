@@ -1,4 +1,4 @@
-import {SkinRarity} from "./skin-rarity";
+import {SkinRarity} from "@modules/skins/skin-rarity";
 
 export interface Skin {
     id: number;

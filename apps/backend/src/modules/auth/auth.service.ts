@@ -1,7 +1,7 @@
-import {userRepo} from "../users/user.repo";
-import {User} from "../users/user.model";
-import {UserRole} from "../users/user-role";
-import {hashPassword, verifyPassword, needsRehash, getDummyHash} from "../../security/password";
+import {userRepo} from "@modules/users/user.repo";
+import {User} from "@modules/users/user.model";
+import {UserRole} from "@modules/users/user-role";
+import {hashPassword, verifyPassword, needsRehash, getDummyHash} from "@security/password";
 
 async function registerUser(username: string, password: string): Promise<User> {
     const passwordHash = await hashPassword(password);

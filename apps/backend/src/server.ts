@@ -1,11 +1,11 @@
 import express, {Request, Response, NextFunction} from "express";
 
-import {initSchema} from "./db/db.init-schema";
-import {seedSampleData} from "./db/db.sample-data";
-import {sessionService} from "./modules/auth/auth.session";
-import {authRouter} from "./modules/auth/auth.routes";
-import {skinsRouter} from "./modules/skins/skin.routes";
-import {AuthorizationError} from "./errors/errors";
+import {initSchema} from "@db/db.init-schema";
+import {seedSampleData} from "@db/db.sample-data";
+import {sessionService} from "@modules/auth/auth.session";
+import {authRouter} from "@modules/auth/auth.routes";
+import {skinsRouter} from "@modules/skins/skin.routes";
+import {AuthorizationError} from "@errors/errors";
 
 
 // ----------< DB init >----------

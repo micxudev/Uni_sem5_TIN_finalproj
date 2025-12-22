@@ -1,5 +1,5 @@
-import {db} from "../../db/db.connection";
-import {User} from "./user.model";
+import {db} from "@db/db.connection";
+import {User} from "@modules/users/user.model";
 
 async function findById(id: number): Promise<User | undefined> {
     const sql = "SELECT * FROM users WHERE id = ?";

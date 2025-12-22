@@ -1,5 +1,5 @@
-import {db} from "./db.connection";
-import {hashPassword} from "../security/password";
+import {db} from "@db/db.connection";
+import {hashPassword} from "@security/password";
 
 /**
  * Inserts sample data into the database.

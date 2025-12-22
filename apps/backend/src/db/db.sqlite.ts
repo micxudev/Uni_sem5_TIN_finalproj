@@ -1,5 +1,5 @@
 import sqlite3 from "sqlite3";
-import {DbAdapter} from "./db.adapter";
+import {DbAdapter} from "@db/db.adapter";
 
 sqlite3.verbose();
 

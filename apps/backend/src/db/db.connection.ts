@@ -1,4 +1,4 @@
-import {DbAdapter} from "./db.adapter";
-import {sqliteDb} from "./db.sqlite";
+import {DbAdapter} from "@db/db.adapter";
+import {sqliteDb} from "@db/db.sqlite";
 
 export const db: DbAdapter = sqliteDb;

@@ -1,5 +1,5 @@
 import {Router, Request, Response} from "express";
-import {skinService} from "./skin.service";
+import {skinService} from "@modules/skins/skin.service";
 
 export const skinsRouter = Router();
 

@@ -7,7 +7,28 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "rootDir": ".",
-    "outDir": "./dist",
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@modules/*": [
+        "apps/backend/src/modules/*"
+      ],
+      "@db/*": [
+        "apps/backend/src/db/*"
+      ],
+      "@middlewares/*": [
+        "apps/backend/src/middlewares/*"
+      ],
+      "@errors/*": [
+        "apps/backend/src/errors/*"
+      ],
+      "@security/*": [
+        "apps/backend/src/security/*"
+      ],
+      "@shared/*": [
+        "packages/shared/src/*"
+      ]
+    },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -15,7 +36,8 @@
     "sourceMap": false
   },
   "include": [
-    "apps/backend/src/**/*"
+    "apps/backend/src/**/*",
+    "packages/shared/src"
   ],
   "exclude": [
     "node_modules"

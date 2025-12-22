@@ -1,6 +1,6 @@
-import {db} from "../../db/db.connection";
-import {Skin} from "./skin.model";
-import {PlayerSkinDto} from "./skin.dtos";
+import {db} from "@db/db.connection";
+import {Skin} from "@modules/skins/skin.model";
+import {PlayerSkinDto} from "@modules/skins/skin.dtos";
 
 async function findById(id: number): Promise<Skin | undefined> {
     const sql = "SELECT * FROM skins WHERE id = ?";

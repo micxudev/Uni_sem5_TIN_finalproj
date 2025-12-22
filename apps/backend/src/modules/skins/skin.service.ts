@@ -1,9 +1,9 @@
-import {PaginationInput, PaginatedResult, Pagination} from "../../middlewares/pagination";
-import {AuthorizationError} from "../../errors/errors";
-import {UserRole} from "../users/user-role";
-import {skinRepo} from "./skin.repo";
-import {Skin} from "./skin.model";
-import {SkinRarity} from "./skin-rarity";
+import {PaginationInput, PaginatedResult, Pagination} from "@middlewares/pagination";
+import {AuthorizationError} from "@errors/errors";
+import {UserRole} from "@modules/users/user-role";
+import {skinRepo} from "@modules/skins/skin.repo";
+import {Skin} from "@modules/skins/skin.model";
+import {SkinRarity} from "@modules/skins/skin-rarity";
 import {UserAccessContext, PlayerSkinDto} from "./skin.dtos";
 
 async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Skin>> {

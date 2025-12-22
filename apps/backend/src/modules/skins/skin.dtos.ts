@@ -1,6 +1,6 @@
-import {SkinRarity} from "./skin-rarity";
-import {SkinSource} from "./skin-source";
-import {UserRole} from "../users/user-role";
+import {SkinRarity} from "@modules/skins/skin-rarity";
+import {SkinSource} from "@modules/skins/skin-source";
+import {UserRole} from "@modules/users/user-role";
 
 export interface UserAccessContext {
     requesterId: number;

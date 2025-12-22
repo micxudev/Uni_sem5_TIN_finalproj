@@ -1,4 +1,4 @@
-import {UserRole} from "./user-role";
+import {UserRole} from "@modules/users/user-role";
 
 export interface User {
     id: number;
