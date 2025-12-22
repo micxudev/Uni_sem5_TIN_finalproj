@@ -3,7 +3,9 @@ import {DbAdapter} from "@db/db.adapter";
 
 sqlite3.verbose();
 
-const rawDb = new sqlite3.Database("db.sqlite", (err: Error | null) => {
+const filename = "db.sqlite";
+
+const rawDb = new sqlite3.Database(filename, (err) => {
     if (err) {
         console.error("Failed to connect to DB:", err.message);
         process.exit(1);
@@ -12,6 +14,16 @@ const rawDb = new sqlite3.Database("db.sqlite", (err: Error | null) => {
 });
 
 rawDb.run("PRAGMA foreign_keys = ON");
+
+/**
+ * SQLite implementation of {@link DbAdapter}.
+ *
+ * Wraps callback-based sqlite3 API with Promises to provide a consistent async interface.
+ *
+ * Features:
+ *  - Enforces foreign key constraints
+ *  - Uses a file {@link filename} as the database
+ */
 
 export const sqliteDb: DbAdapter = {
     run(
