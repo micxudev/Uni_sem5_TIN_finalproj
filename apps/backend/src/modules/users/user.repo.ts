@@ -1,4 +1,4 @@
-import {db} from "../db/db.connection";
+import {db} from "../../db/db.connection";
 import {User} from "./user.model";
 
 async function findById(id: number): Promise<User | undefined> {

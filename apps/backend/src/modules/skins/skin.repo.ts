@@ -1,4 +1,4 @@
-import {db} from "../db/db.connection";
+import {db} from "../../db/db.connection";
 import {Skin} from "./skin.model";
 import {PlayerSkinDto} from "./skin.dtos";
 

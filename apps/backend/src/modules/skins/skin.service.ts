@@ -1,5 +1,5 @@
-import {PaginationInput, PaginatedResult, Pagination} from "../common/pagination";
-import {AuthorizationError} from "../common/errors";
+import {PaginationInput, PaginatedResult, Pagination} from "../../middlewares/pagination";
+import {AuthorizationError} from "../../errors/errors";
 import {UserRole} from "../users/user-role";
 import {skinRepo} from "./skin.repo";
 import {Skin} from "./skin.model";
