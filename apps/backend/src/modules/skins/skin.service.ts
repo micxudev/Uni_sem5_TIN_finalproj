@@ -4,7 +4,7 @@ import {UserRole} from "@modules/users/user-role";
 import {skinRepo} from "@modules/skins/skin.repo";
 import {Skin} from "@modules/skins/skin.model";
 import {SkinRarity} from "@modules/skins/skin-rarity";
-import {UserAccessContext, PlayerSkinDto} from "./skin.dtos";
+import {UserAccessContext, PlayerSkinDto} from "@modules/skins/skin.dtos";
 
 async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Skin>> {
     const pagination = Pagination.from(input);

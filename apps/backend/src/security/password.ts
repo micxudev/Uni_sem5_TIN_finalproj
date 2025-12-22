@@ -18,7 +18,7 @@ export async function verifyPassword(hash: string, password: string): Promise<bo
     return argon2.verify(hash, password);
 }
 
-export async function needsRehash(hash: string): Promise<boolean> {
+export function needsRehash(hash: string): boolean {
     return argon2.needsRehash(hash, ARGON2_OPTIONS);
 }
 

@@ -20,7 +20,7 @@ async function loginUser(username: string, password: string): Promise<User | nul
     const validPassword = await verifyPassword(hashToCheck, password);
     if (!user || !validPassword) return null;
 
-    if (await needsRehash(user.password_hash)) {
+    if (needsRehash(user.password_hash)) {
         const newHash = await hashPassword(password);
         await userRepo.updatePassword(user.id, newHash);
         user.password_hash = newHash;
