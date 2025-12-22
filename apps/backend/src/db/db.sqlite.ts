@@ -61,4 +61,13 @@ export const sqliteDb: DbAdapter = {
             });
         });
     },
+
+    close(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            rawDb.close((err) => {
+                if (err) reject(err);
+                else resolve();
+            });
+        });
+    },
 };

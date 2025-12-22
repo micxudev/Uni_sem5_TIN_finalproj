@@ -38,4 +38,11 @@ export interface DbAdapter {
         sql: string,
         params?: unknown[]
     ): Promise<T[]>;
+
+    /**
+     * Closes the database connection and releases all resources.
+     *
+     * Intended to be called during graceful application shutdown.
+     */
+    close(): Promise<void>;
 }
