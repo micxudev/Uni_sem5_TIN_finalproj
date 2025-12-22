@@ -22,7 +22,7 @@ import {AuthorizationError} from "@errors/errors";
 
 
 // ----------< Constants >----------
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 //const ROOT_DIR = process.cwd();
 
 // ----------< App >----------
@@ -60,6 +60,4 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 
 
 // ----------< Start >----------
-app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

@@ -33,11 +33,11 @@ export async function seedSampleData(): Promise<void> {
     // ----------< PLAYER_SKINS >----------
     await db.run(
         `
-            INSERT OR IGNORE INTO player_skins (user_id, skin_id, source)
-            VALUES (1, 1, 'ADMIN'),
-                   (1, 2, 'LOOTBOX'),
-                   (2, 2, 'ADMIN'),
-                   (2, 3, 'LOOTBOX')
+            INSERT OR IGNORE INTO player_skins (id, user_id, skin_id, source)
+            VALUES (1, 1, 1, 'ADMIN'),
+                   (2, 1, 2, 'LOOTBOX'),
+                   (3, 2, 2, 'ADMIN'),
+                   (4, 2, 3, 'LOOTBOX')
         `
     );
 }
