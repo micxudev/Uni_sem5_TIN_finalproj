@@ -1,15 +1,15 @@
 import {db} from "@db/db.connection";
-import {Skin} from "@modules/skins/skin.model";
-import {PlayerSkinDto} from "@modules/skins/skin.dtos";
+import {SkinModel} from "@modules/skins/skin.model";
+import {CreateSkinDto, PlayerSkinDto, UpdateSkinDto} from "@modules/skins/skin.dto";
 
-async function findById(id: number): Promise<Skin | undefined> {
+async function findById(id: number): Promise<SkinModel | undefined> {
     const sql = "SELECT * FROM skins WHERE id = ?";
-    return db.get<Skin>(sql, [id]);
+    return db.get<SkinModel>(sql, [id]);
 }
 
-async function findPage(limit: number, offset: number): Promise<Skin[]> {
+async function findPage(limit: number, offset: number): Promise<SkinModel[]> {
     const sql = "SELECT * FROM skins LIMIT ? OFFSET ?";
-    return db.all<Skin>(sql, [limit, offset]);
+    return db.all<SkinModel>(sql, [limit, offset]);
 }
 
 async function findSkinsByUserId(userId: number): Promise<PlayerSkinDto[]> {
@@ -29,15 +29,22 @@ async function countAll(): Promise<number> {
     return row?.count ?? 0;
 }
 
-async function create(skin: Omit<Skin, "id">): Promise<Skin> {
-    const sql = "INSERT INTO skins(name, rarity) VALUES (?, ?)";
-    const result = await db.run(sql, [skin.name, skin.rarity]);
-    return {id: result.lastID, ...skin};
+async function create(dto: CreateSkinDto): Promise<SkinModel> {
+    const sql = "INSERT INTO skins(name, rarity) VALUES (?, ?) RETURNING *";
+
+    const row = await db.get<SkinModel>(sql, [
+        dto.name, dto.rarity
+    ]);
+
+    if (!row)
+        throw new Error("Failed to create skin");
+
+    return row;
 }
 
-async function update(skin: Skin): Promise<boolean> {
+async function update(dto: UpdateSkinDto): Promise<boolean> {
     const sql = "UPDATE skins SET name = ?, rarity = ? WHERE id = ?";
-    const result = await db.run(sql, [skin.name, skin.rarity, skin.id]);
+    const result = await db.run(sql, [dto.name, dto.rarity, dto.id]);
     return result.changes > 0;
 }
 

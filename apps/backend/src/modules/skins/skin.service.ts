@@ -1,10 +1,10 @@
+import {skinRepo} from "@modules/skins/skin.repo";
+import {Skin} from "@modules/skins/skin.domain";
+import * as mapper from "@modules/skins/skin.mapper";
+import {UserAccessContext, PlayerSkinDto, CreateSkinDto, UpdateSkinDto} from "@modules/skins/skin.dto";
+import {UserRole} from "@modules/users/user-role";
 import {PaginationInput, PaginatedResult, Pagination} from "@middlewares/pagination";
 import {AuthorizationError} from "@errors/errors";
-import {UserRole} from "@modules/users/user-role";
-import {skinRepo} from "@modules/skins/skin.repo";
-import {Skin} from "@modules/skins/skin.model";
-import {SkinRarity} from "@modules/skins/skin-rarity";
-import {UserAccessContext, PlayerSkinDto} from "@modules/skins/skin.dtos";
 
 async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Skin>> {
     const pagination = Pagination.from(input);
@@ -12,31 +12,21 @@ async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Ski
         skinRepo.findPage(pagination.limit, pagination.offset),
         skinRepo.countAll()
     ]);
-    return {meta: pagination.meta(total), data: skins};
+    return {meta: pagination.meta(total), data: skins.map(mapper.toDomain)};
 }
 
 async function getById(id: number): Promise<Skin | undefined> {
-    return skinRepo.findById(id);
+    const skin = await skinRepo.findById(id);
+    return skin && mapper.toDomain(skin);
 }
 
-async function create(data: Omit<Skin, "id">): Promise<Skin> {
-    if (!data.name || data.name.trim().length < 3)
-        throw new Error("Skin name must be at least 3 characters");
-
-    if (!Object.values(SkinRarity).includes(data.rarity))
-        throw new Error("Invalid skin rarity");
-
-    return skinRepo.create(data);
+async function create(dto: CreateSkinDto): Promise<Skin> {
+    const createdSkin = await skinRepo.create(dto);
+    return mapper.toDomain(createdSkin);
 }
 
-async function update(skin: Skin): Promise<void> {
-    if (!skin.name || skin.name.trim().length < 3)
-        throw new Error("Skin name must be at least 3 characters");
-
-    if (!Object.values(SkinRarity).includes(skin.rarity))
-        throw new Error("Invalid skin rarity");
-
-    const updated = await skinRepo.update(skin);
+async function update(dto: UpdateSkinDto): Promise<void> {
+    const updated = await skinRepo.update(dto);
     if (!updated) throw new Error("Skin not found");
 }
 
