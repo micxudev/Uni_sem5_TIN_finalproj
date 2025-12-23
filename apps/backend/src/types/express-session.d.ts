@@ -1,8 +1,7 @@
-import {UserRole} from "@modules/users/user-role";
+import {User} from "@modules/users/user.domain";
 
 declare module "express-session" {
     interface SessionData {
-        userId?: number;
-        role?: UserRole;
+        user?: User
     }
 }

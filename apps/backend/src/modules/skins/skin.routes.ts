@@ -12,11 +12,12 @@ skinsRouter.get("/", async (req: Request, res: Response) => {
 });
 
 skinsRouter.get("/users/:userId", async (req, res) => {
-    const requesterId = req.session.userId;
-    const requesterRole = req.session.role;
-    if (!requesterId || !requesterRole)
+    const user = req.session.user;
+    if (!user)
         return res.status(401).json({error: "Not authenticated"});
 
+    const requesterId = user.id;
+    const requesterRole = user.role;
     const targetUserId = Number(req.params.userId);
 
     const result = await skinService.getUserSkins({
@@ -27,13 +28,16 @@ skinsRouter.get("/users/:userId", async (req, res) => {
 });
 
 skinsRouter.get("/me", async (req, res) => {
-    const requesterId = req.session.userId;
-    const requesterRole = req.session.role;
-    if (!requesterId || !requesterRole)
+    const user = req.session.user;
+    if (!user)
         return res.status(401).json({error: "Not authenticated"});
 
+    const requesterId = user.id;
+    const requesterRole = user.role;
+    const targetUserId = requesterId;
+
     const result = await skinService.getUserSkins({
-        requesterId, requesterRole, targetUserId: requesterId,
+        requesterId, requesterRole, targetUserId,
     });
 
     res.json(result);

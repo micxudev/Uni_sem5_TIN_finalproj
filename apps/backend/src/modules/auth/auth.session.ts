@@ -5,8 +5,7 @@ import {User} from "@modules/users/user.domain";
 const SQLiteStore = require("connect-sqlite3")(session);
 
 function create(req: Request, user: User): void {
-    req.session.userId = user.id;
-    req.session.role = user.role;
+    req.session.user = user;
 }
 
 function destroy(req: Request): Promise<void> {
