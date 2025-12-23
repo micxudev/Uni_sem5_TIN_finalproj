@@ -13,9 +13,9 @@ export async function seedSampleData(): Promise<void> {
 
     await db.run(
         `
-            INSERT OR IGNORE INTO users (username, password_hash, role)
-            VALUES ('admin', ?, 'ADMIN'),
-                   ('player', ?, 'PLAYER')
+            INSERT OR IGNORE INTO users (id, username, password_hash, role)
+            VALUES (1, 'admin', ?, 'ADMIN'),
+                   (2, 'player', ?, 'PLAYER')
         `,
         [adminHash, playerHash]
     );
