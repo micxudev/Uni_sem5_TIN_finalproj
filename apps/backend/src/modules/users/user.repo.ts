@@ -1,27 +1,32 @@
 import {db} from "@db/db.connection";
-import {User} from "@modules/users/user.model";
+import {UserModel} from "@modules/users/user.model";
+import {CreateUserDto} from "@modules/users/user.dto";
 
-async function findById(id: number): Promise<User | undefined> {
+async function findById(id: number): Promise<UserModel | undefined> {
     const sql = "SELECT * FROM users WHERE id = ?";
-    return db.get<User>(sql, [id]);
+    return db.get<UserModel>(sql, [id]);
 }
 
-async function findByUsername(username: string): Promise<User | undefined> {
+async function findByUsername(username: string): Promise<UserModel | undefined> {
     const sql = "SELECT * FROM users WHERE username = ?";
-    return db.get<User>(sql, [username]);
+    return db.get<UserModel>(sql, [username]);
 }
 
-async function create(user: Omit<User, "id">): Promise<User> {
+async function create(dto: CreateUserDto): Promise<UserModel> {
     const sql = `
         INSERT INTO users(username, password_hash, role)
         VALUES (?, ?, ?)
+        RETURNING *
     `;
-    const result = await db.run(sql, [
-        user.username,
-        user.password_hash,
-        user.role
+
+    const row = await db.get<UserModel>(sql, [
+        dto.username, dto.passwordHash, dto.role,
     ]);
-    return {id: result.lastID, ...user};
+
+    if (!row)
+        throw new Error("Failed to create user");
+
+    return row;
 }
 
 async function updatePassword(id: number, passwordHash: string): Promise<void> {

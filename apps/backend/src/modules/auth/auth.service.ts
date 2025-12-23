@@ -1,15 +1,17 @@
 import {userRepo} from "@modules/users/user.repo";
-import {User} from "@modules/users/user.model";
+import {User} from "@modules/users/user.domain";
+import * as mapper from "@modules/users/user.mapper";
 import {UserRole} from "@modules/users/user-role";
 import {hashPassword, verifyPassword, needsRehash, getDummyHash} from "@security/password";
 
 async function registerUser(username: string, password: string): Promise<User> {
     const passwordHash = await hashPassword(password);
-    return userRepo.create({
-        username: username,
-        password_hash: passwordHash,
-        role: UserRole.PLAYER
+
+    const createdUser = await userRepo.create({
+        username, passwordHash, role: UserRole.PLAYER
     });
+
+    return mapper.toDomain(createdUser);
 }
 
 async function loginUser(username: string, password: string): Promise<User | null> {
@@ -26,7 +28,7 @@ async function loginUser(username: string, password: string): Promise<User | nul
         user.password_hash = newHash;
     }
 
-    return user;
+    return mapper.toDomain(user);
 }
 
 async function changePassword(userId: number, currentPassword: string, newPassword: string): Promise<void> {

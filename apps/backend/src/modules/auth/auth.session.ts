@@ -1,6 +1,6 @@
 import session from "express-session";
 import {Request} from "express";
-import {User} from "@modules/users/user.model";
+import {User} from "@modules/users/user.domain";
 
 const SQLiteStore = require("connect-sqlite3")(session);
 
