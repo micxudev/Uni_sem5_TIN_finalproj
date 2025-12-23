@@ -18,13 +18,7 @@ skinsRouter.get("/users/:userId", async (req: Request, res: Response): Promise<v
         return;
     }
 
-    const requesterId = user.id;
-    const requesterRole = user.role;
     const targetUserId = Number(req.params.userId);
-
-    const result = await skinService.getUserSkins({
-        requesterId, requesterRole, targetUserId,
-    });
-
+    const result = await skinService.getUserSkins(user, targetUserId);
     res.json(result);
 });
