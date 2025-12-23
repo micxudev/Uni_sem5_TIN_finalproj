@@ -2,7 +2,7 @@ import {userRepo} from "@modules/users/user.repo";
 import {User} from "@modules/users/user.domain";
 import * as mapper from "@modules/users/user.mapper";
 import {UserRole} from "@modules/users/user-role";
-import {hashPassword, verifyPassword, needsRehash, getDummyHash} from "@security/password";
+import {getDummyHash, hashPassword, needsRehash, verifyPassword} from "@security/password";
 
 async function registerUser(username: string, password: string): Promise<User> {
     const passwordHash = await hashPassword(password);
@@ -24,14 +24,15 @@ async function loginUser(username: string, password: string): Promise<User | nul
 
     if (needsRehash(user.password_hash)) {
         const newHash = await hashPassword(password);
-        await userRepo.updatePassword(user.id, newHash);
+        const updated = await userRepo.updatePassword(user.id, newHash);
+        if (!updated) throw new Error("Failed to update password hash");
         user.password_hash = newHash;
     }
 
     return mapper.toDomain(user);
 }
 
-async function changePassword(userId: number, currentPassword: string, newPassword: string): Promise<void> {
+async function changePassword(userId: number, currentPassword: string, newPassword: string): Promise<boolean> {
     const user = await userRepo.findById(userId);
     if (!user)
         throw new Error("User not found");
@@ -41,7 +42,7 @@ async function changePassword(userId: number, currentPassword: string, newPasswo
         throw new Error("Invalid current password");
 
     const newHash = await hashPassword(newPassword);
-    await userRepo.updatePassword(userId, newHash);
+    return userRepo.updatePassword(userId, newHash);
 }
 
 export const authService = {

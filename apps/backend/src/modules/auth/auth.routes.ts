@@ -64,13 +64,13 @@ authRouter.post("/change-password", async (req: Request, res: Response): Promise
     }
 
     try {
-        await authService.changePassword(
+        const updated = await authService.changePassword(
             user.id,
             currentPassword,
             newPassword
         );
 
-        res.json({success: true});
+        res.json({success: updated});
     } catch (err) {
         res.status(400).json({error: "Invalid current password"});
     }

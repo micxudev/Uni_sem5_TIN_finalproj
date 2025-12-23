@@ -29,9 +29,10 @@ async function create(dto: CreateUserDto): Promise<UserModel> {
     return row;
 }
 
-async function updatePassword(id: number, passwordHash: string): Promise<void> {
+async function updatePassword(id: number, passwordHash: string): Promise<boolean> {
     const sql = "UPDATE users SET password_hash = ? WHERE id = ?";
-    await db.run(sql, [passwordHash, id]);
+    const result = await db.run(sql, [passwordHash, id]);
+    return result.changes > 0;
 }
 
 export const userRepo = {
