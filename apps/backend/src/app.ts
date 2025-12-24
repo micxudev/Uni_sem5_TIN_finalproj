@@ -21,7 +21,7 @@ app.use(sessionService.createMiddleware());
 
 // ----------< Routes >----------
 app.use("/api/auth", authRouter);
-app.use("/skins", skinsRouter);
+app.use("/api/skins", skinsRouter);
 
 
 // ----------< Errors >----------
