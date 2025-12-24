@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {getPaginated, getById, create, update, deleteById, getUserSkins} from "@modules/skins/skin.controller"
+import {getPaginated, getById, create, update, deleteById} from "@modules/skins/skin.controller"
 
 export const skinsRouter = Router();
 
@@ -8,4 +8,3 @@ skinsRouter.get("/:id", getById);
 skinsRouter.post("/", create);
 skinsRouter.put("/:id", update);
 skinsRouter.delete("/:id", deleteById);
-skinsRouter.get("/users/:userId", getUserSkins);

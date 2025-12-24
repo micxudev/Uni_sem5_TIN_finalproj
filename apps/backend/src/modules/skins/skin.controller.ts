@@ -114,21 +114,3 @@ export async function deleteById(
 
     res.json({success: true});
 }
-
-/**
- * ==========
- * `GET api/skins/users/:userId`
- * ==========
- */
-export async function getUserSkins(
-    req: Request,
-    res: Response
-): Promise<void> {
-    const user = getAuthUserOrFail(req);
-
-    const targetUserId = Number(req.params.userId);
-
-    const result = await skinService.getUserSkins(user, targetUserId);
-
-    res.json(result);
-}

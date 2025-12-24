@@ -1,6 +1,6 @@
 import {db} from "@db/db.connection";
 import {SkinModel} from "@modules/skins/skin.model";
-import {CreateSkinDto, PlayerSkinDto, UpdateSkinDto} from "@modules/skins/skin.dto";
+import {CreateSkinDto, UpdateSkinDto} from "@modules/skins/skin.dto";
 import {UnexpectedError} from "@errors/errors.general";
 
 async function findById(id: number): Promise<SkinModel | undefined> {
@@ -11,17 +11,6 @@ async function findById(id: number): Promise<SkinModel | undefined> {
 async function findPage(limit: number, offset: number): Promise<SkinModel[]> {
     const sql = "SELECT * FROM skins LIMIT ? OFFSET ?";
     return db.all<SkinModel>(sql, [limit, offset]);
-}
-
-async function findSkinsByUserId(userId: number): Promise<PlayerSkinDto[]> {
-    const sql = `
-        SELECT s.name, s.rarity, ps.source, ps.obtained_at
-        FROM skins s
-                 JOIN player_skins ps ON s.id = ps.skin_id
-        WHERE ps.user_id = ?
-        ORDER BY ps.obtained_at DESC;
-    `;
-    return db.all<PlayerSkinDto>(sql, [userId]);
 }
 
 async function countAll(): Promise<number> {
@@ -58,7 +47,6 @@ async function deleteById(id: number): Promise<boolean> {
 export const skinRepo = {
     findById,
     findPage,
-    findSkinsByUserId,
     countAll,
     create,
     update,
