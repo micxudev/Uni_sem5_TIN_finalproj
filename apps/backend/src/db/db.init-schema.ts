@@ -14,7 +14,7 @@ export async function initSchema(): Promise<void> {
             username      TEXT NOT NULL UNIQUE,
             password_hash TEXT NOT NULL,
             role          TEXT NOT NULL CHECK (role IN ('PLAYER', 'ADMIN')),
-            created_at    DATETIME DEFAULT CURRENT_TIMESTAMP
+            created_at    DATETIME DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
         )
     `);
 
@@ -25,7 +25,7 @@ export async function initSchema(): Promise<void> {
             id         INTEGER PRIMARY KEY AUTOINCREMENT,
             name       TEXT NOT NULL,
             rarity     TEXT NOT NULL CHECK (rarity IN ('COMMON', 'RARE', 'LEGENDARY')),
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            created_at DATETIME DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
         )
     `);
 
@@ -37,7 +37,7 @@ export async function initSchema(): Promise<void> {
             user_id     INTEGER NOT NULL,
             skin_id     INTEGER NOT NULL,
             source      TEXT    NOT NULL CHECK (source IN ('ADMIN', 'LOOTBOX')),
-            obtained_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            obtained_at DATETIME DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
             FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
             FOREIGN KEY (skin_id) REFERENCES skins (id) ON DELETE CASCADE
         )
