@@ -2,7 +2,7 @@ import {skinRepo} from "@modules/skins/skin.repo";
 import {Skin} from "@modules/skins/skin.domain";
 import * as mapper from "@modules/skins/skin.mapper";
 import {PlayerSkinDto, CreateSkinDto, UpdateSkinDto} from "@modules/skins/skin.dto";
-import {UserRole} from "@modules/users/user-role";
+import {UserRoleValues} from "@modules/users/user-role";
 import {User} from "@modules/users/user.domain";
 import {PaginationInput, PaginatedResult, Pagination} from "@middlewares/pagination";
 import {AuthorizationError} from "@errors/errors";
@@ -37,7 +37,7 @@ async function deleteById(id: number): Promise<void> {
 }
 
 async function getUserSkins(requester: User, targetUserId: number): Promise<PlayerSkinDto[]> {
-    if (requester.role === UserRole.PLAYER && requester.id !== targetUserId)
+    if (requester.role === UserRoleValues.PLAYER && requester.id !== targetUserId)
         throw new AuthorizationError("Players can only view own skins");
 
     return skinRepo.findSkinsByUserId(targetUserId);

@@ -1,14 +1,14 @@
 import {userRepo} from "@modules/users/user.repo";
 import {User} from "@modules/users/user.domain";
 import * as mapper from "@modules/users/user.mapper";
-import {UserRole} from "@modules/users/user-role";
+import {UserRoleValues} from "@modules/users/user-role";
 import {getDummyHash, hashPassword, needsRehash, verifyPassword} from "@security/password";
 
 async function registerUser(username: string, password: string): Promise<User> {
     const passwordHash = await hashPassword(password);
 
     const createdUser = await userRepo.create({
-        username, passwordHash, role: UserRole.PLAYER
+        username, passwordHash, role: UserRoleValues.PLAYER
     });
 
     return mapper.toDomain(createdUser);

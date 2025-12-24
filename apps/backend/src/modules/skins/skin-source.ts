@@ -1,4 +1,8 @@
-export enum SkinSource {
-    ADMIN = "ADMIN",
-    LOOTBOX = "LOOTBOX",
-}
+import {z} from "zod";
+
+export const SkinSourceSchema = z.enum([
+    "ADMIN",
+    "LOOTBOX",
+]);
+
+export type SkinSource = z.infer<typeof SkinSourceSchema>;
