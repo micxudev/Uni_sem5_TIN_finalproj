@@ -20,7 +20,7 @@ app.use(sessionService.createMiddleware());
 
 
 // ----------< Routes >----------
-app.use("/auth", authRouter);
+app.use("/api/auth", authRouter);
 app.use("/skins", skinsRouter);
 
 
