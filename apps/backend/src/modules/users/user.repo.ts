@@ -1,6 +1,7 @@
 import {db} from "@db/db.connection";
 import {UserModel} from "@modules/users/user.model";
 import {CreateUserDto} from "@modules/users/user.dto";
+import {UnexpectedError} from "@errors/errors.general";
 
 async function findById(id: number): Promise<UserModel | undefined> {
     const sql = "SELECT * FROM users WHERE id = ?";
@@ -24,7 +25,7 @@ async function create(dto: CreateUserDto): Promise<UserModel> {
     ]);
 
     if (!row)
-        throw new Error("Failed to create user");
+        throw new UnexpectedError("Failed to retrieve created user using RETURNING");
 
     return row;
 }

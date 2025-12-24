@@ -3,7 +3,7 @@ import express, {Request, Response, NextFunction} from "express";
 import {sessionService} from "@modules/auth/auth.session";
 import {authRouter} from "@modules/auth/auth.routes";
 import {skinsRouter} from "@modules/skins/skin.routes";
-import {AuthorizationError} from "@errors/errors";
+import {HttpError} from "@errors/errors.http";
 
 
 // ----------< App >----------
@@ -29,11 +29,17 @@ app.use((_req: Request, res: Response) => {
     res.status(404).json({error: "Page Not Found"});
 });
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-    if ("body" in err) // Invalid JSON body (from express.json)
-        return res.status(400).json({error: "Invalid JSON payload"});
+    if (err instanceof SyntaxError && "body" in err) {
+        // Invalid JSON body (from express.json)
+        res.status(400).json({error: "Invalid JSON payload"});
+        return;
+    }
 
-    if (err instanceof AuthorizationError)
-        return res.status(403).json({error: err.message});
+    if (err instanceof HttpError) {
+        err.sendJson(res);
+        return;
+    }
 
     res.status(500).json({error: "Internal Server Error"});
+    console.error(err);
 });

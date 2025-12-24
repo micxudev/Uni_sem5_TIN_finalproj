@@ -1,5 +1,6 @@
 import {Router, Request, Response} from "express";
 import {skinService} from "@modules/skins/skin.service";
+import {getAuthUserOrFail} from "@middlewares/require.auth";
 
 export const skinsRouter = Router();
 
@@ -12,11 +13,7 @@ skinsRouter.get("/", async (req: Request, res: Response): Promise<void> => {
 });
 
 skinsRouter.get("/users/:userId", async (req: Request, res: Response): Promise<void> => {
-    const user = req.session.user;
-    if (!user) {
-        res.status(401).json({error: "Not authenticated"});
-        return;
-    }
+    const user = getAuthUserOrFail(req);
 
     const targetUserId = Number(req.params.userId);
     const result = await skinService.getUserSkins(user, targetUserId);

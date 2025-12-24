@@ -5,7 +5,7 @@ import {PlayerSkinDto, CreateSkinDto, UpdateSkinDto} from "@modules/skins/skin.d
 import {UserRoleValues} from "@modules/users/user-role";
 import {User} from "@modules/users/user.domain";
 import {PaginationInput, PaginatedResult, Pagination} from "@middlewares/pagination";
-import {AuthorizationError} from "@errors/errors";
+import {AuthorizationError, NotFoundError} from "@errors/errors.http";
 
 async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Skin>> {
     const pagination = Pagination.from(input);
@@ -21,19 +21,28 @@ async function getById(id: number): Promise<Skin | undefined> {
     return skin && mapper.toDomain(skin);
 }
 
-async function create(dto: CreateSkinDto): Promise<Skin> {
+async function create(requester: User, dto: CreateSkinDto): Promise<Skin> {
+    if (requester.role !== UserRoleValues.ADMIN)
+        throw new AuthorizationError("Only admins can create skins");
+
     const createdSkin = await skinRepo.create(dto);
     return mapper.toDomain(createdSkin);
 }
 
-async function update(dto: UpdateSkinDto): Promise<void> {
+async function update(requester: User, dto: UpdateSkinDto): Promise<void> {
+    if (requester.role !== UserRoleValues.ADMIN)
+        throw new AuthorizationError("Only admins can update skins");
+
     const updated = await skinRepo.update(dto);
-    if (!updated) throw new Error("Skin not found");
+    if (!updated) throw new NotFoundError("Skin not found");
 }
 
-async function deleteById(id: number): Promise<void> {
+async function deleteById(requester: User, id: number): Promise<void> {
+    if (requester.role !== UserRoleValues.ADMIN)
+        throw new AuthorizationError("Only admins can delete skins");
+
     const deleted = await skinRepo.deleteById(id);
-    if (!deleted) throw new Error("Skin not found");
+    if (!deleted) throw new NotFoundError("Skin not found");
 }
 
 async function getUserSkins(requester: User, targetUserId: number): Promise<PlayerSkinDto[]> {

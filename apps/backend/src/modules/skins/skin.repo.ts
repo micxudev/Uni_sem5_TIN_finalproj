@@ -1,6 +1,7 @@
 import {db} from "@db/db.connection";
 import {SkinModel} from "@modules/skins/skin.model";
 import {CreateSkinDto, PlayerSkinDto, UpdateSkinDto} from "@modules/skins/skin.dto";
+import {UnexpectedError} from "@errors/errors.general";
 
 async function findById(id: number): Promise<SkinModel | undefined> {
     const sql = "SELECT * FROM skins WHERE id = ?";
@@ -37,7 +38,7 @@ async function create(dto: CreateSkinDto): Promise<SkinModel> {
     ]);
 
     if (!row)
-        throw new Error("Failed to create skin");
+        throw new UnexpectedError("Failed to retrieve created skin using RETURNING");
 
     return row;
 }
