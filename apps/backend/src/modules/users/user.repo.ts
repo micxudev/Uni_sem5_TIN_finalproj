@@ -13,6 +13,17 @@ async function findByUsername(username: string): Promise<UserModel | undefined> 
     return db.get<UserModel>(sql, [username]);
 }
 
+async function findPage(limit: number, offset: number): Promise<UserModel[]> {
+    const sql = "SELECT * FROM users LIMIT ? OFFSET ?";
+    return db.all<UserModel>(sql, [limit, offset]);
+}
+
+async function countAll(): Promise<number> {
+    const sql = "SELECT COUNT(*) as count FROM users";
+    const row = await db.get<{ count: number }>(sql);
+    return row?.count ?? 0;
+}
+
 async function create(dto: CreateUserDto): Promise<UserModel> {
     const sql = `
         INSERT INTO users(username, password_hash, role)
@@ -39,6 +50,8 @@ async function updatePassword(id: number, passwordHash: string): Promise<boolean
 export const userRepo = {
     findById,
     findByUsername,
+    findPage,
+    countAll,
     create,
     updatePassword,
 };

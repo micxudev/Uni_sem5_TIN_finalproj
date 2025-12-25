@@ -3,6 +3,7 @@ import express, {Request, Response, NextFunction} from "express";
 import {sessionService} from "@modules/auth/auth.session";
 import {authRouter} from "@modules/auth/auth.routes";
 import {skinsRouter} from "@modules/skins/skin.routes";
+import {usersRouter} from "@modules/users/user.routes";
 import {skinOwnershipsRouter} from "@modules/skin-ownership/skin-ownership.routes";
 import {HttpError} from "@errors/errors.http";
 
@@ -23,6 +24,7 @@ app.use(sessionService.createMiddleware());
 // ----------< Routes >----------
 app.use("/api/auth", authRouter);
 app.use("/api/skins", skinsRouter);
+app.use("/api/users", usersRouter);
 app.use("/api", skinOwnershipsRouter);
 
 
