@@ -10,11 +10,12 @@ export async function initSchema(): Promise<void> {
     await db.run(`
         CREATE TABLE IF NOT EXISTS users
         (
-            id            INTEGER PRIMARY KEY AUTOINCREMENT,
-            username      TEXT NOT NULL UNIQUE,
-            password_hash TEXT NOT NULL,
-            role          TEXT NOT NULL CHECK (role IN ('PLAYER', 'ADMIN')),
-            created_at    DATETIME DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+            id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+            username               TEXT NOT NULL UNIQUE,
+            password_hash          TEXT NOT NULL,
+            role                   TEXT NOT NULL CHECK (role IN ('PLAYER', 'ADMIN')),
+            created_at             DATETIME DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+            last_lootbox_opened_at DATETIME DEFAULT NULL
         )
     `);
 

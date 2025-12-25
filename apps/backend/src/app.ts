@@ -4,8 +4,9 @@ import {sessionService} from "@modules/auth/auth.session";
 import {authRouter} from "@modules/auth/auth.routes";
 import {skinsRouter} from "@modules/skins/skin.routes";
 import {usersRouter} from "@modules/users/user.routes";
+import {lootboxesRouter} from "@modules/lootboxes/lootboxes.routes";
 import {skinOwnershipsRouter} from "@modules/skin-ownership/skin-ownership.routes";
-import {HttpError} from "@errors/errors.http";
+import {CustomError} from "@errors/errors.custom";
 
 
 // ----------< App >----------
@@ -25,6 +26,7 @@ app.use(sessionService.createMiddleware());
 app.use("/api/auth", authRouter);
 app.use("/api/skins", skinsRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/lootboxes", lootboxesRouter);
 app.use("/api", skinOwnershipsRouter);
 
 
@@ -39,7 +41,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
         return;
     }
 
-    if (err instanceof HttpError) {
+    if (err instanceof CustomError) {
         err.sendJson(res);
         return;
     }
