@@ -29,9 +29,9 @@ export async function initSchema(): Promise<void> {
         )
     `);
 
-    // ----------< PLAYER_SKINS >----------
+    // ----------< SKIN_OWNERSHIPS >----------
     await db.run(`
-        CREATE TABLE IF NOT EXISTS player_skins
+        CREATE TABLE IF NOT EXISTS skin_ownerships
         (
             id          INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id     INTEGER NOT NULL,
