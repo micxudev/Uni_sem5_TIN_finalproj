@@ -62,6 +62,23 @@ export const sqliteDb: DbAdapter = {
         });
     },
 
+    transaction<T>(
+        fn: () => Promise<T>
+    ): Promise<T> {
+        return new Promise((resolve, reject) => {
+            rawDb.serialize(() => {
+                this.run("BEGIN")
+                    .then(() => fn())
+                    .then(result =>
+                        this.run("COMMIT").then(() => resolve(result))
+                    )
+                    .catch(err =>
+                        this.run("ROLLBACK").then(() => reject(err))
+                    );
+            });
+        });
+    },
+
     close(): Promise<void> {
         return new Promise((resolve, reject) => {
             rawDb.close((err) => {

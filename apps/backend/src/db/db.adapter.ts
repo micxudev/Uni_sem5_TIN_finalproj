@@ -40,6 +40,17 @@ export interface DbAdapter {
     ): Promise<T[]>;
 
     /**
+     * Executes a function within a transaction context, ensuring that operations within it either
+     * complete successfully or are rolled back in case of an error.
+     *
+     * @param fn - A function containing the transactional logic to execute.
+     * It should return a promise of the result of the operation.
+     * @return Promise that resolves with the result of the transaction if successful,
+     *                      or rejects if the transaction fails or is rolled back.
+     */
+    transaction<T>(fn: () => Promise<T>): Promise<T>;
+
+    /**
      * Closes the database connection and releases all resources.
      *
      * Intended to be called during graceful application shutdown.
