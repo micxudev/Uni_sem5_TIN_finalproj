@@ -1,19 +1,9 @@
-import {Response} from "express";
+import {CustomError} from "@errors/errors.custom";
 
 /**
  * Base class for custom HTTP errors.
  */
-export abstract class HttpError extends Error {
-    abstract readonly statusCode: number;
-
-    constructor(message?: string) {
-        super(message);
-        this.name = new.target.name;
-    }
-
-    sendJson(res: Response): void {
-        res.status(this.statusCode).json({error: this.message});
-    }
+export abstract class HttpError extends CustomError {
 }
 
 /**
