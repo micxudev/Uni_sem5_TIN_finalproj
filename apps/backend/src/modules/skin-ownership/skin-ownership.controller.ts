@@ -5,7 +5,7 @@ import {SkinOwnershipSourceValues} from "@modules/skin-ownership/skin-ownership.
 
 /**
  * ==========
- * `GET api/users/:userId/skin-ownerships`
+ * `GET /api/users/:userId/skin-ownerships`
  * ==========
  */
 export async function getUserSkins(
@@ -23,7 +23,7 @@ export async function getUserSkins(
 
 /**
  * ==========
- * `POST api/skin-ownerships`
+ * `POST /api/skin-ownerships`
  * ==========
  */
 export async function grantSkinToUser(

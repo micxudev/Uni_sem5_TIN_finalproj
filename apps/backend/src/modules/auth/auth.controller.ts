@@ -6,7 +6,7 @@ import {BadRequestError} from "@errors/errors.http";
 
 /**
  * ==========
- * `POST api/auth/register`
+ * `POST /api/auth/register`
  * ==========
  */
 export async function register(
@@ -28,7 +28,7 @@ export async function register(
 
 /**
  * ==========
- * `POST api/auth/login`
+ * `POST /api/auth/login`
  * ==========
  */
 export async function login(
@@ -49,7 +49,7 @@ export async function login(
 
 /**
  * ==========
- * `POST api/auth/logout`
+ * `POST /api/auth/logout`
  * ==========
  */
 export async function logout(
@@ -63,7 +63,7 @@ export async function logout(
 
 /**
  * ==========
- * `POST api/auth/change-password`
+ * `POST /api/auth/change-password`
  * ==========
  */
 export async function changePassword(

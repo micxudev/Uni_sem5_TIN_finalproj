@@ -6,7 +6,7 @@ import {SkinRaritySchema} from "@modules/skins/skin-rarity";
 
 /**
  * ==========
- * `GET api/skins/`
+ * `GET /api/skins/`
  * ==========
  */
 export async function getPaginated(
@@ -23,7 +23,7 @@ export async function getPaginated(
 
 /**
  * ==========
- * `GET api/skins/:id`
+ * `GET /api/skins/:id`
  * ==========
  */
 export async function getById(
@@ -41,7 +41,7 @@ export async function getById(
 
 /**
  * ==========
- * `POST api/skins/`
+ * `POST /api/skins/`
  * ==========
  */
 export async function create(
@@ -69,7 +69,7 @@ export async function create(
 
 /**
  * ==========
- * `PUT api/skins/:id`
+ * `PUT /api/skins/:id`
  * ==========
  */
 export async function update(
@@ -99,7 +99,7 @@ export async function update(
 
 /**
  * ==========
- * `DELETE api/skins/:id`
+ * `DELETE /api/skins/:id`
  * ==========
  */
 export async function deleteById(
