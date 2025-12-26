@@ -1,7 +1,8 @@
 import {z} from "zod";
+import {IdSchema} from "../index";
 
 export const IdParamSchema = z.object({
-    id: z.coerce.number<number>().int().positive(),
+    id: IdSchema,
 });
 
 export type IdParam = z.infer<typeof IdParamSchema>;

@@ -1,6 +1,8 @@
 import {Request, Response} from "express";
+import {GrantSkinSchema, UserIdParamSchema} from "@shared";
 import {requireAuthUser} from "@modules/auth";
 import {skinOwnershipService, SkinOwnershipSourceValues} from "@modules/skin-ownership";
+import {parseBodyOrThrow, parseParamsOrThrow} from "@utils/parse-or-throw";
 
 /**
  * ==========
@@ -13,9 +15,9 @@ export async function getUserSkins(
 ): Promise<void> {
     const user = requireAuthUser(req);
 
-    const targetUserId = Number(req.params.userId);
+    const {userId} = parseParamsOrThrow(UserIdParamSchema, req);
 
-    const result = await skinOwnershipService.getUserSkins(user, targetUserId);
+    const result = await skinOwnershipService.getUserSkins(user, userId);
 
     res.json(result);
 }
@@ -31,9 +33,7 @@ export async function grantSkinToUser(
 ): Promise<void> {
     const user = requireAuthUser(req);
 
-    let {userId, skinId} = req.body ?? {};
-    userId = Number(userId);
-    skinId = Number(skinId);
+    const {userId, skinId} = parseBodyOrThrow(GrantSkinSchema, req);
 
     await skinOwnershipService.grantSkin(user, {userId, skinId, source: SkinOwnershipSourceValues.ADMIN});
 

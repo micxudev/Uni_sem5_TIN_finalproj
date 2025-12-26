@@ -1,6 +1,8 @@
 import {Request, Response} from "express";
+import {IdParamSchema} from "@shared";
 import {userService} from "@modules/users";
 import {NotFoundError} from "@errors";
+import {parseParamsOrThrow} from "@utils/parse-or-throw";
 
 /**
  * ==========
@@ -28,7 +30,7 @@ export async function getById(
     req: Request,
     res: Response
 ): Promise<void> {
-    const id = Number(req.params.id);
+    const {id} = parseParamsOrThrow(IdParamSchema, req);
 
     const result = await userService.getById(id);
     if (!result)

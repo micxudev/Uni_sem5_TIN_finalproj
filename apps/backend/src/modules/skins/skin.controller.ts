@@ -1,9 +1,9 @@
 import {Request, Response} from "express";
-import {z} from "zod";
 import {IdParamSchema, SkinInputSchema} from "@shared";
 import {skinService} from "@modules/skins";
 import {requireAuthUser} from "@modules/auth";
-import {BadRequestError, NotFoundError} from "@errors";
+import {NotFoundError} from "@errors";
+import {parseBodyOrThrow, parseParamsOrThrow} from "@utils/parse-or-throw";
 
 /**
  * ==========
@@ -31,11 +31,9 @@ export async function getById(
     req: Request,
     res: Response
 ): Promise<void> {
-    const paramsResult = IdParamSchema.safeParse(req.params);
-    if (!paramsResult.success)
-        throw new BadRequestError("Invalid ID", z.flattenError(paramsResult.error));
+    const {id} = parseParamsOrThrow(IdParamSchema, req);
 
-    const skin = await skinService.getById(paramsResult.data.id);
+    const skin = await skinService.getById(id);
     if (!skin)
         throw new NotFoundError("Skin not found");
 
@@ -53,11 +51,9 @@ export async function create(
 ): Promise<void> {
     const user = requireAuthUser(req);
 
-    const result = SkinInputSchema.safeParse(req.body);
-    if (!result.success)
-        throw new BadRequestError("Invalid Input", z.flattenError(result.error));
+    const parsedBody = parseBodyOrThrow(SkinInputSchema, req);
 
-    const skin = await skinService.create(user, result.data);
+    const skin = await skinService.create(user, parsedBody);
 
     res.status(201).json(skin);
 }
@@ -73,15 +69,11 @@ export async function update(
 ): Promise<void> {
     const user = requireAuthUser(req);
 
-    const paramsResult = IdParamSchema.safeParse(req.params);
-    if (!paramsResult.success)
-        throw new BadRequestError("Invalid ID", z.flattenError(paramsResult.error));
+    const {id} = parseParamsOrThrow(IdParamSchema, req);
 
-    const bodyResult = SkinInputSchema.safeParse(req.body);
-    if (!bodyResult.success)
-        throw new BadRequestError("Invalid Input", z.flattenError(bodyResult.error));
+    const parsedBody = parseBodyOrThrow(SkinInputSchema, req);
 
-    await skinService.update(user, paramsResult.data.id, bodyResult.data);
+    await skinService.update(user, id, parsedBody);
 
     res.json({success: true})
 }
@@ -97,11 +89,9 @@ export async function deleteById(
 ): Promise<void> {
     const user = requireAuthUser(req);
 
-    const paramsResult = IdParamSchema.safeParse(req.params);
-    if (!paramsResult.success)
-        throw new BadRequestError("Invalid ID", z.flattenError(paramsResult.error));
+    const {id} = parseParamsOrThrow(IdParamSchema, req);
 
-    await skinService.deleteById(user, paramsResult.data.id);
+    await skinService.deleteById(user, id);
 
     res.json({success: true});
 }

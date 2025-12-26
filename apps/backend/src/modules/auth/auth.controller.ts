@@ -1,8 +1,7 @@
 import {Request, Response} from "express";
-import {z} from "zod";
-import {authService, requireAuthUser, sessionService} from "@modules/auth";
-import {BadRequestError} from "@errors";
 import {AuthInputSchema, ChangePasswordInputSchema} from "@shared";
+import {authService, requireAuthUser, sessionService} from "@modules/auth";
+import {parseBodyOrThrow} from "@utils/parse-or-throw";
 
 /**
  * ==========
@@ -13,11 +12,9 @@ export async function register(
     req: Request,
     res: Response
 ): Promise<void> {
-    const result = AuthInputSchema.safeParse(req.body);
-    if (!result.success)
-        throw new BadRequestError("Invalid Input", z.flattenError(result.error));
+    const parsedBody = parseBodyOrThrow(AuthInputSchema, req);
 
-    const user = await authService.registerUser(result.data);
+    const user = await authService.registerUser(parsedBody);
 
     res.status(201).json({id: user.id});
 }
@@ -31,11 +28,9 @@ export async function login(
     req: Request,
     res: Response
 ): Promise<void> {
-    const result = AuthInputSchema.safeParse(req.body);
-    if (!result.success)
-        throw new BadRequestError("Invalid Input", z.flattenError(result.error));
+    const parsedBody = parseBodyOrThrow(AuthInputSchema, req);
 
-    const user = await authService.loginUser(result.data);
+    const user = await authService.loginUser(parsedBody);
 
     sessionService.create(req, user);
 
@@ -67,11 +62,9 @@ export async function changePassword(
 ): Promise<void> {
     const user = requireAuthUser(req);
 
-    const result = ChangePasswordInputSchema.safeParse(req.body);
-    if (!result.success)
-        throw new BadRequestError("Invalid Input", z.flattenError(result.error));
+    const parsedBody = parseBodyOrThrow(ChangePasswordInputSchema, req);
 
-    await authService.changePassword(user.id, result.data);
+    await authService.changePassword(user.id, parsedBody);
 
     res.json({success: true});
 }
