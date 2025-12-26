@@ -1,4 +1,4 @@
-import {SkinRarity} from "@modules/skins";
+import {SkinRarity} from "@shared";
 
 /**
  * Represents a single row in the `skins` table.

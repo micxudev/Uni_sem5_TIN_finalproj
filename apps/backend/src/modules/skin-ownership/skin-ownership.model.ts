@@ -1,5 +1,5 @@
+import {SkinRarity} from "@shared";
 import {SkinOwnershipSource} from "@modules/skin-ownership";
-import {SkinRarity} from "@modules/skins";
 
 /**
  * Represents a single row in the `skin_ownerships` table joined with `skins`.

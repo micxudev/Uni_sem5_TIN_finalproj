@@ -1,5 +1,7 @@
 import {Request, Response} from "express";
-import {SkinRaritySchema, skinService} from "@modules/skins";
+import {z} from "zod";
+import {IdParamSchema, SkinInputSchema} from "@shared";
+import {skinService} from "@modules/skins";
 import {requireAuthUser} from "@modules/auth";
 import {BadRequestError, NotFoundError} from "@errors";
 
@@ -29,13 +31,15 @@ export async function getById(
     req: Request,
     res: Response
 ): Promise<void> {
-    const id = Number(req.params.id);
+    const paramsResult = IdParamSchema.safeParse(req.params);
+    if (!paramsResult.success)
+        throw new BadRequestError("Invalid ID", z.flattenError(paramsResult.error));
 
-    const result = await skinService.getById(id);
-    if (!result)
+    const skin = await skinService.getById(paramsResult.data.id);
+    if (!skin)
         throw new NotFoundError("Skin not found");
 
-    res.json(result);
+    res.json(skin);
 }
 
 /**
@@ -49,19 +53,11 @@ export async function create(
 ): Promise<void> {
     const user = requireAuthUser(req);
 
-    const {name, rarity} = req.body ?? {};
-
-    if (typeof name !== "string" || typeof rarity !== "string")
-        throw new BadRequestError("strings 'name' and 'rarity' are required");
-
-    if (name.length < 3)
-        throw new BadRequestError("name must be at least 3 chars.");
-
-    const result = SkinRaritySchema.safeParse(rarity);
+    const result = SkinInputSchema.safeParse(req.body);
     if (!result.success)
-        throw new BadRequestError("Invalid rarity");
+        throw new BadRequestError("Invalid Input", z.flattenError(result.error));
 
-    const skin = await skinService.create(user, {name, rarity: result.data});
+    const skin = await skinService.create(user, result.data);
 
     res.status(201).json(skin);
 }
@@ -77,21 +73,15 @@ export async function update(
 ): Promise<void> {
     const user = requireAuthUser(req);
 
-    const id = Number(req.params.id);
+    const paramsResult = IdParamSchema.safeParse(req.params);
+    if (!paramsResult.success)
+        throw new BadRequestError("Invalid ID", z.flattenError(paramsResult.error));
 
-    const {name, rarity} = req.body ?? {};
+    const bodyResult = SkinInputSchema.safeParse(req.body);
+    if (!bodyResult.success)
+        throw new BadRequestError("Invalid Input", z.flattenError(bodyResult.error));
 
-    if (typeof name !== "string" || typeof rarity !== "string")
-        throw new BadRequestError("strings 'name' and 'rarity' are required");
-
-    if (name.length < 3)
-        throw new BadRequestError("name must be at least 3 chars.");
-
-    const result = SkinRaritySchema.safeParse(rarity);
-    if (!result.success)
-        throw new BadRequestError("Invalid rarity");
-
-    await skinService.update(user, {id, name, rarity: result.data});
+    await skinService.update(user, paramsResult.data.id, bodyResult.data);
 
     res.json({success: true})
 }
@@ -107,9 +97,11 @@ export async function deleteById(
 ): Promise<void> {
     const user = requireAuthUser(req);
 
-    const id = Number(req.params.id);
+    const paramsResult = IdParamSchema.safeParse(req.params);
+    if (!paramsResult.success)
+        throw new BadRequestError("Invalid ID", z.flattenError(paramsResult.error));
 
-    await skinService.deleteById(user, id);
+    await skinService.deleteById(user, paramsResult.data.id);
 
     res.json({success: true});
 }

@@ -1,4 +1,4 @@
-import {SkinRarity} from "@modules/skins";
+import {SkinRarity} from "@shared";
 
 /**
  * Domain level skin.

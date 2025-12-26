@@ -1,5 +1,6 @@
+import {SkinInput} from "@shared";
 import {db} from "@db";
-import {CreateSkinDto, SkinModel, UpdateSkinDto} from "@modules/skins";
+import {SkinModel} from "@modules/skins";
 import {UnexpectedError} from "@errors";
 
 async function findById(id: number): Promise<SkinModel | undefined> {
@@ -18,11 +19,11 @@ async function countAll(): Promise<number> {
     return row?.count ?? 0;
 }
 
-async function create(dto: CreateSkinDto): Promise<SkinModel> {
+async function create(input: SkinInput): Promise<SkinModel> {
     const sql = "INSERT INTO skins(name, rarity) VALUES (?, ?) RETURNING *";
 
     const row = await db.get<SkinModel>(sql, [
-        dto.name, dto.rarity
+        input.name, input.rarity
     ]);
 
     if (!row)
@@ -31,9 +32,9 @@ async function create(dto: CreateSkinDto): Promise<SkinModel> {
     return row;
 }
 
-async function update(dto: UpdateSkinDto): Promise<boolean> {
+async function update(id: number, input: SkinInput): Promise<boolean> {
     const sql = "UPDATE skins SET name = ?, rarity = ? WHERE id = ?";
-    const result = await db.run(sql, [dto.name, dto.rarity, dto.id]);
+    const result = await db.run(sql, [input.name, input.rarity, id]);
     return result.changes > 0;
 }
 

@@ -1,4 +1,5 @@
-import {CreateSkinDto, Skin, skinRepository, toDomain, UpdateSkinDto} from "@modules/skins";
+import {SkinInput} from "@shared";
+import {Skin, skinRepository, toDomain} from "@modules/skins";
 import {User, UserRoleValues} from "@modules/users";
 import {PaginatedResult, Pagination, PaginationInput} from "@utils/pagination";
 import {AuthorizationError, NotFoundError} from "@errors";
@@ -17,19 +18,19 @@ async function getById(id: number): Promise<Skin | undefined> {
     return skin && toDomain(skin);
 }
 
-async function create(requester: User, dto: CreateSkinDto): Promise<Skin> {
+async function create(requester: User, input: SkinInput): Promise<Skin> {
     if (requester.role !== UserRoleValues.ADMIN)
         throw new AuthorizationError("Only admins can create skins");
 
-    const createdSkin = await skinRepository.create(dto);
+    const createdSkin = await skinRepository.create(input);
     return toDomain(createdSkin);
 }
 
-async function update(requester: User, dto: UpdateSkinDto): Promise<void> {
+async function update(requester: User, id: number, input: SkinInput): Promise<void> {
     if (requester.role !== UserRoleValues.ADMIN)
         throw new AuthorizationError("Only admins can update skins");
 
-    const updated = await skinRepository.update(dto);
+    const updated = await skinRepository.update(id, input);
     if (!updated) throw new NotFoundError("Skin not found");
 }
 
