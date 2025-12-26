@@ -1,12 +1,12 @@
-import express, {Request, Response, NextFunction} from "express";
+import express, {NextFunction, Request, Response} from "express";
 
 import {createSessionMiddleware} from "@middlewares/session.middleware";
-import {authRouter} from "@modules/auth/auth.routes";
-import {skinsRouter} from "@modules/skins/skin.routes";
-import {usersRouter} from "@modules/users/user.routes";
-import {lootboxesRouter} from "@modules/lootboxes/lootboxes.routes";
-import {skinOwnershipsRouter} from "@modules/skin-ownership/skin-ownership.routes";
-import {CustomError} from "@errors/errors.custom";
+import {authRouter} from "@modules/auth";
+import {skinsRouter} from "@modules/skins";
+import {usersRouter} from "@modules/users";
+import {lootboxesRouter} from "@modules/lootboxes";
+import {skinOwnershipsRouter} from "@modules/skin-ownership";
+import {CustomError} from "@errors";
 
 
 // ----------< App >----------

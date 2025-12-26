@@ -1,7 +1,6 @@
-import {db} from "@db/db.connection";
-import {UserModel} from "@modules/users/user.model";
-import {CreateUserDto} from "@modules/users/user.dto";
-import {UnexpectedError} from "@errors/errors.general";
+import {db} from "@db";
+import {CreateUserDto, UserModel} from "@modules/users";
+import {UnexpectedError} from "@errors";
 
 async function findById(id: number): Promise<UserModel | undefined> {
     const sql = "SELECT * FROM users WHERE id = ?";

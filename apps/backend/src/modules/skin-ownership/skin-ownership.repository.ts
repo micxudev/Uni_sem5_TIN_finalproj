@@ -1,6 +1,5 @@
-import {SkinOwnershipModel} from "@modules/skin-ownership/skin-ownership.model";
-import {db} from "@db/db.connection";
-import {GrantSkinDto} from "@modules/skin-ownership/skin-ownership.dto";
+import {db} from "@db";
+import {GrantSkinDto, SkinOwnershipModel} from "@modules/skin-ownership";
 
 async function findSkinsByUserId(userId: number): Promise<SkinOwnershipModel[]> {
     const sql = `

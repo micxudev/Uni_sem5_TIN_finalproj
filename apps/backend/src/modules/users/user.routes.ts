@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {getPaginated, getById} from "@modules/users/user.controller";
+import {getById, getPaginated} from "@modules/users/user.controller";
 
 export const usersRouter = Router();
 

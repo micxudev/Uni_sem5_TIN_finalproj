@@ -1,4 +1,4 @@
-import {UserRole} from "@modules/users/user-role";
+import {UserRole} from "@modules/users";
 
 /**
  * Represents a single row in the `users` table.

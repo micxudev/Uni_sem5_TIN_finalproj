@@ -1,10 +1,6 @@
-import {userRepository} from "@modules/users/user.repository";
-import {User} from "@modules/users/user.domain";
-import * as mapper from "@modules/users/user.mapper";
-import {UserRoleValues} from "@modules/users/user-role";
+import {toDomain, User, userRepository, UserRoleValues} from "@modules/users";
 import {getDummyHash, hashPassword, needsRehash, verifyPassword} from "@security/password";
-import {AuthenticationError, ConflictError} from "@errors/errors.http";
-import {UnexpectedError} from "@errors/errors.general";
+import {AuthenticationError, ConflictError, UnexpectedError} from "@errors";
 
 async function registerUser(username: string, password: string): Promise<User> {
     const passwordHash = await hashPassword(password);
@@ -13,7 +9,7 @@ async function registerUser(username: string, password: string): Promise<User> {
             username, passwordHash, role: UserRoleValues.PLAYER
         });
 
-        return mapper.toDomain(createdUser);
+        return toDomain(createdUser);
     } catch (err) {
         // TODO: catch only unique constraint violation error for username + rethrow unknown errors
         throw new ConflictError("Username already taken");
@@ -36,7 +32,7 @@ async function loginUser(username: string, password: string): Promise<User> {
         user.password_hash = newHash;
     }
 
-    return mapper.toDomain(user);
+    return toDomain(user);
 }
 
 async function changePassword(userId: number, currentPassword: string, newPassword: string): Promise<void> {

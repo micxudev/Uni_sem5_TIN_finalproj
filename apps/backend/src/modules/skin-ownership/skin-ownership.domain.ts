@@ -1,5 +1,5 @@
-import {SkinOwnershipSource} from "@modules/skin-ownership/skin-ownership-source";
-import {Skin} from "@modules/skins/skin.domain";
+import {SkinOwnershipSource} from "@modules/skin-ownership";
+import {Skin} from "@modules/skins";
 
 /**
  * Domain level skin ownership.

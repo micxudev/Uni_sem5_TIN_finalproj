@@ -1,4 +1,4 @@
-import {SkinRarity} from "@modules/skins/skin-rarity";
+import {SkinRarity} from "@modules/skins";
 
 /**
  * Data required to create a skin.

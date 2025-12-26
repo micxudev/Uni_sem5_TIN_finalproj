@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
-import {requireAuthUser} from "@modules/auth/auth.guard";
-import {lootboxesService} from "@modules/lootboxes/lootboxes.service";
+import {requireAuthUser} from "@modules/auth";
+import {lootboxesService} from "@modules/lootboxes";
 
 /**
  * ==========

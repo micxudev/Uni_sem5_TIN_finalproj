@@ -1,5 +1,4 @@
-import {SkinModel} from "@modules/skins/skin.model";
-import {Skin} from "@modules/skins/skin.domain";
+import {Skin, SkinModel} from "@modules/skins";
 
 export function toDomain(model: SkinModel): Skin {
     return {

@@ -1,5 +1,4 @@
-import {UserModel} from "@modules/users/user.model";
-import {User} from "@modules/users/user.domain";
+import {User, UserModel} from "@modules/users";
 
 export function toDomain(model: UserModel): User {
     return {

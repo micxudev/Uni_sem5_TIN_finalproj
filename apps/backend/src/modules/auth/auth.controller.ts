@@ -1,8 +1,6 @@
 import {Request, Response} from "express";
-import {authService} from "@modules/auth/auth.service";
-import {sessionService} from "@modules/auth/auth.session";
-import {requireAuthUser} from "@modules/auth/auth.guard";
-import {BadRequestError} from "@errors/errors.http";
+import {authService, requireAuthUser, sessionService} from "@modules/auth";
+import {BadRequestError} from "@errors";
 
 /**
  * ==========

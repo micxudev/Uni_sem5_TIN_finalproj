@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
-import {requireAuthUser} from "@modules/auth/auth.guard";
-import {skinOwnershipService} from "@modules/skin-ownership/skin-ownership.service";
-import {SkinOwnershipSourceValues} from "@modules/skin-ownership/skin-ownership-source";
+import {requireAuthUser} from "@modules/auth";
+import {skinOwnershipService, SkinOwnershipSourceValues} from "@modules/skin-ownership";
 
 /**
  * ==========

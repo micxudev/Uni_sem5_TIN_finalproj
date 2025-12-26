@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {getPaginated, getById, create, update, deleteById} from "@modules/skins/skin.controller"
+import {create, deleteById, getById, getPaginated, update} from "@modules/skins/skin.controller";
 
 export const skinsRouter = Router();
 

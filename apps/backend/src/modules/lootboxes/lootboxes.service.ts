@@ -1,10 +1,8 @@
-import {db} from "@db/db.connection";
-import {lootboxesRepository} from "@modules/lootboxes/lootboxes.repository";
-import {User} from "@modules/users/user.domain";
-import {SkinOwnership} from "@modules/skin-ownership/skin-ownership.domain";
-import * as skinOwnershipMapper from "@modules/skin-ownership/skin-ownership.mapper";
-import {LootboxCooldownError} from "@errors/errors.lootbox-cooldown";
-import {UnexpectedError} from "@errors/errors.general";
+import {db} from "@db";
+import {lootboxesRepository} from "@modules/lootboxes";
+import {User} from "@modules/users";
+import {SkinOwnership, toDomain} from "@modules/skin-ownership";
+import {LootboxCooldownError, UnexpectedError} from "@errors";
 
 const LOOTBOX_COOLDOWN_MS = 60 * 60 * 1000; // 1 hour in ms
 
@@ -33,7 +31,7 @@ async function open(opener: User): Promise<SkinOwnership> {
         const updated = await lootboxesRepository.updateLastLootboxOpenedAt(opener.id);
         if (!updated) throw new UnexpectedError("Cannot update last open time");
 
-        return skinOwnershipMapper.toDomain(skinOwnership);
+        return toDomain(skinOwnership);
     });
 }
 

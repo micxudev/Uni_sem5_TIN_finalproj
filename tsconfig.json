@@ -13,14 +13,14 @@
       "@modules/*": [
         "apps/backend/src/modules/*"
       ],
-      "@db/*": [
-        "apps/backend/src/db/*"
+      "@db": [
+        "apps/backend/src/db"
       ],
       "@middlewares/*": [
         "apps/backend/src/middlewares/*"
       ],
-      "@errors/*": [
-        "apps/backend/src/errors/*"
+      "@errors": [
+        "apps/backend/src/errors"
       ],
       "@security/*": [
         "apps/backend/src/security/*"

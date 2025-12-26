@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
-import {userService} from "@modules/users/user.service";
-import {NotFoundError} from "@errors/errors.http";
+import {userService} from "@modules/users";
+import {NotFoundError} from "@errors";
 
 /**
  * ==========

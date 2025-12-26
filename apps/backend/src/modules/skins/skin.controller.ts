@@ -1,8 +1,7 @@
 import {Request, Response} from "express";
-import {skinService} from "@modules/skins/skin.service";
-import {requireAuthUser} from "@modules/auth/auth.guard";
-import {BadRequestError, NotFoundError} from "@errors/errors.http";
-import {SkinRaritySchema} from "@modules/skins/skin-rarity";
+import {SkinRaritySchema, skinService} from "@modules/skins";
+import {requireAuthUser} from "@modules/auth";
+import {BadRequestError, NotFoundError} from "@errors";
 
 /**
  * ==========

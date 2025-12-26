@@ -1,8 +1,7 @@
-import {db} from "@db/db.connection";
-import {SkinModel} from "@modules/skins/skin.model";
-import {SkinOwnershipSourceValues} from "@modules/skin-ownership/skin-ownership-source";
-import {SkinOwnershipModel} from "@modules/skin-ownership/skin-ownership.model";
-import {UnexpectedError} from "@errors/errors.general";
+import {db} from "@db";
+import {SkinModel} from "@modules/skins";
+import {SkinOwnershipModel, SkinOwnershipSourceValues} from "@modules/skin-ownership";
+import {UnexpectedError} from "@errors";
 
 async function getLastLootboxOpenedAt(userId: number): Promise<string | null> {
     const sql = `

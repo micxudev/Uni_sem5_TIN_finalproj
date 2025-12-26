@@ -1,5 +1,4 @@
-import {DbAdapter} from "@db/db.adapter";
-import {sqliteDb} from "@db/db.sqlite";
+import {DbAdapter, sqliteDb} from "@db";
 
 /**
  * Singleton instance of the database adapter.

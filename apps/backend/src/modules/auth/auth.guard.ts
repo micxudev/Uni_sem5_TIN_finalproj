@@ -1,6 +1,6 @@
 import {Request} from "express";
-import {User} from "@modules/users/user.domain";
-import {AuthenticationError} from "@errors/errors.http";
+import {User} from "@modules/users";
+import {AuthenticationError} from "@errors";
 
 export function requireAuthUser(req: Request): User {
     const user = req.session.user;

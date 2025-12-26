@@ -1,4 +1,4 @@
-import {db} from "@db/db.connection";
+import {db} from "@db";
 import {hashPassword} from "@security/password";
 
 /**

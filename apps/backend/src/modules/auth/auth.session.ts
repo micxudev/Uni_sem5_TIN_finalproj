@@ -1,5 +1,5 @@
 import {Request} from "express";
-import {User} from "@modules/users/user.domain";
+import {User} from "@modules/users";
 
 function create(req: Request, user: User): void {
     req.session.user = user;

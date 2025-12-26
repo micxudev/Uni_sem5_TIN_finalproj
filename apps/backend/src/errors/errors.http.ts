@@ -1,4 +1,4 @@
-import {CustomError} from "@errors/errors.custom";
+import {CustomError} from "@errors";
 
 /**
  * Base class for custom HTTP errors.

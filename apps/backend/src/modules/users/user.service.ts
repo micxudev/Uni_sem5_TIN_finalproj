@@ -1,6 +1,4 @@
-import {userRepository} from "@modules/users/user.repository";
-import {User} from "@modules/users/user.domain";
-import * as mapper from "@modules/users/user.mapper";
+import {toDomain, User, userRepository} from "@modules/users";
 import {PaginatedResult, Pagination, PaginationInput} from "@middlewares/pagination";
 
 async function getPaginated(input: PaginationInput): Promise<PaginatedResult<User>> {
@@ -9,12 +7,12 @@ async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Use
         userRepository.findPage(pagination.limit, pagination.offset),
         userRepository.countAll()
     ]);
-    return {meta: pagination.meta(total), data: users.map(mapper.toDomain)};
+    return {meta: pagination.meta(total), data: users.map(toDomain)};
 }
 
 async function getById(id: number): Promise<User | undefined> {
     const user = await userRepository.findById(id);
-    return user && mapper.toDomain(user);
+    return user && toDomain(user);
 }
 
 export const userService = {

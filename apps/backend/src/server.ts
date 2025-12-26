@@ -1,8 +1,6 @@
 import http from "http";
 import {app} from "./app";
-import {db} from "@db/db.connection";
-import {initSchema} from "@db/db.init-schema";
-import {seedSampleData} from "@db/db.sample-data";
+import {db, initSchema, seedSampleData} from "@db";
 
 const PORT = process.env.PORT || 3000;
 let server: http.Server;

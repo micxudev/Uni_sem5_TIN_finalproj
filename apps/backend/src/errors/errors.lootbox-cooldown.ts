@@ -1,4 +1,4 @@
-import {CustomError} from "@errors/errors.custom";
+import {CustomError} from "@errors";
 
 export class LootboxCooldownError extends CustomError {
     readonly statusCode = 400;

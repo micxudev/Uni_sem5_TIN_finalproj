@@ -1,11 +1,7 @@
-import {skinRepository} from "@modules/skins/skin.repository";
-import {Skin} from "@modules/skins/skin.domain";
-import * as mapper from "@modules/skins/skin.mapper";
-import {CreateSkinDto, UpdateSkinDto} from "@modules/skins/skin.dto";
-import {UserRoleValues} from "@modules/users/user-role";
-import {User} from "@modules/users/user.domain";
-import {PaginationInput, PaginatedResult, Pagination} from "@middlewares/pagination";
-import {AuthorizationError, NotFoundError} from "@errors/errors.http";
+import {CreateSkinDto, Skin, skinRepository, toDomain, UpdateSkinDto} from "@modules/skins";
+import {User, UserRoleValues} from "@modules/users";
+import {PaginatedResult, Pagination, PaginationInput} from "@middlewares/pagination";
+import {AuthorizationError, NotFoundError} from "@errors";
 
 async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Skin>> {
     const pagination = Pagination.from(input);
@@ -13,12 +9,12 @@ async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Ski
         skinRepository.findPage(pagination.limit, pagination.offset),
         skinRepository.countAll()
     ]);
-    return {meta: pagination.meta(total), data: skins.map(mapper.toDomain)};
+    return {meta: pagination.meta(total), data: skins.map(toDomain)};
 }
 
 async function getById(id: number): Promise<Skin | undefined> {
     const skin = await skinRepository.findById(id);
-    return skin && mapper.toDomain(skin);
+    return skin && toDomain(skin);
 }
 
 async function create(requester: User, dto: CreateSkinDto): Promise<Skin> {
@@ -26,7 +22,7 @@ async function create(requester: User, dto: CreateSkinDto): Promise<Skin> {
         throw new AuthorizationError("Only admins can create skins");
 
     const createdSkin = await skinRepository.create(dto);
-    return mapper.toDomain(createdSkin);
+    return toDomain(createdSkin);
 }
 
 async function update(requester: User, dto: UpdateSkinDto): Promise<void> {
