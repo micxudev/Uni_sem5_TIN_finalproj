@@ -1,6 +1,6 @@
 import {db} from "@db/db.connection";
 import {SkinModel} from "@modules/skins/skin.model";
-import {SkinOwnershipSourceValues} from "@modules/skin-ownership/skin-ownership.source";
+import {SkinOwnershipSourceValues} from "@modules/skin-ownership/skin-ownership-source";
 import {SkinOwnershipModel} from "@modules/skin-ownership/skin-ownership.model";
 import {UnexpectedError} from "@errors/errors.general";
 
