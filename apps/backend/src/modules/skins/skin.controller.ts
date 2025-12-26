@@ -1,8 +1,7 @@
 import {Request, Response} from "express";
 import {IdParamSchema, SkinInputSchema} from "@shared";
-import {skinService} from "@modules/skins";
 import {requireAuthUser} from "@modules/auth";
-import {NotFoundError} from "@errors";
+import {skinService} from "@modules/skins";
 import {parseBodyOrThrow, parseParamsOrThrow} from "@utils/parse-or-throw";
 
 /**
@@ -34,8 +33,6 @@ export async function getById(
     const {id} = parseParamsOrThrow(IdParamSchema, req);
 
     const skin = await skinService.getById(id);
-    if (!skin)
-        throw new NotFoundError("Skin not found");
 
     res.json(skin);
 }

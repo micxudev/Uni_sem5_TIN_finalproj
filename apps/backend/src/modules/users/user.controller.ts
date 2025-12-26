@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
 import {IdParamSchema} from "@shared";
 import {userService} from "@modules/users";
-import {NotFoundError} from "@errors";
 import {parseParamsOrThrow} from "@utils/parse-or-throw";
 
 /**
@@ -32,9 +31,7 @@ export async function getById(
 ): Promise<void> {
     const {id} = parseParamsOrThrow(IdParamSchema, req);
 
-    const result = await userService.getById(id);
-    if (!result)
-        throw new NotFoundError("User not found");
+    const user = await userService.getById(id);
 
-    res.json(result);
+    res.json(user);
 }

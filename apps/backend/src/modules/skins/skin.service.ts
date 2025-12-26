@@ -13,9 +13,10 @@ async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Ski
     return {meta: pagination.meta(total), data: skins.map(toDomain)};
 }
 
-async function getById(id: number): Promise<Skin | undefined> {
+async function getById(id: number): Promise<Skin> {
     const skin = await skinRepository.findById(id);
-    return skin && toDomain(skin);
+    if (!skin) throw new NotFoundError("Skin not found");
+    return toDomain(skin);
 }
 
 async function create(requester: User, input: SkinInput): Promise<Skin> {

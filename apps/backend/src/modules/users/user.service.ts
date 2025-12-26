@@ -1,5 +1,6 @@
 import {toDomain, User, userRepository} from "@modules/users";
 import {PaginatedResult, Pagination, PaginationInput} from "@utils/pagination";
+import {NotFoundError} from "@errors";
 
 async function getPaginated(input: PaginationInput): Promise<PaginatedResult<User>> {
     const pagination = Pagination.from(input);
@@ -10,9 +11,10 @@ async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Use
     return {meta: pagination.meta(total), data: users.map(toDomain)};
 }
 
-async function getById(id: number): Promise<User | undefined> {
+async function getById(id: number): Promise<User> {
     const user = await userRepository.findById(id);
-    return user && toDomain(user);
+    if (!user) throw new NotFoundError("User not found");
+    return toDomain(user);
 }
 
 export const userService = {
