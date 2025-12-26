@@ -1,6 +1,6 @@
 import express, {Request, Response, NextFunction} from "express";
 
-import {sessionService} from "@modules/auth/auth.session";
+import {createSessionMiddleware} from "@middlewares/session.middleware";
 import {authRouter} from "@modules/auth/auth.routes";
 import {skinsRouter} from "@modules/skins/skin.routes";
 import {usersRouter} from "@modules/users/user.routes";
@@ -19,7 +19,7 @@ export const app = express();
 //app.use(express.static(path.join(ROOT_DIR, "public")));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-app.use(sessionService.createMiddleware());
+app.use(createSessionMiddleware());
 
 
 // ----------< Routes >----------
