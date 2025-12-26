@@ -1,6 +1,6 @@
 import {CreateSkinDto, Skin, skinRepository, toDomain, UpdateSkinDto} from "@modules/skins";
 import {User, UserRoleValues} from "@modules/users";
-import {PaginatedResult, Pagination, PaginationInput} from "@middlewares/pagination";
+import {PaginatedResult, Pagination, PaginationInput} from "@utils/pagination";
 import {AuthorizationError, NotFoundError} from "@errors";
 
 async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Skin>> {

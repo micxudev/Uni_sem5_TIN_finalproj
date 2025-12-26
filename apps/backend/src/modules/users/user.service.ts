@@ -1,5 +1,5 @@
 import {toDomain, User, userRepository} from "@modules/users";
-import {PaginatedResult, Pagination, PaginationInput} from "@middlewares/pagination";
+import {PaginatedResult, Pagination, PaginationInput} from "@utils/pagination";
 
 async function getPaginated(input: PaginationInput): Promise<PaginatedResult<User>> {
     const pagination = Pagination.from(input);

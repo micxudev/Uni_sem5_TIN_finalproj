@@ -25,6 +25,9 @@
       "@security/*": [
         "apps/backend/src/security/*"
       ],
+      "@utils/*": [
+        "apps/backend/src/utils/*"
+      ],
       "@shared/*": [
         "packages/shared/src/*"
       ]
