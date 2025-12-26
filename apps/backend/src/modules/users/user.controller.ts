@@ -4,7 +4,7 @@ import {NotFoundError} from "@errors";
 
 /**
  * ==========
- * `GET /api/users/`
+ * `GET /api/users`
  * ==========
  */
 export async function getPaginated(

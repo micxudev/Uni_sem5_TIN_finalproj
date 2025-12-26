@@ -5,7 +5,7 @@ import {BadRequestError, NotFoundError} from "@errors";
 
 /**
  * ==========
- * `GET /api/skins/`
+ * `GET /api/skins`
  * ==========
  */
 export async function getPaginated(
@@ -40,7 +40,7 @@ export async function getById(
 
 /**
  * ==========
- * `POST /api/skins/`
+ * `POST /api/skins`
  * ==========
  */
 export async function create(
