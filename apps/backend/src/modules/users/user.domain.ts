@@ -10,4 +10,5 @@ export interface User {
     username: string;
     role: UserRole;
     createdAt: Date;
+    lastLootboxOpenedAt: Date | null;
 }

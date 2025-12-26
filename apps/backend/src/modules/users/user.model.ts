@@ -11,4 +11,5 @@ export interface UserModel {
     password_hash: string;
     role: UserRole;
     created_at: string;
+    last_lootbox_opened_at: string | null;
 }

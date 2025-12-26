@@ -7,5 +7,6 @@ export function toDomain(model: UserModel): User {
         username: model.username,
         role: model.role,
         createdAt: new Date(model.created_at),
+        lastLootboxOpenedAt: model.last_lootbox_opened_at ? new Date(model.last_lootbox_opened_at) : null,
     };
 }
