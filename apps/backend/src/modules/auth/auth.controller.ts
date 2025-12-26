@@ -1,6 +1,8 @@
 import {Request, Response} from "express";
+import {z} from "zod";
 import {authService, requireAuthUser, sessionService} from "@modules/auth";
 import {BadRequestError} from "@errors";
+import {AuthInputSchema, ChangePasswordInputSchema} from "@shared";
 
 /**
  * ==========
@@ -11,15 +13,11 @@ export async function register(
     req: Request,
     res: Response
 ): Promise<void> {
-    const {username, password} = req.body ?? {};
+    const result = AuthInputSchema.safeParse(req.body);
+    if (!result.success)
+        throw new BadRequestError("Invalid Input", z.flattenError(result.error));
 
-    if (typeof username !== "string" || typeof password !== "string")
-        throw new BadRequestError("strings 'username' and 'password' are required");
-
-    if (username.length < 3)
-        throw new BadRequestError("username must be at least 3 chars.");
-
-    const user = await authService.registerUser(username, password);
+    const user = await authService.registerUser(result.data);
 
     res.status(201).json({id: user.id});
 }
@@ -33,12 +31,11 @@ export async function login(
     req: Request,
     res: Response
 ): Promise<void> {
-    const {username, password} = req.body ?? {};
+    const result = AuthInputSchema.safeParse(req.body);
+    if (!result.success)
+        throw new BadRequestError("Invalid Input", z.flattenError(result.error));
 
-    if (typeof username !== "string" || typeof password !== "string")
-        throw new BadRequestError("strings 'username' and 'password' are required");
-
-    const user = await authService.loginUser(username, password);
+    const user = await authService.loginUser(result.data);
 
     sessionService.create(req, user);
 
@@ -70,12 +67,11 @@ export async function changePassword(
 ): Promise<void> {
     const user = requireAuthUser(req);
 
-    const {currentPassword, newPassword} = req.body ?? {};
+    const result = ChangePasswordInputSchema.safeParse(req.body);
+    if (!result.success)
+        throw new BadRequestError("Invalid Input", z.flattenError(result.error));
 
-    if (typeof currentPassword !== "string" || typeof newPassword !== "string")
-        throw new BadRequestError("strings 'currentPassword' and 'newPassword' are required");
-
-    await authService.changePassword(user.id, currentPassword, newPassword);
+    await authService.changePassword(user.id, result.data);
 
     res.json({success: true});
 }

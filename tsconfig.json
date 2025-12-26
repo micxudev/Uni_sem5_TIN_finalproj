@@ -10,17 +10,17 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@modules/*": [
-        "apps/backend/src/modules/*"
-      ],
       "@db": [
         "apps/backend/src/db"
+      ],
+      "@errors": [
+        "apps/backend/src/errors"
       ],
       "@middlewares/*": [
         "apps/backend/src/middlewares/*"
       ],
-      "@errors": [
-        "apps/backend/src/errors"
+      "@modules/*": [
+        "apps/backend/src/modules/*"
       ],
       "@security/*": [
         "apps/backend/src/security/*"
@@ -28,8 +28,8 @@
       "@utils/*": [
         "apps/backend/src/utils/*"
       ],
-      "@shared/*": [
-        "packages/shared/src/*"
+      "@shared": [
+        "packages/shared/src"
       ]
     },
     "esModuleInterop": true,
