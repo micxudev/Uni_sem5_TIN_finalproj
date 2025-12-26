@@ -67,7 +67,7 @@ async function updateLastLootboxOpenedAt(userId: number): Promise<boolean> {
     return result.changes > 0;
 }
 
-export const lootboxesRepo = {
+export const lootboxesRepository = {
     getLastLootboxOpenedAt,
     getRandomSkin,
     grantSkin,

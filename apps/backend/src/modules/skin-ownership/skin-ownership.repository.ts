@@ -32,7 +32,7 @@ async function grantSkin(dto: GrantSkinDto): Promise<boolean> {
     return result.changes > 0;
 }
 
-export const skinOwnershipRepo = {
+export const skinOwnershipRepository = {
     findSkinsByUserId,
     grantSkin,
 };

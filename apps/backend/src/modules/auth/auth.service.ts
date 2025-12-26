@@ -1,4 +1,4 @@
-import {userRepo} from "@modules/users/user.repo";
+import {userRepository} from "@modules/users/user.repository";
 import {User} from "@modules/users/user.domain";
 import * as mapper from "@modules/users/user.mapper";
 import {UserRoleValues} from "@modules/users/user-role";
@@ -9,7 +9,7 @@ import {UnexpectedError} from "@errors/errors.general";
 async function registerUser(username: string, password: string): Promise<User> {
     const passwordHash = await hashPassword(password);
     try {
-        const createdUser = await userRepo.create({
+        const createdUser = await userRepository.create({
             username, passwordHash, role: UserRoleValues.PLAYER
         });
 
@@ -21,7 +21,7 @@ async function registerUser(username: string, password: string): Promise<User> {
 }
 
 async function loginUser(username: string, password: string): Promise<User> {
-    const user = await userRepo.findByUsername(username);
+    const user = await userRepository.findByUsername(username);
 
     const hashToCheck = user ? user.password_hash : getDummyHash();
 
@@ -31,7 +31,7 @@ async function loginUser(username: string, password: string): Promise<User> {
 
     if (needsRehash(user.password_hash)) {
         const newHash = await hashPassword(password);
-        const updated = await userRepo.updatePassword(user.id, newHash);
+        const updated = await userRepository.updatePassword(user.id, newHash);
         if (!updated) throw new UnexpectedError("Failed to update password hash");
         user.password_hash = newHash;
     }
@@ -40,7 +40,7 @@ async function loginUser(username: string, password: string): Promise<User> {
 }
 
 async function changePassword(userId: number, currentPassword: string, newPassword: string): Promise<void> {
-    const user = await userRepo.findById(userId);
+    const user = await userRepository.findById(userId);
     if (!user)
         throw new UnexpectedError("User no longer exists but requested to change password");
 
@@ -49,7 +49,7 @@ async function changePassword(userId: number, currentPassword: string, newPasswo
         throw new AuthenticationError("Invalid current password");
 
     const newHash = await hashPassword(newPassword);
-    const updated = await userRepo.updatePassword(userId, newHash);
+    const updated = await userRepository.updatePassword(userId, newHash);
     if (!updated)
         throw new UnexpectedError("User disappeared from DB during password verification");
 }

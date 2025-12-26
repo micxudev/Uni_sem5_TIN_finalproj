@@ -44,7 +44,7 @@ async function deleteById(id: number): Promise<boolean> {
     return result.changes > 0;
 }
 
-export const skinRepo = {
+export const skinRepository = {
     findById,
     findPage,
     countAll,

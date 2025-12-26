@@ -47,7 +47,7 @@ async function updatePassword(id: number, passwordHash: string): Promise<boolean
     return result.changes > 0;
 }
 
-export const userRepo = {
+export const userRepository = {
     findById,
     findByUsername,
     findPage,
