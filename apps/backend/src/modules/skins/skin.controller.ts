@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {skinService} from "@modules/skins/skin.service";
-import {getAuthUserOrFail} from "@middlewares/require.auth";
+import {requireAuthUser} from "@modules/auth/auth.guard";
 import {BadRequestError, NotFoundError} from "@errors/errors.http";
 import {SkinRaritySchema} from "@modules/skins/skin-rarity";
 
@@ -48,7 +48,7 @@ export async function create(
     req: Request,
     res: Response
 ): Promise<void> {
-    const user = getAuthUserOrFail(req);
+    const user = requireAuthUser(req);
 
     const {name, rarity} = req.body ?? {};
 
@@ -76,7 +76,7 @@ export async function update(
     req: Request,
     res: Response
 ): Promise<void> {
-    const user = getAuthUserOrFail(req);
+    const user = requireAuthUser(req);
 
     const id = Number(req.params.id);
 
@@ -106,7 +106,7 @@ export async function deleteById(
     req: Request,
     res: Response
 ): Promise<void> {
-    const user = getAuthUserOrFail(req);
+    const user = requireAuthUser(req);
 
     const id = Number(req.params.id);
 

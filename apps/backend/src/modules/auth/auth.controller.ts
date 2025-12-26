@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import {authService} from "@modules/auth/auth.service";
 import {sessionService} from "@modules/auth/auth.session";
-import {getAuthUserOrFail} from "@middlewares/require.auth";
+import {requireAuthUser} from "@modules/auth/auth.guard";
 import {BadRequestError} from "@errors/errors.http";
 
 /**
@@ -70,7 +70,7 @@ export async function changePassword(
     req: Request,
     res: Response
 ): Promise<void> {
-    const user = getAuthUserOrFail(req);
+    const user = requireAuthUser(req);
 
     const {currentPassword, newPassword} = req.body ?? {};
 

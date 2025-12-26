@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {getAuthUserOrFail} from "@middlewares/require.auth";
+import {requireAuthUser} from "@modules/auth/auth.guard";
 import {skinOwnershipService} from "@modules/skin-ownership/skin-ownership.service";
 import {SkinOwnershipSourceValues} from "@modules/skin-ownership/skin-ownership.source";
 
@@ -12,7 +12,7 @@ export async function getUserSkins(
     req: Request,
     res: Response
 ): Promise<void> {
-    const user = getAuthUserOrFail(req);
+    const user = requireAuthUser(req);
 
     const targetUserId = Number(req.params.userId);
 
@@ -30,7 +30,7 @@ export async function grantSkinToUser(
     req: Request,
     res: Response
 ): Promise<void> {
-    const user = getAuthUserOrFail(req);
+    const user = requireAuthUser(req);
 
     let {userId, skinId} = req.body ?? {};
     userId = Number(userId);
