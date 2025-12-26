@@ -1,4 +1,5 @@
-import {GrantSkinDto, SkinOwnership, skinOwnershipRepository, toDomain} from "@modules/skin-ownership";
+import {GrantSkinInput} from "@shared";
+import {SkinOwnership, skinOwnershipRepository, SkinOwnershipSourceValues, toDomain} from "@modules/skin-ownership";
 import {User, UserRoleValues} from "@modules/users";
 import {AuthorizationError, BadRequestError} from "@errors";
 
@@ -10,12 +11,16 @@ async function getUserSkins(requester: User, targetUserId: number): Promise<Skin
     return skins.map(toDomain);
 }
 
-async function grantSkin(requester: User, dto: GrantSkinDto): Promise<void> {
+async function grantSkin(requester: User, input: GrantSkinInput): Promise<void> {
     if (requester.role !== UserRoleValues.ADMIN)
         throw new AuthorizationError("Only admins can grant skins");
 
     try {
-        await skinOwnershipRepository.grantSkin(dto);
+        await skinOwnershipRepository.grantSkin({
+            userId: input.userId,
+            skinId: input.skinId,
+            source: SkinOwnershipSourceValues.ADMIN
+        });
     } catch (err) {
         // TODO: catch only FK constraint violation error + rethrow unknown errors
         throw new BadRequestError("Failed to grant skin (user and/or skin not found)");
