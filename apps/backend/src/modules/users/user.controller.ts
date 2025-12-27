@@ -1,6 +1,8 @@
 import {Request, Response} from "express";
 import {IdParamSchema} from "@shared";
+import {requireAuthUser} from "@modules/auth";
 import {userService} from "@modules/users";
+import {PaginationInput} from "@utils/pagination";
 import {parseParamsOrThrow} from "@utils/parse-or-throw";
 
 /**
@@ -12,10 +14,14 @@ export async function getPaginated(
     req: Request,
     res: Response
 ): Promise<void> {
-    const result = await userService.getPaginated({
+    const user = requireAuthUser(req);
+
+    const paginationInput: PaginationInput = {
         page: req.query.page,
         size: req.query.size
-    });
+    };
+
+    const result = await userService.getPaginatedUsers(user, paginationInput);
 
     res.json(result);
 }
@@ -29,9 +35,11 @@ export async function getById(
     req: Request,
     res: Response
 ): Promise<void> {
+    const user = requireAuthUser(req);
+
     const {id} = parseParamsOrThrow(IdParamSchema, req);
 
-    const user = await userService.getById(id);
+    const result = await userService.getUserById(user, id);
 
-    res.json(user);
+    res.json(result);
 }

@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import {IdParamSchema, SkinInputSchema} from "@shared";
 import {requireAuthUser} from "@modules/auth";
 import {skinService} from "@modules/skins";
+import {PaginationInput} from "@utils/pagination";
 import {parseBodyOrThrow, parseParamsOrThrow} from "@utils/parse-or-throw";
 
 /**
@@ -13,10 +14,12 @@ export async function getPaginated(
     req: Request,
     res: Response
 ): Promise<void> {
-    const result = await skinService.getPaginated({
+    const paginationInput: PaginationInput = {
         page: req.query.page,
         size: req.query.size
-    });
+    };
+
+    const result = await skinService.getPaginated(paginationInput);
 
     res.json(result);
 }

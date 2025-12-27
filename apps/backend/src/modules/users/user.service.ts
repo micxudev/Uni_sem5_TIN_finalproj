@@ -1,8 +1,11 @@
-import {toDomain, User, userRepository} from "@modules/users";
+import {toDomain, User, userRepository, UserRoleValues} from "@modules/users";
 import {PaginatedResult, Pagination, PaginationInput} from "@utils/pagination";
-import {NotFoundError} from "@errors";
+import {AuthorizationError, NotFoundError} from "@errors";
 
-async function getPaginated(input: PaginationInput): Promise<PaginatedResult<User>> {
+async function getPaginatedUsers(requester: User, input: PaginationInput): Promise<PaginatedResult<User>> {
+    if (requester.role !== UserRoleValues.ADMIN)
+        throw new AuthorizationError("Only admins can view all users");
+
     const pagination = Pagination.from(input);
     const [users, total] = await Promise.all([
         userRepository.findPage(pagination.limit, pagination.offset),
@@ -11,13 +14,16 @@ async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Use
     return {meta: pagination.meta(total), data: users.map(toDomain)};
 }
 
-async function getById(id: number): Promise<User> {
-    const user = await userRepository.findById(id);
+async function getUserById(requester: User, targetUserId: number): Promise<User> {
+    if (requester.role === UserRoleValues.PLAYER && requester.id !== targetUserId)
+        throw new AuthorizationError("Players can only view own profile");
+
+    const user = await userRepository.findById(targetUserId);
     if (!user) throw new NotFoundError("User not found");
     return toDomain(user);
 }
 
 export const userService = {
-    getPaginated,
-    getById,
+    getPaginatedUsers,
+    getUserById,
 };
