@@ -3,6 +3,7 @@ import {GrantSkinInputSchema, UserIdParamSchema} from "@shared";
 import {requireAuthUser} from "@modules/auth";
 import {skinOwnershipService} from "@modules/skin-ownership";
 import {parseBodyOrThrow, parseParamsOrThrow} from "@utils/parse-or-throw";
+import {PaginationInput} from "@utils/pagination";
 
 /**
  * ==========
@@ -16,8 +17,14 @@ export async function getUserSkins(
     const user = requireAuthUser(req);
 
     const {userId} = parseParamsOrThrow(UserIdParamSchema, req);
+    const paginationInput: PaginationInput = {
+        page: req.query.page,
+        size: req.query.size
+    };
 
-    const result = await skinOwnershipService.getUserSkins(user, userId);
+    const result = await skinOwnershipService.getPaginatedUserSkins(
+        user, userId, paginationInput
+    );
 
     res.json(result);
 }

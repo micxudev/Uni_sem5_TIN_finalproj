@@ -2,13 +2,18 @@ import {GrantSkinInput} from "@shared";
 import {SkinOwnership, skinOwnershipRepository, SkinOwnershipSourceValues, toDomain} from "@modules/skin-ownership";
 import {User, UserRoleValues} from "@modules/users";
 import {AuthorizationError, BadRequestError} from "@errors";
+import {PaginatedResult, Pagination, PaginationInput} from "@utils/pagination";
 
-async function getUserSkins(requester: User, targetUserId: number): Promise<SkinOwnership[]> {
+async function getPaginatedUserSkins(requester: User, targetUserId: number, input: PaginationInput): Promise<PaginatedResult<SkinOwnership>> {
     if (requester.role === UserRoleValues.PLAYER && requester.id !== targetUserId)
         throw new AuthorizationError("Players can only view own skins");
 
-    const skins = await skinOwnershipRepository.findSkinsByUserId(targetUserId);
-    return skins.map(toDomain);
+    const pagination = Pagination.from(input);
+    const [skins, total] = await Promise.all([
+        skinOwnershipRepository.findPageByUserId(targetUserId, pagination.limit, pagination.offset),
+        skinOwnershipRepository.countAllByUserId(targetUserId)
+    ]);
+    return {meta: pagination.meta(total), data: skins.map(toDomain)};
 }
 
 async function grantSkin(requester: User, input: GrantSkinInput): Promise<void> {
@@ -28,6 +33,6 @@ async function grantSkin(requester: User, input: GrantSkinInput): Promise<void> 
 }
 
 export const skinOwnershipService = {
-    getUserSkins,
+    getPaginatedUserSkins,
     grantSkin,
 };

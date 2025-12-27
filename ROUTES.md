@@ -56,10 +56,10 @@ Base URL: `/api`
 
 **Base path:** `/api`
 
-| Method | Endpoint                             | Description               |
-|--------|--------------------------------------|---------------------------|
-| GET    | `/api/users/:userId/skin-ownerships` | Get skins owned by a user |
-| POST   | `/api/skin-ownerships`               | Grant skin to user        |
+| Method | Endpoint                             | Description                             |
+|--------|--------------------------------------|-----------------------------------------|
+| GET    | `/api/users/:userId/skin-ownerships` | Get paginated skin-ownerships by a user |
+| POST   | `/api/skin-ownerships`               | Grant skin to user                      |
 
 ---
 

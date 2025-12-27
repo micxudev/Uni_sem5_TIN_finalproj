@@ -1,7 +1,7 @@
 import {db} from "@db";
 import {GrantSkinDto, SkinOwnershipModel} from "@modules/skin-ownership";
 
-async function findSkinsByUserId(userId: number): Promise<SkinOwnershipModel[]> {
+async function findPageByUserId(userId: number, limit: number, offset: number): Promise<SkinOwnershipModel[]> {
     const sql = `
         SELECT so.id          as ownership_id,
                so.source      as source,
@@ -13,9 +13,20 @@ async function findSkinsByUserId(userId: number): Promise<SkinOwnershipModel[]> 
         FROM skin_ownerships so
                  JOIN skins s ON s.id = so.skin_id
         WHERE so.user_id = ?
-        ORDER BY so.obtained_at DESC;
+        ORDER BY so.obtained_at DESC
+        LIMIT ? OFFSET ?;
     `;
-    return db.all<SkinOwnershipModel>(sql, [userId]);
+    return db.all<SkinOwnershipModel>(sql, [userId, limit, offset]);
+}
+
+async function countAllByUserId(userId: number): Promise<number> {
+    const sql = `
+        SELECT COUNT(*) as count
+        FROM skin_ownerships
+        WHERE user_id = ?
+    `;
+    const row = await db.get<{ count: number }>(sql, [userId]);
+    return row?.count ?? 0;
 }
 
 async function grantSkin(dto: GrantSkinDto): Promise<boolean> {
@@ -32,6 +43,7 @@ async function grantSkin(dto: GrantSkinDto): Promise<boolean> {
 }
 
 export const skinOwnershipRepository = {
-    findSkinsByUserId,
+    findPageByUserId,
+    countAllByUserId,
     grantSkin,
 };
