@@ -21,13 +21,13 @@ Base URL: `/api`
 
 **Base path:** `/api/skins`
 
-| Method | Endpoint         | Description         |
-|--------|------------------|---------------------|
-| GET    | `/api/skins`     | Get paginated skins |
-| GET    | `/api/skins/:id` | Get skin by ID      |
-| POST   | `/api/skins`     | Create skin         |
-| PUT    | `/api/skins/:id` | Update skin         |
-| DELETE | `/api/skins/:id` | Delete skin         |
+| Method | Endpoint         | Description         | Auth Required |
+|--------|------------------|---------------------|---------------|
+| GET    | `/api/skins`     | Get paginated skins | No            |
+| GET    | `/api/skins/:id` | Get skin by ID      | No            |
+| POST   | `/api/skins`     | Create skin         | Yes           |
+| PUT    | `/api/skins/:id` | Update skin         | Yes           |
+| DELETE | `/api/skins/:id` | Delete skin         | Yes           |
 
 ---
 
@@ -35,10 +35,10 @@ Base URL: `/api`
 
 **Base path:** `/api/users`
 
-| Method | Endpoint         | Description         |
-|--------|------------------|---------------------|
-| GET    | `/api/users`     | Get paginated users |
-| GET    | `/api/users/:id` | Get user by ID      |
+| Method | Endpoint         | Description         | Auth Required |
+|--------|------------------|---------------------|---------------|
+| GET    | `/api/users`     | Get paginated users | Yes           |
+| GET    | `/api/users/:id` | Get user by ID      | Yes           |
 
 ---
 
@@ -46,9 +46,9 @@ Base URL: `/api`
 
 **Base path:** `/api/lootboxes`
 
-| Method | Endpoint              | Description  |
-|--------|-----------------------|--------------|
-| GET    | `/api/lootboxes/open` | Open lootbox |
+| Method | Endpoint              | Description  | Auth Required |
+|--------|-----------------------|--------------|---------------|
+| GET    | `/api/lootboxes/open` | Open lootbox | Yes           |
 
 ---
 
@@ -56,10 +56,10 @@ Base URL: `/api`
 
 **Base path:** `/api`
 
-| Method | Endpoint                             | Description                             |
-|--------|--------------------------------------|-----------------------------------------|
-| GET    | `/api/users/:userId/skin-ownerships` | Get paginated skin-ownerships by a user |
-| POST   | `/api/skin-ownerships`               | Grant skin to user                      |
+| Method | Endpoint                             | Description                             | Auth Required |
+|--------|--------------------------------------|-----------------------------------------|---------------|
+| GET    | `/api/users/:userId/skin-ownerships` | Get paginated skin-ownerships by a user | Yes           |
+| POST   | `/api/skin-ownerships`               | Grant skin to user                      | Yes           |
 
 ---
 
