@@ -19,11 +19,11 @@ async function countAll(): Promise<number> {
     return row?.count ?? 0;
 }
 
-async function create(input: SkinInput): Promise<SkinModel> {
-    const sql = "INSERT INTO skins(name, rarity) VALUES (?, ?) RETURNING *";
+async function create(input: SkinInput, createdBy: number): Promise<SkinModel> {
+    const sql = "INSERT INTO skins(name, rarity, created_by) VALUES (?, ?, ?) RETURNING *";
 
     const row = await db.get<SkinModel>(sql, [
-        input.name, input.rarity
+        input.name, input.rarity, createdBy
     ]);
 
     if (!row)
@@ -44,6 +44,12 @@ async function deleteById(id: number): Promise<boolean> {
     return result.changes > 0;
 }
 
+async function getCreatedBy(id: number): Promise<number | undefined> {
+    const sql = "SELECT created_by FROM skins WHERE id = ?";
+    const result = await db.get<{ created_by: number }>(sql, [id]);
+    return result?.created_by ?? undefined;
+}
+
 export const skinRepository = {
     findById,
     findPage,
@@ -51,4 +57,5 @@ export const skinRepository = {
     create,
     update,
     deleteById,
+    getCreatedBy,
 };

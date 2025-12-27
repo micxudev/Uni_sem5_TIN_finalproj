@@ -24,9 +24,11 @@ export async function initSchema(): Promise<void> {
         CREATE TABLE IF NOT EXISTS skins
         (
             id         INTEGER PRIMARY KEY AUTOINCREMENT,
-            name       TEXT NOT NULL,
-            rarity     TEXT NOT NULL CHECK (rarity IN ('COMMON', 'RARE', 'LEGENDARY')),
-            created_at DATETIME DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+            name       TEXT    NOT NULL,
+            rarity     TEXT    NOT NULL CHECK (rarity IN ('COMMON', 'RARE', 'LEGENDARY')),
+            created_at DATETIME DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+            created_by INTEGER NOT NULL,
+            FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE CASCADE
         )
     `);
 

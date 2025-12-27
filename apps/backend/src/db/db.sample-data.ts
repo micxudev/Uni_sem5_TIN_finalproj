@@ -9,24 +9,26 @@ import {hashPassword} from "@security/password";
 export async function seedSampleData(): Promise<void> {
     // ----------< USERS >----------
     const adminHash = await hashPassword("admin123");
+    const admin2Hash = await hashPassword("admin1234");
     const playerHash = await hashPassword("player123");
 
     await db.run(
         `
             INSERT OR IGNORE INTO users (id, username, password_hash, role)
             VALUES (1, 'admin', ?, 'ADMIN'),
-                   (2, 'player', ?, 'PLAYER')
+                   (2, 'admin2', ?, 'ADMIN'),
+                   (3, 'player', ?, 'PLAYER')
         `,
-        [adminHash, playerHash]
+        [adminHash, admin2Hash, playerHash]
     );
 
     // ----------< SKINS >----------
     await db.run(
         `
-            INSERT OR IGNORE INTO skins (id, name, rarity)
-            VALUES (1, 'CommonSkin', 'COMMON'),
-                   (2, 'RareSkin', 'RARE'),
-                   (3, 'LegendarySkin', 'LEGENDARY')
+            INSERT OR IGNORE INTO skins (id, name, rarity, created_by)
+            VALUES (1, 'CommonSkin', 'COMMON', 1),
+                   (2, 'RareSkin', 'RARE', 1),
+                   (3, 'LegendarySkin', 'LEGENDARY', 2)
         `
     );
 
