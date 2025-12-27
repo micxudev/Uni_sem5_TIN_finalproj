@@ -8,12 +8,12 @@ Base URL: `/api`
 
 **Base path:** `/api/auth`
 
-| Method | Endpoint                    |
-|--------|-----------------------------|
-| POST   | `/api/auth/register`        |
-| POST   | `/api/auth/login`           |
-| POST   | `/api/auth/logout`          |
-| POST   | `/api/auth/change-password` |
+| Method | Endpoint                    | Auth Required |
+|--------|-----------------------------|---------------|
+| POST   | `/api/auth/register`        | No            |
+| POST   | `/api/auth/login`           | no            |
+| POST   | `/api/auth/logout`          | Yes           |
+| POST   | `/api/auth/change-password` | Yes           |
 
 ---
 

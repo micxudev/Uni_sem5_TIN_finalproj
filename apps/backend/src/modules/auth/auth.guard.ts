@@ -9,3 +9,8 @@ export function requireAuthUser(req: Request): User {
 
     return user;
 }
+
+export function requireNonAuthUser(req: Request): void {
+    if (req.session.user)
+        throw new AuthenticationError("Already authenticated");
+}

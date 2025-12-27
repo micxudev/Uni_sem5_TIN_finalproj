@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {AuthInputSchema, ChangePasswordInputSchema} from "@shared";
-import {authService, requireAuthUser, sessionService} from "@modules/auth";
+import {authService, requireAuthUser, requireNonAuthUser, sessionService} from "@modules/auth";
 import {parseBodyOrThrow} from "@utils/parse-or-throw";
 
 /**
@@ -12,6 +12,8 @@ export async function register(
     req: Request,
     res: Response
 ): Promise<void> {
+    requireNonAuthUser(req);
+
     const parsedBody = parseBodyOrThrow(AuthInputSchema, req);
 
     const user = await authService.registerUser(parsedBody);
@@ -28,6 +30,8 @@ export async function login(
     req: Request,
     res: Response
 ): Promise<void> {
+    requireNonAuthUser(req);
+
     const parsedBody = parseBodyOrThrow(AuthInputSchema, req);
 
     const user = await authService.loginUser(parsedBody);
@@ -46,6 +50,8 @@ export async function logout(
     req: Request,
     res: Response
 ): Promise<void> {
+    requireAuthUser(req);
+
     await sessionService.destroy(req);
 
     res.json({success: true});
