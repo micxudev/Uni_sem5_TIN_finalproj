@@ -1,5 +1,5 @@
 import {toDomain, User, userRepository, UserRoleValues} from "@modules/users";
-import {PaginatedResult, Pagination, PaginationInput} from "@utils/pagination";
+import {PaginatedResult, Pagination, PaginationInput} from "@shared";
 import {AuthorizationError, NotFoundError} from "@errors";
 
 async function getPaginatedUsers(requester: User, input: PaginationInput): Promise<PaginatedResult<User>> {

@@ -1,8 +1,7 @@
-import {GrantSkinInput} from "@shared";
+import {GrantSkinInput, PaginatedResult, Pagination, PaginationInput} from "@shared";
 import {SkinOwnership, skinOwnershipRepository, SkinOwnershipSourceValues, toDomain} from "@modules/skin-ownership";
 import {User, UserRoleValues} from "@modules/users";
 import {AuthorizationError, BadRequestError} from "@errors";
-import {PaginatedResult, Pagination, PaginationInput} from "@utils/pagination";
 
 async function getPaginatedUserSkins(requester: User, targetUserId: number, input: PaginationInput): Promise<PaginatedResult<SkinOwnership>> {
     if (requester.role === UserRoleValues.PLAYER && requester.id !== targetUserId)

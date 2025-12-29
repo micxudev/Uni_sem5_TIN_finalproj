@@ -1,7 +1,6 @@
-import {SkinInput} from "@shared";
+import {SkinInput, PaginatedResult, Pagination, PaginationInput} from "@shared";
 import {Skin, skinRepository, toDomain} from "@modules/skins";
 import {User, UserRoleValues} from "@modules/users";
-import {PaginatedResult, Pagination, PaginationInput} from "@utils/pagination";
 import {AuthorizationError, NotFoundError} from "@errors";
 
 async function getPaginated(input: PaginationInput): Promise<PaginatedResult<Skin>> {
