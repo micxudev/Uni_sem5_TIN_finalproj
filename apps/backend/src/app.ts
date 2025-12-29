@@ -1,11 +1,7 @@
 import express, {NextFunction, Request, Response} from "express";
 
 import {createSessionMiddleware} from "@middlewares/session.middleware";
-import {authRouter} from "@modules/auth";
-import {skinsRouter} from "@modules/skins";
-import {usersRouter} from "@modules/users";
-import {lootboxesRouter} from "@modules/lootboxes";
-import {skinOwnershipsRouter} from "@modules/skin-ownership";
+import {apiRouter} from "./api.routes";
 import {CustomError} from "@errors";
 
 
@@ -23,11 +19,7 @@ app.use(createSessionMiddleware());
 
 
 // ----------< Routes >----------
-app.use("/api/auth", authRouter);
-app.use("/api/skins", skinsRouter);
-app.use("/api/users", usersRouter);
-app.use("/api/lootboxes", lootboxesRouter);
-app.use("/api", skinOwnershipsRouter);
+app.use("/api", apiRouter);
 
 
 // ----------< Errors >----------
