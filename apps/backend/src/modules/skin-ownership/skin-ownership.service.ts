@@ -1,12 +1,12 @@
 import {
-    SkinOwnership,
-    UserRoleValues,
-    User,
     GrantSkinInput,
-    SkinOwnershipSourceValues,
     PaginatedResult,
     Pagination,
-    PaginationInput
+    PaginationInput,
+    SkinOwnership,
+    SkinOwnershipSourceValues,
+    User,
+    UserRoleValues
 } from "@shared";
 import {skinOwnershipRepository, toDomain} from "@modules/skin-ownership";
 import {AuthorizationError, BadRequestError} from "@errors";

@@ -1,8 +1,7 @@
-import {User, UserRoleValues} from "@shared";
+import {AuthInput, ChangePasswordInput, User, UserRoleValues} from "@shared";
 import {toDomain, userRepository} from "@modules/users";
 import {getDummyHash, hashPassword, needsRehash, verifyPassword} from "@security/password";
 import {AuthenticationError, ConflictError, UnexpectedError} from "@errors";
-import {AuthInput, ChangePasswordInput} from "@shared";
 
 async function registerUser(input: AuthInput): Promise<User> {
     const passwordHash = await hashPassword(input.password);

@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {IdParamSchema, SkinInputSchema, PaginationInput} from "@shared";
+import {IdParamSchema, PaginationInput, SkinInputSchema} from "@shared";
 import {requireAuthUser} from "@modules/auth";
 import {skinService} from "@modules/skins";
 import {parseBodyOrThrow, parseParamsOrThrow} from "@utils/parse-or-throw";

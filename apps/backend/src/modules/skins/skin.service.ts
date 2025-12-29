@@ -1,4 +1,4 @@
-import {SkinInput, Skin, User, UserRoleValues, PaginatedResult, Pagination, PaginationInput} from "@shared";
+import {PaginatedResult, Pagination, PaginationInput, Skin, SkinInput, User, UserRoleValues} from "@shared";
 import {skinRepository, toDomain} from "@modules/skins";
 import {AuthorizationError, NotFoundError} from "@errors";
 

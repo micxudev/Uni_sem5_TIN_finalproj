@@ -1,5 +1,5 @@
 import {db} from "@db";
-import {User, SkinOwnership} from "@shared";
+import {SkinOwnership, User} from "@shared";
 import {lootboxesRepository} from "@modules/lootboxes";
 import {toDomain} from "@modules/skin-ownership";
 import {LootboxCooldownError, UnexpectedError} from "@errors";
