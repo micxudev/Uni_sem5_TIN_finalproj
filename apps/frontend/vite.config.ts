@@ -6,4 +6,12 @@ import path from 'node:path'
 export default defineConfig({
     root: path.resolve(__dirname),
     plugins: [react()],
+    server: {
+        proxy: {
+            '/api': {
+                target: 'http://localhost:3000',
+                changeOrigin: true,
+            },
+        },
+    },
 })
