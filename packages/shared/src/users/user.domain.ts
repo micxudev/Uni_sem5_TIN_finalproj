@@ -1,4 +1,4 @@
-import {UserRole} from "@modules/users";
+import {UserRole} from "./user-role";
 
 /**
  * Domain-level user.

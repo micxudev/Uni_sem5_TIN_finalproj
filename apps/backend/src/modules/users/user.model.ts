@@ -1,4 +1,4 @@
-import {UserRole} from "@modules/users";
+import {UserRole} from "@shared";
 
 /**
  * Represents a single row in the `users` table.

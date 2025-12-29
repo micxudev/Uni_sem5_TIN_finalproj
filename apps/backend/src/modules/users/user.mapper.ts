@@ -1,4 +1,5 @@
-import {User, UserModel} from "@modules/users";
+import {User} from "@shared";
+import {UserModel} from "@modules/users";
 
 export function toDomain(model: UserModel): User {
     return {

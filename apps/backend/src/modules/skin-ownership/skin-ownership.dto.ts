@@ -1,4 +1,4 @@
-import {SkinOwnershipSource} from "@modules/skin-ownership";
+import {SkinOwnershipSource} from "@shared";
 
 export interface GrantSkinDto {
     userId: number

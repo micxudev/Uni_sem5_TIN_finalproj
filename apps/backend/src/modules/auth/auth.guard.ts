@@ -1,5 +1,5 @@
 import {Request} from "express";
-import {User} from "@modules/users";
+import {User} from "@shared";
 import {AuthenticationError} from "@errors";
 
 export function requireAuthUser(req: Request): User {

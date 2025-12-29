@@ -1,6 +1,7 @@
 import {db} from "@db";
+import {SkinOwnershipSourceValues} from "@shared";
 import {SkinModel} from "@modules/skins";
-import {SkinOwnershipModel, SkinOwnershipSourceValues} from "@modules/skin-ownership";
+import {SkinOwnershipModel} from "@modules/skin-ownership";
 import {UnexpectedError} from "@errors";
 
 async function getLastLootboxOpenedAt(userId: number): Promise<string | null> {

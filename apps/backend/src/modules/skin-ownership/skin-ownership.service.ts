@@ -1,6 +1,14 @@
-import {GrantSkinInput, PaginatedResult, Pagination, PaginationInput} from "@shared";
-import {SkinOwnership, skinOwnershipRepository, SkinOwnershipSourceValues, toDomain} from "@modules/skin-ownership";
-import {User, UserRoleValues} from "@modules/users";
+import {
+    SkinOwnership,
+    UserRoleValues,
+    User,
+    GrantSkinInput,
+    SkinOwnershipSourceValues,
+    PaginatedResult,
+    Pagination,
+    PaginationInput
+} from "@shared";
+import {skinOwnershipRepository, toDomain} from "@modules/skin-ownership";
 import {AuthorizationError, BadRequestError} from "@errors";
 
 async function getPaginatedUserSkins(requester: User, targetUserId: number, input: PaginationInput): Promise<PaginatedResult<SkinOwnership>> {

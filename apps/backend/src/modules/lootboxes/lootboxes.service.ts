@@ -1,7 +1,7 @@
 import {db} from "@db";
+import {User, SkinOwnership} from "@shared";
 import {lootboxesRepository} from "@modules/lootboxes";
-import {User} from "@modules/users";
-import {SkinOwnership, toDomain} from "@modules/skin-ownership";
+import {toDomain} from "@modules/skin-ownership";
 import {LootboxCooldownError, UnexpectedError} from "@errors";
 
 const LOOTBOX_COOLDOWN_MS = 60 * 60 * 1000; // 1 hour in ms

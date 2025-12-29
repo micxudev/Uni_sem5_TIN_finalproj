@@ -1,4 +1,5 @@
-import {toDomain, User, userRepository, UserRoleValues} from "@modules/users";
+import {User, UserRoleValues} from "@shared";
+import {toDomain, userRepository} from "@modules/users";
 import {PaginatedResult, Pagination, PaginationInput} from "@shared";
 import {AuthorizationError, NotFoundError} from "@errors";
 

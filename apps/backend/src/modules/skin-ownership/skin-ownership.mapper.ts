@@ -1,4 +1,5 @@
-import {SkinOwnership, SkinOwnershipModel} from "@modules/skin-ownership";
+import {SkinOwnership} from "@shared";
+import {SkinOwnershipModel} from "@modules/skin-ownership";
 
 export function toDomain(model: SkinOwnershipModel): SkinOwnership {
     return {

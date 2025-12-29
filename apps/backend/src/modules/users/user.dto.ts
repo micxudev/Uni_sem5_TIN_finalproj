@@ -1,4 +1,4 @@
-import {UserRole} from "@modules/users";
+import {UserRole} from "@shared";
 
 /**
  * Data required to create a user.
