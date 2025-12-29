@@ -9,7 +9,8 @@ async function findPageByUserId(userId: number, limit: number, offset: number): 
                s.id           as skin_id,
                s.name         as skin_name,
                s.rarity       as skin_rarity,
-               s.created_at   as skin_created_at
+               s.created_at   as skin_created_at,
+               s.created_by   as skin_created_by
         FROM skin_ownerships so
                  JOIN skins s ON s.id = so.skin_id
         WHERE so.user_id = ?

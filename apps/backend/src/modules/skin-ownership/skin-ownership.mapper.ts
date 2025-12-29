@@ -10,6 +10,7 @@ export function toDomain(model: SkinOwnershipModel): SkinOwnership {
             name: model.skin_name,
             rarity: model.skin_rarity,
             createdAt: new Date(model.skin_created_at),
+            createdBy: model.skin_created_by,
         },
     };
 }

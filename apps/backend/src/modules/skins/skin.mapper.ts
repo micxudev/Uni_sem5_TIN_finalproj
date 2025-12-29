@@ -6,5 +6,6 @@ export function toDomain(model: SkinModel): Skin {
         name: model.name,
         rarity: model.rarity,
         createdAt: new Date(model.created_at),
+        createdBy: model.created_by,
     };
 }

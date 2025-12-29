@@ -10,4 +10,5 @@ export interface Skin {
     name: string;
     rarity: SkinRarity;
     createdAt: Date;
+    createdBy: number;
 }

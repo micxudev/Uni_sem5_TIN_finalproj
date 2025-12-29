@@ -10,4 +10,5 @@ export interface SkinModel {
     name: string;
     rarity: SkinRarity;
     created_at: string;
+    created_by: number;
 }

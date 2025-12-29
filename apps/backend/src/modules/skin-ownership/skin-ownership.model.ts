@@ -12,4 +12,5 @@ export interface SkinOwnershipModel {
     skin_name: string;
     skin_rarity: SkinRarity;
     skin_created_at: string;
+    skin_created_by: number;
 }
