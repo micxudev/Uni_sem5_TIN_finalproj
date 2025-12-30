@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 import type {PaginatedResult, Skin} from "@shared";
 import {fetchSkins} from "./api/api";
 
+import "./layout/Layout.css";
+
 import {Header} from "./components/Header/Header";
 import {Footer} from "./components/Footer/Footer";
 import {Modal} from "./components/Modal/Modal";
@@ -23,10 +25,10 @@ function App() {
     }, [page]);
 
     return (
-        <>
+        <div className="layout">
             <Header/>
 
-            <main style={{padding: 16}}>
+            <main className="layout__main">
                 <h1>Skins</h1>
 
                 {error && <p style={{color: "red"}}>{error}</p>}
@@ -60,7 +62,7 @@ function App() {
             </main>
 
             <Footer/>
-        </>
+        </div>
     );
 }
 
