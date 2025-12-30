@@ -1,0 +1,29 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background-color: var(--color-gray-800);
+}
+
+.logo {
+    height: 40px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-button, .language-button {
+    display: flex;
+    padding: 10px
+}
+
+.auth-img, .language-img {
+    height: 20px;
+}
+
+.auth-button {
+    gap: 10px;
+}
