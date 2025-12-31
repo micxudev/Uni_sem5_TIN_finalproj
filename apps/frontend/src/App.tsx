@@ -12,6 +12,7 @@ import {Footer} from "./components/Footer/Footer";
 import {Modal} from "./components/Modal/Modal";
 import {SkinsTable} from "./components/SkinsTable/SkinsTable";
 import {PaginationControls} from "./components/PaginationControls/PaginationControls";
+import {SkinModal} from "./components/SkinModal/SkinModal.tsx";
 import {LanguageModal} from "./components/LanguageModal/LanguageModal.tsx";
 
 const SKINS_PER_PAGE = 8;
@@ -75,11 +76,25 @@ function App() {
 
                 {selectedSkin && (
                     <Modal onClose={() => setSelectedSkin(null)}>
-                        <h3>{selectedSkin.name}</h3>
-                        <p>{t.skins.rarity}: {selectedSkin.rarity}</p>
-                        <p>
-                            {t.skins.createdAt}: {new Date(selectedSkin.createdAt).toLocaleString()}
-                        </p>
+                        <SkinModal
+                            skin={selectedSkin}
+                            canEdit={true}   // (computed later)
+                            canDelete={true} // (computed later)
+                            onEdit={() => {
+                                console.log("edit", selectedSkin.id);
+                            }}
+                            onDelete={() => {
+                                console.log("delete", selectedSkin.id);
+                            }}
+                            labels={{
+                                title: selectedSkin.name,
+                                id: t.skins.id,
+                                rarity: t.skins.rarity,
+                                createdAt: t.skins.createdAt,
+                                edit: t.common.edit,
+                                delete: t.common.delete,
+                            }}
+                        />
                     </Modal>
                 )}
 

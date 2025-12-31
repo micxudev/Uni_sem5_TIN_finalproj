@@ -17,5 +17,9 @@ export interface TranslationSchema {
     };
     languages: {
         title: string;
-    }
+    };
+    common: {
+        edit: string;
+        delete: string;
+    };
 }

@@ -19,5 +19,9 @@ export const en: TranslationSchema = {
     },
     languages: {
         title: "Interface Language"
-    }
+    },
+    common: {
+        edit: "Edit",
+        delete: "Delete",
+    },
 };

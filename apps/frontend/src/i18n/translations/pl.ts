@@ -19,5 +19,9 @@ export const pl: TranslationSchema = {
     },
     languages: {
         title: "Język Interfejsu"
-    }
+    },
+    common: {
+        edit: "Redagować",
+        delete: "Usuwać",
+    },
 };
