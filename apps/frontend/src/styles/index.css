@@ -28,6 +28,7 @@ button {
     cursor: pointer;
     transition: border-color 0.25s;
     outline: none;
+    white-space: nowrap;
 }
 
 button:hover {

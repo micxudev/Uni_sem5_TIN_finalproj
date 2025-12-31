@@ -2,7 +2,7 @@ import type {TranslationSchema} from "../i18n.types.ts";
 
 export const en: TranslationSchema = {
     skins: {
-        title: "Skins",
+        title: "skins",
         id: "ID",
         name: "Name",
         rarity: "Rarity",

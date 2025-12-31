@@ -1,11 +1,16 @@
-import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
-import './styles/index.css';
-import './styles/variables.css';
-import App from './App.tsx';
+import {StrictMode} from "react";
+import {createRoot} from "react-dom/client";
+import App from "./App";
 
-createRoot(document.getElementById('root')!).render(
+import {I18nProvider} from "./i18n/I18nContext";
+
+import "./styles/index.css";
+import "./styles/variables.css";
+
+createRoot(document.getElementById("root")!).render(
     <StrictMode>
-        <App/>
-    </StrictMode>,
+        <I18nProvider>
+            <App/>
+        </I18nProvider>
+    </StrictMode>
 );
