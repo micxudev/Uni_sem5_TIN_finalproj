@@ -4,17 +4,23 @@ import "./SkinsTable.css";
 interface SkinsTableProps {
     skins: Skin[];
     onSelect: (skin: Skin) => void;
+    labels: {
+        id: string;
+        name: string;
+        rarity: string;
+        createdAt: string;
+    }
 }
 
-export function SkinsTable({skins, onSelect}: SkinsTableProps) {
+export function SkinsTable({skins, onSelect, labels}: SkinsTableProps) {
     return (
         <table className="skins-table">
             <thead>
             <tr className="skins-table__head-row">
-                <th>ID</th>
-                <th>Name</th>
-                <th>Rarity</th>
-                <th>Created at</th>
+                <th>{labels.id}</th>
+                <th>{labels.name}</th>
+                <th>{labels.rarity}</th>
+                <th>{labels.createdAt}</th>
             </tr>
             </thead>
             <tbody>

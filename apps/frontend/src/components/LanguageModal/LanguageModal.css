@@ -1,0 +1,40 @@
+.languages-title {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.languages-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0 0;
+}
+
+.language-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.language-row:last-child {
+    margin-bottom: 0;
+}
+
+.language-row:hover {
+    background-color: var(--color-gray-700);
+}
+
+.language-row.active {
+    background-color: var(--color-blue-600);
+}
+
+.language-flag {
+    height: 24px;
+}
+
+.language-title {
+    font-weight: bolder;
+}
