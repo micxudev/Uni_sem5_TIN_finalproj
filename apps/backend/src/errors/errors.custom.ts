@@ -1,10 +1,12 @@
 import {Response} from "express";
+import {ApiError, ErrorCode} from "@shared";
 
 /**
  * Base class for custom errors.
  */
 export abstract class CustomError<T = unknown> extends Error {
     abstract readonly statusCode: number;
+    abstract readonly errorCode: ErrorCode;
     readonly payload?: T;
 
     constructor(message?: string, payload?: T) {
@@ -14,6 +16,14 @@ export abstract class CustomError<T = unknown> extends Error {
     }
 
     sendJson(res: Response): void {
-        res.status(this.statusCode).json({error: this.message, details: this.payload});
+        const apiError: ApiError = {
+            success: false,
+            error: {
+                code: this.errorCode,
+                message: this.message,
+                details: this.payload,
+            }
+        };
+        res.status(this.statusCode).json(apiError);
     }
 }

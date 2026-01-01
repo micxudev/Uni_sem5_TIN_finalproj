@@ -1,4 +1,5 @@
 import {CustomError} from "@errors";
+import {ErrorCodeValues} from "@shared";
 
 /**
  * Base class for custom HTTP errors.
@@ -11,6 +12,7 @@ export abstract class HttpError extends CustomError {
  */
 export class BadRequestError extends HttpError {
     readonly statusCode = 400;
+    readonly errorCode = ErrorCodeValues.BAD_REQUEST;
 }
 
 /**
@@ -18,6 +20,7 @@ export class BadRequestError extends HttpError {
  */
 export class AuthenticationError extends HttpError {
     readonly statusCode = 401;
+    readonly errorCode = ErrorCodeValues.UNAUTHENTICATED;
 }
 
 /**
@@ -25,6 +28,7 @@ export class AuthenticationError extends HttpError {
  */
 export class AuthorizationError extends HttpError {
     readonly statusCode = 403;
+    readonly errorCode = ErrorCodeValues.UNAUTHORIZED;
 }
 
 /**
@@ -32,6 +36,7 @@ export class AuthorizationError extends HttpError {
  */
 export class NotFoundError extends HttpError {
     readonly statusCode = 404;
+    readonly errorCode = ErrorCodeValues.NOT_FOUND;
 }
 
 /**
@@ -39,4 +44,5 @@ export class NotFoundError extends HttpError {
  */
 export class ConflictError extends HttpError {
     readonly statusCode = 409;
+    readonly errorCode = ErrorCodeValues.CONFLICT;
 }
