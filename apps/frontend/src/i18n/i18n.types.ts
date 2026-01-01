@@ -27,4 +27,7 @@ export interface TranslationSchema {
         edit: string;
         delete: string;
     };
+    errors: {
+        serverNotResponded: string;
+    };
 }

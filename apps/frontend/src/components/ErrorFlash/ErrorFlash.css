@@ -1,0 +1,18 @@
+.error-flash {
+    text-align: center;
+    border: 1px solid var(--color-red-400);
+    background: linear-gradient(var(--color-red-muted), var(--color-red-muted));
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.error-flash-title {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--color-gray-100);
+    font-weight: bolder;
+}
+
+.error-flash-message {
+    color: var(--color-gray-200);
+}

@@ -4,7 +4,7 @@ import {AppLayout} from "./layout/AppLayout";
 import {SkinsPage} from "./pages/SkinsPage";
 import {Modal} from "./components/Modal/Modal";
 import {LanguageModal} from "./components/LanguageModal/LanguageModal";
-import {AuthModal} from "./components/AuthModal/AuthModal.tsx";
+import {AuthModal} from "./components/Auth/AuthModal.tsx";
 
 import {useI18n, useLanguage, useSetLanguage} from "./i18n/I18nContext";
 

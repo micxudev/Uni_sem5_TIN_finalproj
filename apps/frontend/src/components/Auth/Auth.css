@@ -18,6 +18,7 @@
 .field-error {
     font-size: 14px;
     color: var(--color-red-500);
+    margin-top: 5px;
 }
 
 .auth-submit {

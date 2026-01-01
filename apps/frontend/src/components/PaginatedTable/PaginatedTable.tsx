@@ -1,13 +1,14 @@
 import type {ReactNode} from "react";
 import {useEffect, useState} from "react";
-import type {PaginatedResult} from "@shared";
+import type {ApiErrorPayload, ApiResponse, PaginatedResult} from "@shared";
 import type {Column} from "./Table/types.ts";
 import {Table} from "./Table/Table.tsx";
 import {PaginationControls} from "./PaginationControls/PaginationControls";
 import "./PaginatedTable.css";
+import {ErrorFlash} from "../ErrorFlash/ErrorFlash.tsx";
 
 interface PaginatedTableProps<T> {
-    fetcher: (page: number, perPage: number) => Promise<PaginatedResult<T>>;
+    fetcher: (page: number, perPage: number) => Promise<ApiResponse<PaginatedResult<T>>>;
     columns: Column<T>[];
     perPage: number;
 
@@ -25,22 +26,21 @@ interface PaginatedTableProps<T> {
 export function PaginatedTable<T>({fetcher, columns, perPage, header, onRowSelect, labels,}: PaginatedTableProps<T>) {
     const [page, setPage] = useState(1);
     const [result, setResult] = useState<PaginatedResult<T> | null>(null);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<ApiErrorPayload | null>(null);
 
     useEffect(() => {
         setError(null);
         fetcher(page, perPage)
-            .then(setResult)
-            .catch(err => setError(err.message));
+            .then(res => {
+                if (res.success)
+                    setResult(res.data);
+                else
+                    setError(res.error);
+            })
     }, [page, perPage]);
 
-    if (error) {
-        return <p style={{color: "red"}}>{labels.error} : {error}</p>; // (improve later)
-    }
-
-    if (!result) {
-        return null; // (improve later)
-    }
+    if (error || !result)
+        return <ErrorFlash title={error?.code} error={labels.error}/>;
 
     return (
         <div className="paginated-table">

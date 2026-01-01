@@ -29,4 +29,7 @@ export const en: TranslationSchema = {
         edit: "Edit",
         delete: "Delete",
     },
+    errors: {
+        serverNotResponded: "Server could not respond",
+    },
 };

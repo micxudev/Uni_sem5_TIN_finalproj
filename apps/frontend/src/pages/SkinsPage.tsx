@@ -1,7 +1,7 @@
 import {useState} from "react";
 import type {Skin} from "@shared";
 
-import {fetchSkins} from "../api/api";
+import {fetchSkins} from "../api/api.skins.ts";
 
 import {PaginatedTable} from "../components/PaginatedTable/PaginatedTable";
 import type {Column} from "../components/PaginatedTable/Table/types";
@@ -31,7 +31,7 @@ export function SkinsPage() {
                     <h2>{result.meta.total} {t.skins.title}</h2>
                 )}
                 labels={{
-                    error: "",
+                    error: t.errors.serverNotResponded,
                     prev: t.pagination.prev,
                     next: t.pagination.next,
                     page: t.pagination.page,

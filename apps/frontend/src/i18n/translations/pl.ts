@@ -29,4 +29,7 @@ export const pl: TranslationSchema = {
         edit: "Redagować",
         delete: "Usuwać",
     },
+    errors: {
+        serverNotResponded: "Serwer nie mógł odpowiedzieć",
+    },
 };
