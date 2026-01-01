@@ -1,0 +1,38 @@
+.auth-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.auth-title {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.field-error {
+    font-size: 14px;
+    color: var(--color-red-500);
+}
+
+.auth-submit {
+    margin-top: 15px;
+}
+
+.auth-switch {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    font-size: 14px;
+    color: var(--color-gray-300);
+}
+
+.auth-switch a {
+    cursor: pointer;
+    color: var(--color-blue-500);
+}

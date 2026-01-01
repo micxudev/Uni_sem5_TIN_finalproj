@@ -9,6 +9,11 @@ export interface TranslationSchema {
     };
     auth: {
         signIn: string;
+        signUp: string;
+        noAccount: string;
+        alreadyHaveAccount: string;
+        username: string;
+        password: string;
     };
     pagination: {
         prev: string;

@@ -6,16 +6,18 @@ import {useI18n} from "../i18n/I18nContext.tsx";
 
 interface AppLayoutProps {
     children: ReactNode;
+    onAuthClick: () => void;
     onLanguageClick: () => void;
 }
 
-export function AppLayout({children, onLanguageClick}: AppLayoutProps) {
+export function AppLayout({children, onAuthClick, onLanguageClick}: AppLayoutProps) {
     const t = useI18n();
 
     return (
         <div className="layout">
             <Header
                 onLanguageClick={onLanguageClick}
+                onAuthClick={onAuthClick}
                 labels={{signIn: t.auth.signIn}}
             />
 

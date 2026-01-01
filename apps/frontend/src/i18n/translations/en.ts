@@ -11,6 +11,11 @@ export const en: TranslationSchema = {
     },
     auth: {
         signIn: "Sign in",
+        signUp: "Sign up",
+        noAccount: "Don’t have an account?",
+        alreadyHaveAccount: "Already have an account?",
+        username: "Username",
+        password: "Password",
     },
     pagination: {
         prev: "Previous",
