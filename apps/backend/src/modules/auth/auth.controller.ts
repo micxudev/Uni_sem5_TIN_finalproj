@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {AuthInputSchema, ChangePasswordInputSchema} from "@shared";
+import {ApiSuccess, AuthInputSchema, ChangePasswordInputSchema, User} from "@shared";
 import {authService, requireAuthUser, requireNonAuthUser, sessionService} from "@modules/auth";
 import {parseBodyOrThrow} from "@utils/parse-or-throw";
 
@@ -18,7 +18,11 @@ export async function register(
 
     const user = await authService.registerUser(parsedBody);
 
-    res.status(201).json({id: user.id});
+    const apiSuccess: ApiSuccess<User> = {
+        success: true,
+        data: user
+    };
+    res.status(201).json(apiSuccess);
 }
 
 /**
@@ -38,7 +42,11 @@ export async function login(
 
     sessionService.create(req, user);
 
-    res.json({success: true});
+    const apiSuccess: ApiSuccess<User> = {
+        success: true,
+        data: user
+    };
+    res.json(apiSuccess);
 }
 
 /**
@@ -54,7 +62,11 @@ export async function logout(
 
     await sessionService.destroy(req);
 
-    res.json({success: true});
+    const apiSuccess: ApiSuccess<void> = {
+        success: true,
+        data: undefined
+    };
+    res.json(apiSuccess);
 }
 
 /**
@@ -72,5 +84,9 @@ export async function changePassword(
 
     await authService.changePassword(user.id, parsedBody);
 
-    res.json({success: true});
+    const apiSuccess: ApiSuccess<void> = {
+        success: true,
+        data: undefined
+    };
+    res.json(apiSuccess);
 }

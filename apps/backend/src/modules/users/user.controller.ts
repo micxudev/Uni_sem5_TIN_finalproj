@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {IdParamSchema, PaginationInput} from "@shared";
+import {ApiSuccess, IdParamSchema, PaginatedResult, PaginationInput, User} from "@shared";
 import {requireAuthUser} from "@modules/auth";
 import {userService} from "@modules/users";
 import {parseParamsOrThrow} from "@utils/parse-or-throw";
@@ -22,7 +22,11 @@ export async function getPaginated(
 
     const result = await userService.getPaginatedUsers(user, paginationInput);
 
-    res.json(result);
+    const apiSuccess: ApiSuccess<PaginatedResult<User>> = {
+        success: true,
+        data: result
+    };
+    res.json(apiSuccess);
 }
 
 /**
@@ -40,5 +44,9 @@ export async function getById(
 
     const result = await userService.getUserById(user, id);
 
-    res.json(result);
+    const apiSuccess: ApiSuccess<User> = {
+        success: true,
+        data: result
+    };
+    res.json(apiSuccess);
 }

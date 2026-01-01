@@ -1,5 +1,12 @@
 import {Request, Response} from "express";
-import {GrantSkinInputSchema, PaginationInput, UserIdParamSchema} from "@shared";
+import {
+    ApiSuccess,
+    GrantSkinInputSchema,
+    PaginatedResult,
+    PaginationInput,
+    SkinOwnership,
+    UserIdParamSchema
+} from "@shared";
 import {requireAuthUser} from "@modules/auth";
 import {skinOwnershipService} from "@modules/skin-ownership";
 import {parseBodyOrThrow, parseParamsOrThrow} from "@utils/parse-or-throw";
@@ -25,7 +32,11 @@ export async function getUserSkins(
         user, userId, paginationInput
     );
 
-    res.json(result);
+    const apiSuccess: ApiSuccess<PaginatedResult<SkinOwnership>> = {
+        success: true,
+        data: result
+    };
+    res.json(apiSuccess);
 }
 
 /**
@@ -43,5 +54,9 @@ export async function grantSkinToUser(
 
     await skinOwnershipService.grantSkin(user, parsedBody);
 
-    res.json({success: true});
+    const apiSuccess: ApiSuccess<void> = {
+        success: true,
+        data: undefined
+    };
+    res.json(apiSuccess);
 }

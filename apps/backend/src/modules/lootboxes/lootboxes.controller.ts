@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import {requireAuthUser} from "@modules/auth";
 import {lootboxesService} from "@modules/lootboxes";
+import {ApiSuccess, SkinOwnership} from "@shared";
 
 /**
  * ==========
@@ -15,5 +16,9 @@ export async function open(
 
     const skinOwnership = await lootboxesService.open(user);
 
-    res.json(skinOwnership);
+    const apiSuccess: ApiSuccess<SkinOwnership> = {
+        success: true,
+        data: skinOwnership
+    };
+    res.json(apiSuccess);
 }

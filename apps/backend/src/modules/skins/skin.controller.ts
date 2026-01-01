@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {IdParamSchema, PaginationInput, SkinInputSchema} from "@shared";
+import {ApiSuccess, IdParamSchema, PaginatedResult, PaginationInput, Skin, SkinInputSchema} from "@shared";
 import {requireAuthUser} from "@modules/auth";
 import {skinService} from "@modules/skins";
 import {parseBodyOrThrow, parseParamsOrThrow} from "@utils/parse-or-throw";
@@ -20,7 +20,11 @@ export async function getPaginated(
 
     const result = await skinService.getPaginated(paginationInput);
 
-    res.json(result);
+    const apiSuccess: ApiSuccess<PaginatedResult<Skin>> = {
+        success: true,
+        data: result
+    };
+    res.json(apiSuccess);
 }
 
 /**
@@ -36,7 +40,11 @@ export async function getById(
 
     const skin = await skinService.getById(id);
 
-    res.json(skin);
+    const apiSuccess: ApiSuccess<Skin> = {
+        success: true,
+        data: skin
+    };
+    res.json(apiSuccess);
 }
 
 /**
@@ -54,7 +62,11 @@ export async function create(
 
     const skin = await skinService.create(user, parsedBody);
 
-    res.status(201).json(skin);
+    const apiSuccess: ApiSuccess<Skin> = {
+        success: true,
+        data: skin
+    };
+    res.status(201).json(apiSuccess);
 }
 
 /**
@@ -74,7 +86,11 @@ export async function update(
 
     await skinService.update(user, id, parsedBody);
 
-    res.json({success: true})
+    const apiSuccess: ApiSuccess<void> = {
+        success: true,
+        data: undefined
+    };
+    res.json(apiSuccess);
 }
 
 /**
@@ -92,5 +108,9 @@ export async function deleteById(
 
     await skinService.deleteById(user, id);
 
-    res.json({success: true});
+    const apiSuccess: ApiSuccess<void> = {
+        success: true,
+        data: undefined
+    };
+    res.json(apiSuccess);
 }
