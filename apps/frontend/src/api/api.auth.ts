@@ -30,3 +30,7 @@ export function changePassword(data: ChangePasswordInput): Promise<ApiResponse<v
         body: JSON.stringify(data),
     });
 }
+
+export function getCurrentUser(): Promise<ApiResponse<User>> {
+    return apiFetch<User>("/api/auth/me");
+}

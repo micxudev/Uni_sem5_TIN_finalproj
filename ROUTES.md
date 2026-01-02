@@ -14,6 +14,7 @@ Base URL: `/api`
 | POST   | `/api/auth/login`           | No            | GUEST         |
 | POST   | `/api/auth/logout`          | Yes           | PLAYER        |
 | POST   | `/api/auth/change-password` | Yes           | PLAYER        |
+| GET    | `/api/auth/me`              | Yes           | PLAYER        |
 
 ---
 

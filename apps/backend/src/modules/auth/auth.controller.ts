@@ -90,3 +90,21 @@ export async function changePassword(
     };
     res.json(apiSuccess);
 }
+
+/**
+ * ==========
+ * `GET /api/auth/me`
+ * ==========
+ */
+export async function getCurrentUser(
+    req: Request,
+    res: Response
+): Promise<void> {
+    const user = requireAuthUser(req);
+
+    const apiSuccess: ApiSuccess<User> = {
+        success: true,
+        data: user
+    };
+    res.json(apiSuccess);
+}
