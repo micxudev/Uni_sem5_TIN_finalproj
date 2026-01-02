@@ -12,11 +12,14 @@ export const pl: TranslationSchema = {
     auth: {
         signIn: "Zaloguj się",
         signUp: "Zarejestruj się",
+        logout: "Wyloguj się",
         noAccount: "Nie masz konta?",
         alreadyHaveAccount: "Masz już konto?",
         username: "Nazwa użytkownika",
         password: "Hasło",
+        signInSuccess: "Logowanie pomyślne!",
         signUpSuccess: "Rejestracja przebiegła pomyślnie, możesz się teraz zalogować!",
+        logoutSuccess: "Wylogowano pomyślnie!",
     },
     pagination: {
         prev: "Poprzednia",

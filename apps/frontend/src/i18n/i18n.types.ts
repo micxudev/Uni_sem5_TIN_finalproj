@@ -10,11 +10,14 @@ export interface TranslationSchema {
     auth: {
         signIn: string;
         signUp: string;
+        logout: string;
         noAccount: string;
         alreadyHaveAccount: string;
         username: string;
         password: string;
+        signInSuccess: string;
         signUpSuccess: string;
+        logoutSuccess: string;
     };
     pagination: {
         prev: string;

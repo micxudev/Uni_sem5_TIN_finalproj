@@ -1,9 +1,17 @@
 .error-flash {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
     text-align: center;
     border: 1px solid var(--color-red-400);
     background: linear-gradient(var(--color-red-muted), var(--color-red-muted));
     padding: 10px;
     border-radius: 5px;
+}
+
+.error-flash-content {
+    flex: 1;
 }
 
 .error-flash-title {
@@ -15,4 +23,23 @@
 
 .error-flash-message {
     color: var(--color-gray-200);
+}
+
+.error-flash-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    background: transparent;
+    border: none;
+    color: var(--color-gray-100);
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+}
+
+.error-flash-close:hover {
+    opacity: 0.8;
 }

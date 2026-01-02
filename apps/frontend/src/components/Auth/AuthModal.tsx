@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {AuthForm} from "./AuthForm.tsx";
-import {type ApiErrorPayload, type AuthInput} from "@shared";
+import {type ApiErrorPayload, type AuthInput, type User} from "@shared";
 import {login, register} from "../../api/api.auth.ts";
 import {ErrorFlash} from "../ErrorFlash/ErrorFlash.tsx";
 import "./Auth.css";
@@ -9,6 +9,8 @@ type AuthMode = "signin" | "signup";
 
 interface AuthModalProps {
     onClose: () => void;
+    onSignIn: (user: User) => void;
+    onSignUp: () => void;
     labels: {
         signIn: string;
         signUp: string;
@@ -19,7 +21,7 @@ interface AuthModalProps {
     }
 }
 
-export function AuthModal({onClose, labels}: AuthModalProps) {
+export function AuthModal({onClose, onSignIn, onSignUp, labels}: AuthModalProps) {
     const [mode, setMode] = useState<AuthMode>("signin");
     const [error, setError] = useState<ApiErrorPayload | null>(null);
 
@@ -35,8 +37,7 @@ export function AuthModal({onClose, labels}: AuthModalProps) {
             return;
         }
 
-        console.log(isSignIn ? "Signed in as:" : "Registered as:");
-        console.log(response.data);
+        isSignIn ? onSignIn(response.data) : onSignUp();
 
         onClose();
     }
@@ -47,7 +48,7 @@ export function AuthModal({onClose, labels}: AuthModalProps) {
                 {isSignIn ? labels.signIn : labels.signUp}
             </h2>
 
-            <ErrorFlash error={error?.message}/>
+            <ErrorFlash error={error?.message} closable={false}/>
 
             <AuthForm
                 labels={{

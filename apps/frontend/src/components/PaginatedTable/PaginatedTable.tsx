@@ -39,8 +39,10 @@ export function PaginatedTable<T>({fetcher, columns, perPage, header, onRowSelec
             })
     }, [page, perPage]);
 
-    if (error || !result)
+    if (error)
         return <ErrorFlash title={error?.code} error={labels.error}/>;
+
+    if (!result) return null; // Loading state (show nothing for now)
 
     return (
         <div className="paginated-table">

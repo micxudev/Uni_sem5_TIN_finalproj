@@ -1,0 +1,12 @@
+.Toastify__toast {
+    background: var(--color-gray-600);
+    color: var(--color-gray-200);
+}
+
+.Toastify__progress-bar {
+    background: var(--color-blue-400);
+}
+
+.Toastify__progress-bar--bg {
+    background: var(--color-black);
+}

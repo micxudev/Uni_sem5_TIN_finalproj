@@ -12,11 +12,14 @@ export const en: TranslationSchema = {
     auth: {
         signIn: "Sign in",
         signUp: "Sign up",
+        logout: "Logout",
         noAccount: "Don’t have an account?",
         alreadyHaveAccount: "Already have an account?",
         username: "Username",
         password: "Password",
+        signInSuccess: "Sign in successful!",
         signUpSuccess: "Sign up successful, you can now sign in!",
+        logoutSuccess: "Logged out successfully!",
     },
     pagination: {
         prev: "Previous",
