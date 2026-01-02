@@ -9,6 +9,14 @@ export const pl: TranslationSchema = {
         createdAt: "Data utworzenia",
         createdBy: "Utworzone przez",
     },
+    users: {
+        title: "Użytkownicy",
+        id: "ID",
+        username: "Nazwa użytkownika",
+        role: "Rola",
+        createdAt: "Utworzono w",
+        lastLootboxOpenedAt: "Ostatnia skrzynka z łupami otwarta o",
+    },
     auth: {
         signIn: "Zaloguj się",
         signUp: "Zarejestruj się",
@@ -20,6 +28,8 @@ export const pl: TranslationSchema = {
         signInSuccess: "Logowanie pomyślne!",
         signUpSuccess: "Rejestracja przebiegła pomyślnie, możesz się teraz zalogować!",
         logoutSuccess: "Wylogowano pomyślnie!",
+        profile: "Profil",
+        changePassword: "Zmień hasło",
     },
     pagination: {
         prev: "Poprzednia",

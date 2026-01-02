@@ -9,6 +9,14 @@ export const en: TranslationSchema = {
         createdAt: "Created at",
         createdBy: "Created by",
     },
+    users: {
+        title: "Users",
+        id: "ID",
+        username: "Username",
+        role: "Role",
+        createdAt: "Created at",
+        lastLootboxOpenedAt: "Last lootbox opened at",
+    },
     auth: {
         signIn: "Sign in",
         signUp: "Sign up",
@@ -20,6 +28,8 @@ export const en: TranslationSchema = {
         signInSuccess: "Sign in successful!",
         signUpSuccess: "Sign up successful, you can now sign in!",
         logoutSuccess: "Logged out successfully!",
+        profile: "Profile",
+        changePassword: "Change Password",
     },
     pagination: {
         prev: "Previous",

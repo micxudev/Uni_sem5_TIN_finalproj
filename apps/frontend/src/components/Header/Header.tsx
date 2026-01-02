@@ -1,36 +1,38 @@
-import "./Header.css";
 import type {User} from "@shared";
+import "./Header.css";
 
 interface HeaderProps {
     user: User | null;
-    onAuthClick: () => void;
-    onLogoutClick: () => void;
     onLanguageClick: () => void;
+    onAuthClick: () => void;
+    onProfileClick: () => void;
     labels: {
+        language: string;
         signIn: string;
-        logout: string;
+        profile: string;
     }
 }
 
-export function Header({user, onAuthClick, onLogoutClick, onLanguageClick, labels}: HeaderProps) {
+export function Header({user, onLanguageClick, onAuthClick, onProfileClick, labels}: HeaderProps) {
     return (
         <header className="header">
             <img className="logo" src="/logo.svg" alt="Logo"/>
             <div className="buttons-container">
 
-                <button className="language-button" onClick={onLanguageClick}>
-                    <img className="language-img" src="/language.svg" alt="Language"/>
+                <button className="header-button" onClick={onLanguageClick}>
+                    <img className="header-button-img" src="/language.svg" alt="Language"/>
+                    {labels.language}
                 </button>
 
                 {!user ? (
-                    <button className="auth-button" onClick={onAuthClick}>
-                        <img className="auth-img" src="/auth.svg" alt="Auth"/>
+                    <button className="header-button" onClick={onAuthClick}>
+                        <img className="header-button-img" src="/auth.svg" alt="Auth"/>
                         {labels.signIn}
                     </button>
                 ) : (
-                    <button className="auth-button" onClick={onLogoutClick}>
-                        <img className="auth-img" src="/logout.svg" alt="Logout"/>
-                        {labels.logout}
+                    <button className="header-button" onClick={onProfileClick}>
+                        <img className="header-button-img" src="/profile.svg" alt="Profile"/>
+                        {labels.profile}
                     </button>
                 )}
             </div>

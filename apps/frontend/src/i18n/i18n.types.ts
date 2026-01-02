@@ -7,6 +7,14 @@ export interface TranslationSchema {
         createdAt: string;
         createdBy: string;
     };
+    users: {
+        title: string;
+        id: string;
+        username: string;
+        role: string;
+        createdAt: string;
+        lastLootboxOpenedAt: string;
+    };
     auth: {
         signIn: string;
         signUp: string;
@@ -18,6 +26,8 @@ export interface TranslationSchema {
         signInSuccess: string;
         signUpSuccess: string;
         logoutSuccess: string;
+        profile: string;
+        changePassword: string;
     };
     pagination: {
         prev: string;
