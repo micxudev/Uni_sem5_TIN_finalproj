@@ -1,5 +1,5 @@
 import {useState} from "react";
-import type {Skin} from "@shared";
+import {type Skin, UserRoleValues} from "@shared";
 
 import {fetchSkins} from "../api/api.skins.ts";
 
@@ -8,9 +8,12 @@ import type {Column} from "../components/PaginatedTable/Table/types";
 import {Modal} from "../components/Modal/Modal";
 import {SkinModal} from "../components/SkinModal/SkinModal";
 import {useI18n} from "../i18n/I18nContext.tsx";
+import {useUser} from "../AuthContext/AuthContext.tsx";
 
 export function SkinsPage() {
     const t = useI18n();
+    const user = useUser();
+    const isAdmin = user?.role === UserRoleValues.ADMIN;
 
     const [selectedSkin, setSelectedSkin] = useState<Skin | null>(null);
     const columns: Column<Skin>[] = [
@@ -42,8 +45,8 @@ export function SkinsPage() {
                 <Modal onClose={() => setSelectedSkin(null)}>
                     <SkinModal
                         skin={selectedSkin}
-                        canEdit={true}
-                        canDelete={true}
+                        canEdit={isAdmin}
+                        canDelete={isAdmin}
                         onEdit={() => console.log("edit", selectedSkin.id)}
                         onDelete={() => console.log("delete", selectedSkin.id)}
                         labels={{
