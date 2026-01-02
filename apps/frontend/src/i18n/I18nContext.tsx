@@ -1,6 +1,7 @@
 import {createContext, type ReactNode, useContext, useState} from "react";
 import {type Language, translations} from "./index";
 import type {TranslationSchema} from "./i18n.types";
+import {setZodLocale} from "./zod-i18n.ts";
 
 const DEFAULT_LANGUAGE: Language = "en";
 const LANGUAGE_STORAGE_KEY = "app.language";
@@ -15,13 +16,17 @@ const I18nContext = createContext<I18nContextValue | null>(null);
 export function I18nProvider({children}: { children: ReactNode }) {
     const [language, setLanguageState] = useState<Language>(() => {
         const stored = localStorage.getItem(LANGUAGE_STORAGE_KEY);
-        return stored && stored in translations
+        const lang = stored && stored in translations
             ? stored as Language
             : DEFAULT_LANGUAGE;
+
+        setZodLocale(lang);
+        return lang;
     });
 
     function setLanguage(lang: Language) {
         localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+        setZodLocale(lang)
         setLanguageState(lang);
     }
 
