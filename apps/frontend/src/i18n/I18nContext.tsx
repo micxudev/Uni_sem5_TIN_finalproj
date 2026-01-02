@@ -2,6 +2,9 @@ import {createContext, type ReactNode, useContext, useState} from "react";
 import {type Language, translations} from "./index";
 import type {TranslationSchema} from "./i18n.types";
 
+const DEFAULT_LANGUAGE: Language = "en";
+const LANGUAGE_STORAGE_KEY = "app.language";
+
 type I18nContextValue = {
     language: Language;
     setLanguage: (lang: Language) => void;
@@ -10,7 +13,17 @@ type I18nContextValue = {
 const I18nContext = createContext<I18nContextValue | null>(null);
 
 export function I18nProvider({children}: { children: ReactNode }) {
-    const [language, setLanguage] = useState<Language>("en");
+    const [language, setLanguageState] = useState<Language>(() => {
+        const stored = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+        return stored && stored in translations
+            ? stored as Language
+            : DEFAULT_LANGUAGE;
+    });
+
+    function setLanguage(lang: Language) {
+        localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+        setLanguageState(lang);
+    }
 
     return (
         <I18nContext.Provider value={{language, setLanguage}}>

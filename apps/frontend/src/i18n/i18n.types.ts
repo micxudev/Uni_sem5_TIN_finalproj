@@ -14,6 +14,7 @@ export interface TranslationSchema {
         alreadyHaveAccount: string;
         username: string;
         password: string;
+        signUpSuccess: string;
     };
     pagination: {
         prev: string;

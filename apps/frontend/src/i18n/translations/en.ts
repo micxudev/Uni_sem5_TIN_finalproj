@@ -16,6 +16,7 @@ export const en: TranslationSchema = {
         alreadyHaveAccount: "Already have an account?",
         username: "Username",
         password: "Password",
+        signUpSuccess: "Sign up successful, you can now sign in!",
     },
     pagination: {
         prev: "Previous",

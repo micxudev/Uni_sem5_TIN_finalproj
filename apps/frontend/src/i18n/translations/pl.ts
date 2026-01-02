@@ -16,6 +16,7 @@ export const pl: TranslationSchema = {
         alreadyHaveAccount: "Masz już konto?",
         username: "Nazwa użytkownika",
         password: "Hasło",
+        signUpSuccess: "Rejestracja przebiegła pomyślnie, możesz się teraz zalogować!",
     },
     pagination: {
         prev: "Poprzednia",
