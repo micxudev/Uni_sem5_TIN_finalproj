@@ -10,6 +10,10 @@ export default defineConfig({
         react(),
         tsconfigPaths()
     ],
+    build: {
+        outDir: path.resolve(__dirname, "../../dist/apps/backend/public"),
+        emptyOutDir: true,
+    },
     server: {
         proxy: {
             '/api': {

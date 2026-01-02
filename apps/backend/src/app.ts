@@ -1,4 +1,5 @@
 import express, {NextFunction, Request, Response} from "express";
+import path from "path";
 
 import {createSessionMiddleware} from "@middlewares/session.middleware";
 import {apiRouter} from "./api.routes";
@@ -7,13 +8,12 @@ import {ApiError, ErrorCodeValues} from "@shared";
 
 
 // ----------< App >----------
+const FRONTEND_DIR = path.resolve(__dirname, "../public");
 export const app = express();
-//app.set("views", path.join(ROOT_DIR, "views"));
-//app.set("view engine", "ejs");
 
 
 // ----------< Middleware >----------
-//app.use(express.static(path.join(ROOT_DIR, "public")));
+app.use(express.static(FRONTEND_DIR));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(createSessionMiddleware());
@@ -21,12 +21,12 @@ app.use(createSessionMiddleware());
 
 // ----------< Routes >----------
 app.use("/api", apiRouter);
+app.get("/{*splat}", (_req: Request, res: Response) => {
+    res.sendFile(path.join(FRONTEND_DIR, "index.html"));
+});
 
 
 // ----------< Errors >----------
-app.use((_req: Request, res: Response) => {
-    res.status(404).json({error: "Page Not Found"});
-});
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
     if (err instanceof SyntaxError && "body" in err) {
         // Invalid JSON body (from express.json)
