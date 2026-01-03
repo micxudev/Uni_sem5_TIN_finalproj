@@ -3,7 +3,7 @@ import "./ProfileModal.css";
 
 interface ProfileModalProps {
     user: User;
-    onPasswordChangeClick: () => void;
+    onChangePasswordClick: () => void;
     onLogoutClick: () => void;
     labels: {
         title: string;
@@ -17,7 +17,7 @@ interface ProfileModalProps {
     };
 }
 
-export function ProfileModal({user, onPasswordChangeClick, onLogoutClick, labels,}: ProfileModalProps) {
+export function ProfileModal({user, onChangePasswordClick, onLogoutClick, labels,}: ProfileModalProps) {
     return (
         <div>
             <h2 className="profile-title">{labels.title}</h2>
@@ -45,7 +45,7 @@ export function ProfileModal({user, onPasswordChangeClick, onLogoutClick, labels
             <div className="profile-actions-container">
                 <button
                     className="profile-action change-password"
-                    onClick={onPasswordChangeClick}>
+                    onClick={onChangePasswordClick}>
                     {labels.changePassword}
                 </button>
                 <button

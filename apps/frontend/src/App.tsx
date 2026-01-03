@@ -101,7 +101,7 @@ export function App() {
             <Modal onClose={() => setProfileModalOpen(false)}>
                 <ProfileModal
                     user={user}
-                    onPasswordChangeClick={() => {
+                    onChangePasswordClick={() => {
                         console.log("TODO: Open Password Change Form");
                     }}
                     onLogoutClick={async () => {
