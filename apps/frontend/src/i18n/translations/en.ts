@@ -28,8 +28,11 @@ export const en: TranslationSchema = {
         signInSuccess: "Sign in successful!",
         signUpSuccess: "Sign up successful, you can now sign in!",
         logoutSuccess: "Logged out successfully!",
+        changePasswordSuccess: "Password changed successfully!",
         profile: "Profile",
         changePassword: "Change Password",
+        currentPassword: "Current Password",
+        newPassword: "New Password",
     },
     pagination: {
         prev: "Previous",

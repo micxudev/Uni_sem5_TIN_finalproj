@@ -4,10 +4,12 @@ import {toast} from "react-toastify";
 import {Header} from "./components/Header/Header.tsx";
 import {AppLayout} from "./layout/AppLayout";
 import {SkinsPage} from "./pages/SkinsPage";
+
 import {Modal} from "./components/Modal/Modal";
 import {LanguageModal} from "./components/LanguageModal/LanguageModal";
 import {AuthModal} from "./components/Auth/AuthModal.tsx";
 import {ProfileModal} from "./components/ProfileModal/ProfileModal";
+import {ChangePasswordModal} from "./components/ChangePasswordModal/ChangePasswordModal.tsx";
 
 import {logout} from "./api/api.auth.ts";
 
@@ -21,6 +23,7 @@ export function App() {
     const [isLanguageModalOpen, setLangModalOpen] = useState(false);
     const [isAuthModalOpen, setAuthModalOpen] = useState(false);
     const [isProfileModalOpen, setProfileModalOpen] = useState(false);
+    const [isChangePasswordModalOpen, setChangePasswordModalOpen] = useState(false);
 
     // ─────────────────────────────────────
     // Global contexts
@@ -101,9 +104,7 @@ export function App() {
             <Modal onClose={() => setProfileModalOpen(false)}>
                 <ProfileModal
                     user={user}
-                    onChangePasswordClick={() => {
-                        console.log("TODO: Open Password Change Form");
-                    }}
+                    onChangePasswordClick={() => setChangePasswordModalOpen(true)}
                     onLogoutClick={async () => {
                         setProfileModalOpen(false);
                         const res = await logout();
@@ -127,6 +128,26 @@ export function App() {
         );
     }
 
+    function renderChangePasswordModal() {
+        if (!isChangePasswordModalOpen) return null;
+        return (
+            <Modal onClose={() => setChangePasswordModalOpen(false)}>
+                <ChangePasswordModal
+                    onClose={() => setChangePasswordModalOpen(false)}
+                    onChangePassword={() => {
+                        toast.success(t.auth.changePasswordSuccess);
+                    }}
+                    labels={{
+                        title: t.auth.changePassword,
+                        currentPassword: t.auth.currentPassword,
+                        newPassword: t.auth.newPassword,
+                        submit: t.auth.changePassword,
+                    }}
+                />
+            </Modal>
+        );
+    }
+
     // ─────────────────────────────────────
     // Render
     // ─────────────────────────────────────
@@ -136,6 +157,7 @@ export function App() {
             {renderLanguageModal()}
             {renderAuthModal()}
             {renderProfileModal()}
+            {renderChangePasswordModal()}
         </AppLayout>
     );
 }
