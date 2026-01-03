@@ -1,5 +1,5 @@
 import type {Skin} from "@shared";
-import "./SkinModal.css";
+import "./PreviewSkinModal.css";
 
 interface SkinModalProps {
     skin: Skin;
@@ -17,7 +17,7 @@ interface SkinModalProps {
     };
 }
 
-export function SkinModal({skin, canEdit, canDelete, onEdit, onDelete, labels,}: SkinModalProps) {
+export function PreviewSkinModal({skin, canEdit, canDelete, onEdit, onDelete, labels,}: SkinModalProps) {
     return (
         <div>
             <h2 className="skin-title">{skin.name}</h2>

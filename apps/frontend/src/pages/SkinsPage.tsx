@@ -6,7 +6,7 @@ import {fetchSkins} from "../api/api.skins.ts";
 import {PaginatedTable} from "../components/PaginatedTable/PaginatedTable";
 import type {Column} from "../components/PaginatedTable/Table/types";
 import {Modal} from "../components/Modal/Modal";
-import {SkinModal} from "../components/SkinModal/SkinModal";
+import {PreviewSkinModal} from "../components/SkinModal/PreviewSkinModal.tsx";
 import {useI18n} from "../i18n/I18nContext.tsx";
 import {useUser} from "../AuthContext/AuthContext.tsx";
 
@@ -43,7 +43,7 @@ export function SkinsPage() {
 
             {selectedSkin && (
                 <Modal onClose={() => setSelectedSkin(null)}>
-                    <SkinModal
+                    <PreviewSkinModal
                         skin={selectedSkin}
                         canEdit={isAdmin}
                         canDelete={isAdmin}
