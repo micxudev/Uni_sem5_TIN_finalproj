@@ -1,0 +1,26 @@
+.skin-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.skin-title {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.skin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.field-error {
+    font-size: 14px;
+    color: var(--color-red-500);
+    margin-top: 5px;
+}
+
+.skin-submit {
+    margin-top: 15px;
+}

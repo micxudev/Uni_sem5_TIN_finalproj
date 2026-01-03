@@ -8,6 +8,12 @@ export const en: TranslationSchema = {
         rarity: "Rarity",
         createdAt: "Created at",
         createdBy: "Created by",
+        createSuccess: "Skin created successfully!",
+        updateSuccess: "Skin updated successfully!",
+        deleteSuccess: "Skin deleted successfully!",
+        create: "Create Skin",
+        update: "Update Skin",
+        delete: "Delete Skin",
     },
     users: {
         title: "Users",
@@ -43,7 +49,8 @@ export const en: TranslationSchema = {
         title: "Interface Language"
     },
     common: {
-        edit: "Edit",
+        create: "Create",
+        update: "Update",
         delete: "Delete",
     },
     errors: {

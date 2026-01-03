@@ -7,3 +7,5 @@ export const SkinRaritySchema = z.enum([
 ]);
 
 export type SkinRarity = z.infer<typeof SkinRaritySchema>;
+
+export const SkinRarityValues = SkinRaritySchema.enum;

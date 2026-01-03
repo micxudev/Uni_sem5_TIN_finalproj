@@ -6,6 +6,12 @@ export interface TranslationSchema {
         rarity: string;
         createdAt: string;
         createdBy: string;
+        createSuccess: string;
+        updateSuccess: string;
+        deleteSuccess: string;
+        create: string;
+        update: string;
+        delete: string;
     };
     users: {
         title: string;
@@ -41,7 +47,8 @@ export interface TranslationSchema {
         title: string;
     };
     common: {
-        edit: string;
+        create: string;
+        update: string;
         delete: string;
     };
     errors: {

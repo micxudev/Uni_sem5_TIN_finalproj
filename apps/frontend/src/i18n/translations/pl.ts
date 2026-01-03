@@ -8,6 +8,12 @@ export const pl: TranslationSchema = {
         rarity: "Rzadkość",
         createdAt: "Data utworzenia",
         createdBy: "Utworzone przez",
+        createSuccess: "",
+        updateSuccess: "",
+        deleteSuccess: "",
+        create: "",
+        update: "",
+        delete: "",
     },
     users: {
         title: "Użytkownicy",
@@ -43,8 +49,9 @@ export const pl: TranslationSchema = {
         title: "Język Interfejsu"
     },
     common: {
-        edit: "Redagować",
-        delete: "Usuwać",
+        create: "Stworzyć",
+        update: "Aktualizować",
+        delete: "Usunąć",
     },
     errors: {
         serverNotResponded: "Serwer nie mógł odpowiedzieć",

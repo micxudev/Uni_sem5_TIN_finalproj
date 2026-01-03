@@ -3,21 +3,21 @@ import "./PreviewSkinModal.css";
 
 interface SkinModalProps {
     skin: Skin;
-    canEdit: boolean;
+    canUpdate: boolean;
     canDelete: boolean;
-    onEdit: () => void;
+    onUpdate: () => void;
     onDelete: () => void;
     labels: {
         title: string;
         id: string;
         rarity: string;
         createdAt: string;
-        edit: string;
+        update: string;
         delete: string;
     };
 }
 
-export function PreviewSkinModal({skin, canEdit, canDelete, onEdit, onDelete, labels,}: SkinModalProps) {
+export function PreviewSkinModal({skin, canUpdate, canDelete, onUpdate, onDelete, labels,}: SkinModalProps) {
     return (
         <div>
             <h2 className="skin-title">{skin.name}</h2>
@@ -34,10 +34,10 @@ export function PreviewSkinModal({skin, canEdit, canDelete, onEdit, onDelete, la
                 <strong>{labels.createdAt}:</strong> {new Date(skin.createdAt).toLocaleString()}
             </p>
 
-            {(canEdit || canDelete) && (
+            {(canUpdate || canDelete) && (
                 <div className="skin-actions-container">
-                    {canEdit && (
-                        <button className="skin-action edit" onClick={onEdit}>{labels.edit}</button>
+                    {canUpdate && (
+                        <button className="skin-action edit" onClick={onUpdate}>{labels.update}</button>
                     )}
                     {canDelete && (
                         <button className="skin-action delete" onClick={onDelete}>{labels.delete}</button>
