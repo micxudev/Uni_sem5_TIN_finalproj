@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {AuthForm} from "./AuthForm.tsx";
-import {type ApiErrorPayload, type AuthInput, type User} from "@shared";
+import {type AuthInput, type User} from "@shared";
 import {login, register} from "../../api/api.auth.ts";
 import {ErrorFlash} from "../ErrorFlash/ErrorFlash.tsx";
 import "./Auth.css";
@@ -23,7 +23,7 @@ interface AuthModalProps {
 
 export function AuthModal({onClose, onSignIn, onSignUp, labels}: AuthModalProps) {
     const [mode, setMode] = useState<AuthMode>("signin");
-    const [error, setError] = useState<ApiErrorPayload | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     const isSignIn = mode === "signin";
 
@@ -33,7 +33,7 @@ export function AuthModal({onClose, onSignIn, onSignUp, labels}: AuthModalProps)
             : await register(data);
 
         if (!response.success) {
-            setError(response.error);
+            setError(response.error.message);
             return;
         }
 
@@ -48,7 +48,7 @@ export function AuthModal({onClose, onSignIn, onSignUp, labels}: AuthModalProps)
                 {isSignIn ? labels.signIn : labels.signUp}
             </h2>
 
-            <ErrorFlash error={error?.message} closable={false}/>
+            <ErrorFlash error={error} closable={false}/>
 
             <AuthForm
                 labels={{
