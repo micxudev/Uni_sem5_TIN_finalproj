@@ -23,6 +23,27 @@ export function SkinsPage() {
         {key: "createdAt", header: t.skins.createdAt, render: s => new Date(s.createdAt).toLocaleString()},
     ];
 
+    function renderPreviewSkinModal() {
+        if (!selectedSkin) return null;
+        return <Modal onClose={() => setSelectedSkin(null)}>
+            <PreviewSkinModal
+                skin={selectedSkin}
+                canEdit={isAdmin}
+                canDelete={isAdmin}
+                onEdit={() => console.log("edit", selectedSkin.id)}
+                onDelete={() => console.log("delete", selectedSkin.id)}
+                labels={{
+                    title: selectedSkin.name,
+                    id: t.skins.id,
+                    rarity: t.skins.rarity,
+                    createdAt: t.skins.createdAt,
+                    edit: t.common.edit,
+                    delete: t.common.delete,
+                }}
+            />
+        </Modal>;
+    }
+
     return (
         <>
             <PaginatedTable<Skin>
@@ -41,25 +62,7 @@ export function SkinsPage() {
                 }}
             />
 
-            {selectedSkin && (
-                <Modal onClose={() => setSelectedSkin(null)}>
-                    <PreviewSkinModal
-                        skin={selectedSkin}
-                        canEdit={isAdmin}
-                        canDelete={isAdmin}
-                        onEdit={() => console.log("edit", selectedSkin.id)}
-                        onDelete={() => console.log("delete", selectedSkin.id)}
-                        labels={{
-                            title: selectedSkin.name,
-                            id: t.skins.id,
-                            rarity: t.skins.rarity,
-                            createdAt: t.skins.createdAt,
-                            edit: t.common.edit,
-                            delete: t.common.delete,
-                        }}
-                    />
-                </Modal>
-            )}
+            {renderPreviewSkinModal()}
         </>
     );
 }
