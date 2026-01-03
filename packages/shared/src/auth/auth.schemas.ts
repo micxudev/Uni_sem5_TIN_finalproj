@@ -1,6 +1,6 @@
 import {z} from "zod";
 
-const passwordSchema = z.string().trim().min(8);
+const passwordSchema = z.string().trim().min(8).max(128);
 
 export const AuthInputSchema = z.object({
     username: z.string().trim().min(5).max(32).regex(/^[a-z0-9_]+$/),

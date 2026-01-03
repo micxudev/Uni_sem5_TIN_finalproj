@@ -15,7 +15,7 @@ export const app = express();
 // ----------< Middleware >----------
 app.use(express.static(FRONTEND_DIR));
 app.use(express.urlencoded({extended: false}));
-app.use(express.json());
+app.use(express.json({limit: 10 * 1024}));
 app.use(createSessionMiddleware());
 
 
@@ -28,7 +28,7 @@ app.get("/{*splat}", (_req: Request, res: Response) => {
 
 // ----------< Errors >----------
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-    if (err instanceof SyntaxError && "body" in err) {
+    if (err.name === "SyntaxError" && "body" in err) {
         // Invalid JSON body (from express.json)
         const apiError: ApiError = {
             success: false,
@@ -38,6 +38,18 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             }
         };
         res.status(400).json(apiError);
+        return;
+    }
+
+    if (err.name === "PayloadTooLargeError") {
+        const apiError: ApiError = {
+            success: false,
+            error: {
+                code: ErrorCodeValues.BAD_REQUEST,
+                message: "Content Too Large",
+            }
+        };
+        res.status(413).json(apiError);
         return;
     }
 
