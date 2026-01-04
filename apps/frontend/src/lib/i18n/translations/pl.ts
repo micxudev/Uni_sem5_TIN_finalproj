@@ -15,6 +15,7 @@ export const pl: TranslationSchema = {
         update: "",
         delete: "",
         deleteConfirm: "",
+        noData: "",
     },
     users: {
         title: "",

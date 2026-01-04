@@ -27,6 +27,7 @@ export function SkinsPage() {
     const isAdmin = user?.role === UserRoleValues.ADMIN;
     const isUserSkinOwner = user?.id === selectedSkin?.createdBy;
 
+    const [tableVersion, setTableVersion] = useState(0);
     const columns: Column<Skin>[] = [
         {key: "id", header: t.skins.id, render: s => s.id},
         {key: "name", header: t.skins.name, render: s => s.name},
@@ -67,10 +68,12 @@ export function SkinsPage() {
                     setSelectedSkin(null);
 
                     const res = await deleteSkin(selectedSkin.id);
-                    if (res.success)
+                    if (res.success) {
+                        setTableVersion(v => v + 1);
                         toast.success(t.skins.deleteSuccess(selectedSkin.id));
-                    else
+                    } else {
                         toast.error(res.error.message);
+                    }
                 }}
                 labels={{
                     title: selectedSkin.name,
@@ -90,7 +93,10 @@ export function SkinsPage() {
             <Modal onClose={() => setCreateSkinModalModalOpen(false)}>
                 <CreateSkinModal
                     onClose={() => setCreateSkinModalModalOpen(false)}
-                    onCreate={(skin) => toast.success(t.skins.createSuccess(skin.id))}
+                    onCreate={(skin) => {
+                        setTableVersion(v => v + 1);
+                        toast.success(t.skins.createSuccess(skin.id));
+                    }}
                     labels={{
                         title: t.skins.create,
                         name: t.skins.name,
@@ -110,6 +116,7 @@ export function SkinsPage() {
                     onClose={() => setUpdateSkinModalModalOpen(false)}
                     onUpdate={() => {
                         setSelectedSkin(null);
+                        setTableVersion(v => v + 1);
                         toast.success(t.skins.updateSuccess(selectedSkin.id));
                     }}
                     skin={selectedSkin}
@@ -130,10 +137,12 @@ export function SkinsPage() {
                 fetcher={fetchSkins}
                 perPage={8}
                 columns={columns}
-                onRowSelect={setSelectedSkin}
+                onRowClick={setSelectedSkin}
+                refreshKey={tableVersion}
                 header={renderPaginatedTableHeader}
                 labels={{
                     error: t.errors.serverNotResponded,
+                    noData: t.skins.noData,
                     prev: t.pagination.prev,
                     next: t.pagination.next,
                     page: t.pagination.page,

@@ -13,6 +13,7 @@ export interface TranslationSchema {
         update: string;
         delete: string;
         deleteConfirm: string;
+        noData: string;
     };
     users: {
         title: string;

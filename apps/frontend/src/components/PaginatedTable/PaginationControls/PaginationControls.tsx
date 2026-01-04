@@ -15,13 +15,13 @@ interface PaginationControlsProps {
 export function PaginationControls({currentPage, lastPage, onPrev, onNext, labels}: PaginationControlsProps) {
     return (
         <div className="pagination-container">
-            <button disabled={currentPage === 1} onClick={onPrev}>
+            <button disabled={currentPage <= 1} onClick={onPrev}>
                 {labels.prev}
             </button>
 
             <span className="pagination__info">{labels.page} {currentPage} / {lastPage}</span>
 
-            <button disabled={currentPage === lastPage} onClick={onNext}>
+            <button disabled={currentPage >= lastPage} onClick={onNext}>
                 {labels.next}
             </button>
         </div>

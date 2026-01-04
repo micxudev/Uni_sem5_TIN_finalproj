@@ -15,6 +15,7 @@ export const en: TranslationSchema = {
         update: "Update Skin",
         delete: "Delete Skin",
         deleteConfirm: "Are you sure you want to delete skin?",
+        noData: "No skins found.",
     },
     users: {
         title: "Users",

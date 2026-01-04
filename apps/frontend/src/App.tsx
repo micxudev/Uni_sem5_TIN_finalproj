@@ -98,9 +98,10 @@ export function App() {
 
     function renderProfileModal() {
         if (!isProfileModalOpen || !user) return null;
+        const onClose = () => setProfileModalOpen(false);
         return (
             <ProfileModal
-                onClose={() => setProfileModalOpen(false)}
+                onClose={onClose}
                 user={user}
                 onChangePasswordClick={() => setChangePasswordModalOpen(true)}
                 onLogoutClick={async () => {
@@ -114,6 +115,7 @@ export function App() {
 
                     const res = await logout();
                     if (res.success) {
+                        onClose();
                         logoutUser();
                         toast.success(t.auth.logoutSuccess);
                     } else {

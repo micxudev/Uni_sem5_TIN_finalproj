@@ -9,21 +9,30 @@ import {ErrorFlash} from "../ErrorFlash/ErrorFlash.tsx";
 
 interface PaginatedTableProps<T> {
     fetcher: (page: number, perPage: number) => Promise<ApiResponse<PaginatedResult<T>>>;
-    columns: Column<T>[];
     perPage: number;
-
+    columns: Column<T>[];
+    onRowClick?: (row: T) => void;
+    refreshKey?: unknown;
     header?: (result: PaginatedResult<T>) => ReactNode;
-    onRowSelect?: (row: T) => void;
-
     labels: {
         error: string;
+        noData: string;
         prev: string;
         next: string;
         page: string;
     };
 }
 
-export function PaginatedTable<T>({fetcher, columns, perPage, header, onRowSelect, labels,}: PaginatedTableProps<T>) {
+export function PaginatedTable<T>(
+    {
+        fetcher,
+        perPage,
+        columns,
+        onRowClick,
+        refreshKey,
+        header,
+        labels,
+    }: PaginatedTableProps<T>) {
     const [page, setPage] = useState(1);
     const [result, setResult] = useState<PaginatedResult<T> | null>(null);
     const [error, setError] = useState<ApiErrorPayload | null>(null);
@@ -37,22 +46,29 @@ export function PaginatedTable<T>({fetcher, columns, perPage, header, onRowSelec
                 else
                     setError(res.error);
             })
-    }, [page, perPage]);
+    }, [page, perPage, refreshKey]);
 
-    if (error)
-        return <ErrorFlash title={error?.code} error={labels.error}/>;
+    if (error) {
+        return <ErrorFlash title={error.code} error={labels.error}/>;
+    }
 
-    if (!result) return null; // Loading state (show nothing for now)
+    if (!result) {
+        return null; // Loading state (show nothing for now, could be a loader)
+    }
 
     return (
         <div className="paginated-table">
             {header?.(result)}
 
-            <Table
-                data={result.data}
-                columns={columns}
-                onRowClick={onRowSelect}
-            />
+            {result.data.length === 0 ? (
+                <ErrorFlash error={labels.noData}/>
+            ) : (
+                <Table
+                    data={result.data}
+                    columns={columns}
+                    onRowClick={onRowClick}
+                />
+            )}
 
             <PaginationControls
                 currentPage={result.meta.current_page}
