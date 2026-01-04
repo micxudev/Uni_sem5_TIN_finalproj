@@ -1,6 +1,6 @@
-import type {TranslationSchema} from "./i18n.types";
-import {en} from "./translations/en";
-import {pl} from "./translations/pl";
+import type {TranslationSchema} from "./i18n.types.ts";
+import {en} from "./translations/en.ts";
+import {pl} from "./translations/pl.ts";
 
 export const translations = {
     en,

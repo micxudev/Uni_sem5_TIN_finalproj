@@ -12,9 +12,9 @@ import {PreviewSkinModal} from "../components/SkinModal/Preview/PreviewSkinModal
 import {CreateSkinModal} from "../components/SkinModal/Actions/CreateSkinModal.tsx";
 import {UpdateSkinModal} from "../components/SkinModal/Actions/UpdateSkinModal.tsx";
 
-import {useI18n} from "../i18n/I18nContext.tsx";
-import {useUser} from "../AuthContext/AuthContext.tsx";
-import {useConfirm} from "../Contexts/ConfirmContext.tsx";
+import {useI18n} from "../contexts/I18nContext.tsx";
+import {useUser} from "../contexts/AuthContext.tsx";
+import {useConfirm} from "../contexts/ConfirmContext.tsx";
 
 export function SkinsPage() {
     const [selectedSkin, setSelectedSkin] = useState<Skin | null>(null);

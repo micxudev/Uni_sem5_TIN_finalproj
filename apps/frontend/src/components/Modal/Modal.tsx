@@ -1,5 +1,5 @@
 import {type ReactNode, useEffect, useRef} from "react";
-import {pushModal, popModal, isTopModal} from "../../lib/utils/modalStack.ts";
+import {isTopModal, popModal, pushModal} from "../../lib/utils/modalStack.ts";
 import "./Modal.css";
 
 interface ModalProps {

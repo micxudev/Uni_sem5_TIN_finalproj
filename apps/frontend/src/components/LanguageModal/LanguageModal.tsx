@@ -1,4 +1,4 @@
-import {type Language, languages} from "../../i18n";
+import {type Language, languages} from "../../lib/i18n";
 import "./LanguageModal.css";
 
 interface LanguageModalProps {

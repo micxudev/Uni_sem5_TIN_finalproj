@@ -2,9 +2,9 @@ import {StrictMode} from "react";
 import {createRoot} from "react-dom/client";
 import {App} from "./App";
 
-import {I18nProvider} from "./i18n/I18nContext";
-import {AuthProvider} from "./AuthContext/AuthContext.tsx";
-import {ConfirmProvider} from "./Contexts/ConfirmContext.tsx";
+import {I18nProvider} from "./contexts/I18nContext.tsx";
+import {AuthProvider} from "./contexts/AuthContext.tsx";
+import {ConfirmProvider} from "./contexts/ConfirmContext.tsx";
 import {Slide, ToastContainer} from "react-toastify";
 
 import "./styles/index.css";

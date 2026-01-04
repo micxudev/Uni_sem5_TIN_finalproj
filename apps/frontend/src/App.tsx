@@ -2,7 +2,7 @@ import {useState} from "react";
 import {toast} from "react-toastify";
 
 import {Header} from "./components/Header/Header.tsx";
-import {AppLayout} from "./layout/AppLayout";
+import {AppLayout} from "./layouts/AppLayout";
 import {SkinsPage} from "./pages/SkinsPage";
 
 import {Modal} from "./components/Modal/Modal";
@@ -13,9 +13,9 @@ import {ChangePasswordModal} from "./components/ChangePasswordModal/ChangePasswo
 
 import {logout} from "./api/api.auth.ts";
 
-import {useI18n, useLanguage, useSetLanguage} from "./i18n/I18nContext";
-import {useIsLoading, useLogin, useLogout, useUser} from "./AuthContext/AuthContext.tsx";
-import {useConfirm} from "./Contexts/ConfirmContext.tsx";
+import {useI18n, useLanguage, useSetLanguage} from "./contexts/I18nContext.tsx";
+import {useIsLoading, useLogin, useLogout, useUser} from "./contexts/AuthContext.tsx";
+import {useConfirm} from "./contexts/ConfirmContext.tsx";
 
 export function App() {
     // ─────────────────────────────────────

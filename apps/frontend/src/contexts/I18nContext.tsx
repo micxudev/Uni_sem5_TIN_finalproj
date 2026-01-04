@@ -1,7 +1,7 @@
 import {createContext, type ReactNode, useContext, useState} from "react";
-import {type Language, translations} from "./index";
-import type {TranslationSchema} from "./i18n.types";
-import {setZodLocale} from "./zod-i18n.ts";
+import {type Language, translations} from "../lib/i18n";
+import type {TranslationSchema} from "../lib/i18n/i18n.types.ts";
+import {setZodLocale} from "../lib/i18n/zod-i18n.ts";
 
 const DEFAULT_LANGUAGE: Language = "en";
 const LANGUAGE_STORAGE_KEY = "app.language";
