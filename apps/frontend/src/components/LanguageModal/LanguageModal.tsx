@@ -1,4 +1,5 @@
 import {type Language, languages} from "../../lib/i18n";
+import {Modal} from "../Modal/Modal.tsx";
 import "./LanguageModal.css";
 
 interface LanguageModalProps {
@@ -12,24 +13,26 @@ interface LanguageModalProps {
 
 export function LanguageModal({current, onSelect, onClose, labels,}: LanguageModalProps) {
     return (
-        <div>
-            <h2 className="languages-title">{labels.title}</h2>
+        <Modal onClose={onClose}>
+            <div>
+                <h2 className="languages-title">{labels.title}</h2>
 
-            <ul className="languages-list">
-                {Object.values(languages).map((lang) => (
-                    <li
-                        key={lang.code}
-                        className={`language-row ${current === lang.code ? "active" : ""}`}
-                        onClick={() => {
-                            onSelect(lang.code);
-                            onClose();
-                        }}
-                    >
-                        <img className="language-flag" src={lang.flagPath} alt={lang.label}/>
-                        <span className="language-title">{lang.label}</span>
-                    </li>
-                ))}
-            </ul>
-        </div>
+                <ul className="languages-list">
+                    {Object.values(languages).map((lang) => (
+                        <li
+                            key={lang.code}
+                            className={`language-row ${current === lang.code ? "active" : ""}`}
+                            onClick={() => {
+                                onSelect(lang.code);
+                                onClose();
+                            }}
+                        >
+                            <img className="language-flag" src={lang.flagPath} alt={lang.label}/>
+                            <span className="language-title">{lang.label}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </Modal>
     );
 }

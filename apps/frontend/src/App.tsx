@@ -5,7 +5,6 @@ import {Header} from "./components/Header/Header.tsx";
 import {AppLayout} from "./layouts/AppLayout";
 import {SkinsPage} from "./pages/SkinsPage";
 
-import {Modal} from "./components/Modal/Modal";
 import {LanguageModal} from "./components/LanguageModal/LanguageModal";
 import {AuthModal} from "./components/Auth/AuthModal.tsx";
 import {ProfileModal} from "./components/ProfileModal/ProfileModal";
@@ -64,100 +63,92 @@ export function App() {
     function renderLanguageModal() {
         if (!isLanguageModalOpen) return null;
         return (
-            <Modal onClose={() => setLangModalOpen(false)}>
-                <LanguageModal
-                    current={language}
-                    onSelect={setLanguage}
-                    onClose={() => setLangModalOpen(false)}
-                    labels={{title: t.languages.title}}
-                />
-            </Modal>
+            <LanguageModal
+                current={language}
+                onSelect={setLanguage}
+                onClose={() => setLangModalOpen(false)}
+                labels={{title: t.languages.title}}
+            />
         );
     }
 
     function renderAuthModal() {
         if (!isAuthModalOpen) return null;
         return (
-            <Modal onClose={() => setAuthModalOpen(false)}>
-                <AuthModal
-                    onClose={() => setAuthModalOpen(false)}
-                    onSignIn={(user) => {
-                        loginUser(user);
-                        toast.success(t.auth.signInSuccess);
-                    }}
-                    onSignUp={() => {
-                        toast.success(t.auth.signUpSuccess);
-                    }}
-                    labels={{
-                        signIn: t.auth.signIn,
-                        signUp: t.auth.signUp,
-                        noAccount: t.auth.noAccount,
-                        alreadyHaveAccount: t.auth.alreadyHaveAccount,
-                        username: t.auth.username,
-                        password: t.auth.password,
-                    }}
-                />
-            </Modal>
+            <AuthModal
+                onClose={() => setAuthModalOpen(false)}
+                onSignIn={(user) => {
+                    loginUser(user);
+                    toast.success(t.auth.signInSuccess);
+                }}
+                onSignUp={() => {
+                    toast.success(t.auth.signUpSuccess);
+                }}
+                labels={{
+                    signIn: t.auth.signIn,
+                    signUp: t.auth.signUp,
+                    noAccount: t.auth.noAccount,
+                    alreadyHaveAccount: t.auth.alreadyHaveAccount,
+                    username: t.auth.username,
+                    password: t.auth.password,
+                }}
+            />
         );
     }
 
     function renderProfileModal() {
         if (!isProfileModalOpen || !user) return null;
         return (
-            <Modal onClose={() => setProfileModalOpen(false)}>
-                <ProfileModal
-                    user={user}
-                    onChangePasswordClick={() => setChangePasswordModalOpen(true)}
-                    onLogoutClick={async () => {
-                        const confirmed = await confirm({
-                            title: t.auth.logout,
-                            text: t.auth.logoutConfirm,
-                            confirm: t.auth.logout,
-                            cancel: t.common.cancel,
-                        });
-                        if (!confirmed) return;
+            <ProfileModal
+                onClose={() => setProfileModalOpen(false)}
+                user={user}
+                onChangePasswordClick={() => setChangePasswordModalOpen(true)}
+                onLogoutClick={async () => {
+                    const confirmed = await confirm({
+                        title: t.auth.logout,
+                        text: t.auth.logoutConfirm,
+                        confirm: t.auth.logout,
+                        cancel: t.common.cancel,
+                    });
+                    if (!confirmed) return;
 
-                        setProfileModalOpen(false);
-                        const res = await logout();
-                        if (res.success) {
-                            logoutUser();
-                            toast.success(t.auth.logoutSuccess);
-                        } else {
-                            toast.error(res.error.message);
-                        }
-                    }}
-                    labels={{
-                        title: t.auth.profile,
-                        id: t.users.id,
-                        username: t.users.username,
-                        role: t.users.role,
-                        createdAt: t.users.createdAt,
-                        lastLootboxOpenedAt: t.users.lastLootboxOpenedAt,
-                        changePassword: t.auth.changePassword,
-                        logout: t.auth.logout,
-                    }}
-                />
-            </Modal>
+                    const res = await logout();
+                    if (res.success) {
+                        logoutUser();
+                        toast.success(t.auth.logoutSuccess);
+                    } else {
+                        toast.error(res.error.message);
+                    }
+                }}
+                labels={{
+                    title: t.auth.profile,
+                    id: t.users.id,
+                    username: t.users.username,
+                    role: t.users.role,
+                    createdAt: t.users.createdAt,
+                    lastLootboxOpenedAt: t.users.lastLootboxOpenedAt,
+                    changePassword: t.auth.changePassword,
+                    logout: t.auth.logout,
+                }}
+            />
         );
     }
 
     function renderChangePasswordModal() {
         if (!isChangePasswordModalOpen) return null;
         return (
-            <Modal onClose={() => setChangePasswordModalOpen(false)}>
-                <ChangePasswordModal
-                    onClose={() => setChangePasswordModalOpen(false)}
-                    onChangePassword={() => {
-                        toast.success(t.auth.changePasswordSuccess);
-                    }}
-                    labels={{
-                        title: t.auth.changePassword,
-                        currentPassword: t.auth.currentPassword,
-                        newPassword: t.auth.newPassword,
-                        submit: t.auth.changePassword,
-                    }}
-                />
-            </Modal>
+            <ChangePasswordModal
+                onClose={() => setChangePasswordModalOpen(false)}
+                onChangePassword={() => {
+                    toast.success(t.auth.changePasswordSuccess);
+                }}
+                labels={{
+                    title: t.auth.changePassword,
+                    currentPassword: t.auth.currentPassword,
+                    newPassword: t.auth.newPassword,
+                    submit: t.auth.changePassword,
+                }}
+            />
         );
     }
 

@@ -3,6 +3,7 @@ import {AuthForm} from "./AuthForm.tsx";
 import {type AuthInput, type User} from "@shared";
 import {login, register} from "../../api/api.auth.ts";
 import {ErrorFlash} from "../ErrorFlash/ErrorFlash.tsx";
+import {Modal} from "../Modal/Modal.tsx";
 import "./Auth.css";
 
 type AuthMode = "signin" | "signup";
@@ -43,33 +44,35 @@ export function AuthModal({onClose, onSignIn, onSignUp, labels}: AuthModalProps)
     }
 
     return (
-        <div className="auth-modal">
-            <h2 className="auth-title">
-                {isSignIn ? labels.signIn : labels.signUp}
-            </h2>
+        <Modal onClose={onClose}>
+            <div className="auth-modal">
+                <h2 className="auth-title">
+                    {isSignIn ? labels.signIn : labels.signUp}
+                </h2>
 
-            <ErrorFlash error={error} closable={false}/>
+                <ErrorFlash error={error} closable={false}/>
 
-            <AuthForm
-                labels={{
-                    username: labels.username,
-                    password: labels.password,
-                    submit: isSignIn ? labels.signIn : labels.signUp,
-                }}
-                onSubmit={handleSubmit}
-            />
+                <AuthForm
+                    labels={{
+                        username: labels.username,
+                        password: labels.password,
+                        submit: isSignIn ? labels.signIn : labels.signUp,
+                    }}
+                    onSubmit={handleSubmit}
+                />
 
-            <div className="auth-switch">
+                <div className="auth-switch">
                 <span>
                     {isSignIn ? labels.noAccount : labels.alreadyHaveAccount}
                 </span>
-                <a onClick={() => {
-                    setMode(isSignIn ? "signup" : "signin");
-                    setError(null);
-                }}>
-                    {isSignIn ? labels.signUp : labels.signIn}
-                </a>
+                    <a onClick={() => {
+                        setMode(isSignIn ? "signup" : "signin");
+                        setError(null);
+                    }}>
+                        {isSignIn ? labels.signUp : labels.signIn}
+                    </a>
+                </div>
             </div>
-        </div>
+        </Modal>
     );
 }
