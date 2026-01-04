@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {toast} from "react-toastify";
-import {type Skin, UserRoleValues} from "@shared";
+import {type PaginatedResult, type Skin, UserRoleValues} from "@shared";
 
 import {fetchSkins} from "../api/api.skins.ts";
 
@@ -9,6 +9,7 @@ import type {Column} from "../components/PaginatedTable/Table/types";
 
 import {Modal} from "../components/Modal/Modal";
 import {PreviewSkinModal} from "../components/SkinModal/Preview/PreviewSkinModal.tsx";
+import {CreateSkinModal} from "../components/SkinModal/Actions/CreateSkinModal.tsx";
 import {UpdateSkinModal} from "../components/SkinModal/Actions/UpdateSkinModal.tsx";
 
 import {useI18n} from "../i18n/I18nContext.tsx";
@@ -16,6 +17,7 @@ import {useUser} from "../AuthContext/AuthContext.tsx";
 
 export function SkinsPage() {
     const [selectedSkin, setSelectedSkin] = useState<Skin | null>(null);
+    const [isCreateSkinModalModalOpen, setCreateSkinModalModalOpen] = useState(false);
     const [isUpdateSkinModalModalOpen, setUpdateSkinModalModalOpen] = useState(false);
 
     const t = useI18n();
@@ -29,6 +31,19 @@ export function SkinsPage() {
         {key: "rarity", header: t.skins.rarity, render: s => s.rarity},
         {key: "createdAt", header: t.skins.createdAt, render: s => new Date(s.createdAt).toLocaleString()},
     ];
+
+    function renderPaginatedTableHeader(result: PaginatedResult<Skin>) {
+        return (
+            <div className="paginated-table__header">
+                <h2>{result.meta.total} {t.skins.title}</h2>
+                {isAdmin && (
+                    <button onClick={() => setCreateSkinModalModalOpen(true)}>
+                        {t.skins.create}
+                    </button>
+                )}
+            </div>
+        );
+    }
 
     function renderPreviewSkinModal() {
         if (!selectedSkin) return null;
@@ -49,6 +64,24 @@ export function SkinsPage() {
                 }}
             />
         </Modal>;
+    }
+
+    function renderCreateSkinModal() {
+        if (!isCreateSkinModalModalOpen) return null;
+        return (
+            <Modal onClose={() => setCreateSkinModalModalOpen(false)}>
+                <CreateSkinModal
+                    onClose={() => setCreateSkinModalModalOpen(false)}
+                    onCreate={(skin) => toast.success(t.skins.createSuccess(skin.id))}
+                    labels={{
+                        title: t.skins.create,
+                        name: t.skins.name,
+                        rarity: t.skins.rarity,
+                        submit: t.common.create,
+                    }}
+                />
+            </Modal>
+        );
     }
 
     function renderUpdateSkinModal() {
@@ -77,9 +110,7 @@ export function SkinsPage() {
                 perPage={8}
                 columns={columns}
                 onRowSelect={setSelectedSkin}
-                header={(result) => (
-                    <h2>{result.meta.total} {t.skins.title}</h2>
-                )}
+                header={renderPaginatedTableHeader}
                 labels={{
                     error: t.errors.serverNotResponded,
                     prev: t.pagination.prev,
@@ -90,6 +121,7 @@ export function SkinsPage() {
 
             {renderPreviewSkinModal()}
             {renderUpdateSkinModal()}
+            {renderCreateSkinModal()}
         </>
     );
 }

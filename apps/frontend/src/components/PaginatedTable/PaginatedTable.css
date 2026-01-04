@@ -1,1 +1,9 @@
-.paginated-table {}
+.paginated-table {
+}
+
+.paginated-table__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}

@@ -6,7 +6,7 @@ export interface TranslationSchema {
         rarity: string;
         createdAt: string;
         createdBy: string;
-        createSuccess: string;
+        createSuccess: (id: number) => string;
         updateSuccess: string;
         deleteSuccess: string;
         create: string;

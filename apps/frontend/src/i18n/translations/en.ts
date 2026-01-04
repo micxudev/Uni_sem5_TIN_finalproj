@@ -8,7 +8,7 @@ export const en: TranslationSchema = {
         rarity: "Rarity",
         createdAt: "Created at",
         createdBy: "Created by",
-        createSuccess: "Skin created successfully!",
+        createSuccess: (id) => `Skin with ID = ${id} created successfully!`,
         updateSuccess: "Skin updated successfully!",
         deleteSuccess: "Skin deleted successfully!",
         create: "Create Skin",

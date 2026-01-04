@@ -8,7 +8,7 @@ export const pl: TranslationSchema = {
         rarity: "",
         createdAt: "",
         createdBy: "",
-        createSuccess: "",
+        createSuccess: (id) => `${id}`,
         updateSuccess: "",
         deleteSuccess: "",
         create: "",

@@ -4,7 +4,7 @@ import {type SkinInput, SkinInputSchema, type SkinRarity, SkinRarityValues} from
 
 interface SkinFormProps {
     onSubmit: (data: SkinInput) => void;
-    initValues: {
+    initValues?: {
         name?: string;
         rarity?: SkinRarity
     }
@@ -28,7 +28,7 @@ export function SkinForm({onSubmit, initValues, labels}: SkinFormProps) {
         <form className="skin-form" onSubmit={handleSubmit(onSubmit)}>
             <label>
                 <span>{labels.name}</span>
-                <input type="text" defaultValue={initValues.name} {...register("name")} />
+                <input type="text" defaultValue={initValues?.name} {...register("name")} />
                 {errors.name && (
                     <div className="field-error">{errors.name.message}</div>
                 )}
@@ -38,7 +38,7 @@ export function SkinForm({onSubmit, initValues, labels}: SkinFormProps) {
                 <span>{labels.rarity}</span>
                 <select {...register("rarity")}>
                     {Object.values(SkinRarityValues).map(rarity => (
-                        <option key={rarity} defaultValue={rarity} selected={rarity === initValues.rarity}>
+                        <option key={rarity} defaultValue={rarity} selected={rarity === initValues?.rarity}>
                             {rarity}
                         </option>
                     ))}
