@@ -40,6 +40,7 @@ export const pl: TranslationSchema = {
         changePassword: "",
         currentPassword: "",
         newPassword: "",
+        logoutConfirm: "",
     },
     pagination: {
         prev: "",

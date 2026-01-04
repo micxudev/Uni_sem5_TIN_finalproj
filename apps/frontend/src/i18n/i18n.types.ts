@@ -38,6 +38,7 @@ export interface TranslationSchema {
         changePassword: string;
         currentPassword: string;
         newPassword: string;
+        logoutConfirm: string;
     };
     pagination: {
         prev: string;

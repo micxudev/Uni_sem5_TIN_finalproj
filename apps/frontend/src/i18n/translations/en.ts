@@ -40,6 +40,7 @@ export const en: TranslationSchema = {
         changePassword: "Change Password",
         currentPassword: "Current Password",
         newPassword: "New Password",
+        logoutConfirm: "Are you sure you want to logout?",
     },
     pagination: {
         prev: "Previous",

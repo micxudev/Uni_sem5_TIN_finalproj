@@ -15,6 +15,7 @@ import {logout} from "./api/api.auth.ts";
 
 import {useI18n, useLanguage, useSetLanguage} from "./i18n/I18nContext";
 import {useIsLoading, useLogin, useLogout, useUser} from "./AuthContext/AuthContext.tsx";
+import {useConfirm} from "./Contexts/ConfirmContext.tsx";
 
 export function App() {
     // ─────────────────────────────────────
@@ -36,6 +37,8 @@ export function App() {
     const isUserLoading = useIsLoading();
     const loginUser = useLogin();
     const logoutUser = useLogout();
+
+    const confirm = useConfirm();
 
     if (isUserLoading) {
         return null; // Loading state (show nothing for now, later maybe loader)
@@ -106,11 +109,21 @@ export function App() {
                     user={user}
                     onChangePasswordClick={() => setChangePasswordModalOpen(true)}
                     onLogoutClick={async () => {
+                        const confirmed = await confirm({
+                            title: t.auth.logout,
+                            text: t.auth.logoutConfirm,
+                            confirm: t.auth.logout,
+                            cancel: t.common.cancel,
+                        });
+                        if (!confirmed) return;
+
                         setProfileModalOpen(false);
                         const res = await logout();
                         if (res.success) {
                             logoutUser();
                             toast.success(t.auth.logoutSuccess);
+                        } else {
+                            toast.error(res.error.message);
                         }
                     }}
                     labels={{
