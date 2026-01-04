@@ -1,9 +1,7 @@
 .table {
-    display: block;
     border-collapse: collapse;
     background-color: var(--color-gray-800);
     border-radius: 8px;
-    overflow: scroll;
 }
 
 .table th,

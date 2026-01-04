@@ -3,9 +3,9 @@
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    padding: 10px 12px;
+    padding: 10px;
     background-color: var(--color-gray-800);
-    overflow: scroll;
+    overflow: auto;
 }
 
 .logo {
