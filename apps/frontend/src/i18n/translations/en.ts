@@ -9,11 +9,12 @@ export const en: TranslationSchema = {
         createdAt: "Created at",
         createdBy: "Created by",
         createSuccess: (id) => `Skin with ID = ${id} created successfully!`,
-        updateSuccess: "Skin updated successfully!",
-        deleteSuccess: "Skin deleted successfully!",
+        updateSuccess: (id) => `Skin with ID = ${id} updated successfully!`,
+        deleteSuccess: (id) => `Skin with ID = ${id} deleted successfully!`,
         create: "Create Skin",
         update: "Update Skin",
         delete: "Delete Skin",
+        deleteConfirm: "Are you sure you want to delete skin?",
     },
     users: {
         title: "Users",
@@ -52,6 +53,7 @@ export const en: TranslationSchema = {
         create: "Create",
         update: "Update",
         delete: "Delete",
+        cancel: "Cancel",
     },
     errors: {
         serverNotResponded: "Server could not respond",

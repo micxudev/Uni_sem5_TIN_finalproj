@@ -9,11 +9,12 @@ export const pl: TranslationSchema = {
         createdAt: "",
         createdBy: "",
         createSuccess: (id) => `${id}`,
-        updateSuccess: "",
-        deleteSuccess: "",
+        updateSuccess: (id) => `${id}`,
+        deleteSuccess: (id) => `${id}`,
         create: "",
         update: "",
         delete: "",
+        deleteConfirm: "",
     },
     users: {
         title: "",
@@ -52,6 +53,7 @@ export const pl: TranslationSchema = {
         create: "",
         update: "",
         delete: "",
+        cancel: "",
     },
     errors: {
         serverNotResponded: "",

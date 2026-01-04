@@ -5,8 +5,8 @@ interface SkinModalProps {
     skin: Skin;
     canUpdate: boolean;
     canDelete: boolean;
-    onUpdate: () => void;
-    onDelete: () => void;
+    onUpdateClick: () => void;
+    onDeleteClick: () => void;
     labels: {
         title: string;
         id: string;
@@ -17,7 +17,7 @@ interface SkinModalProps {
     };
 }
 
-export function PreviewSkinModal({skin, canUpdate, canDelete, onUpdate, onDelete, labels,}: SkinModalProps) {
+export function PreviewSkinModal({skin, canUpdate, canDelete, onUpdateClick, onDeleteClick, labels,}: SkinModalProps) {
     return (
         <div>
             <h2 className="skin-title">{skin.name}</h2>
@@ -37,10 +37,10 @@ export function PreviewSkinModal({skin, canUpdate, canDelete, onUpdate, onDelete
             {(canUpdate || canDelete) && (
                 <div className="skin-actions-container">
                     {canUpdate && (
-                        <button className="skin-action edit" onClick={onUpdate}>{labels.update}</button>
+                        <button className="skin-action edit" onClick={onUpdateClick}>{labels.update}</button>
                     )}
                     {canDelete && (
-                        <button className="skin-action delete" onClick={onDelete}>{labels.delete}</button>
+                        <button className="skin-action delete" onClick={onDeleteClick}>{labels.delete}</button>
                     )}
                 </div>
             )}

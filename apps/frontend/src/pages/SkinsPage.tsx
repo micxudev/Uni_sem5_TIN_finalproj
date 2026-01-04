@@ -2,7 +2,7 @@ import {useState} from "react";
 import {toast} from "react-toastify";
 import {type PaginatedResult, type Skin, UserRoleValues} from "@shared";
 
-import {fetchSkins} from "../api/api.skins.ts";
+import {deleteSkin, fetchSkins} from "../api/api.skins.ts";
 
 import {PaginatedTable} from "../components/PaginatedTable/PaginatedTable";
 import type {Column} from "../components/PaginatedTable/Table/types";
@@ -14,6 +14,7 @@ import {UpdateSkinModal} from "../components/SkinModal/Actions/UpdateSkinModal.t
 
 import {useI18n} from "../i18n/I18nContext.tsx";
 import {useUser} from "../AuthContext/AuthContext.tsx";
+import {useConfirm} from "../Contexts/ConfirmContext.tsx";
 
 export function SkinsPage() {
     const [selectedSkin, setSelectedSkin] = useState<Skin | null>(null);
@@ -22,6 +23,7 @@ export function SkinsPage() {
 
     const t = useI18n();
     const user = useUser();
+    const confirm = useConfirm();
     const isAdmin = user?.role === UserRoleValues.ADMIN;
     const isUserSkinOwner = user?.id === selectedSkin?.createdBy;
 
@@ -52,8 +54,24 @@ export function SkinsPage() {
                 skin={selectedSkin}
                 canUpdate={isAdmin && isUserSkinOwner}
                 canDelete={isAdmin && isUserSkinOwner}
-                onUpdate={() => setUpdateSkinModalModalOpen(true)}
-                onDelete={() => console.log("delete", selectedSkin.id)}
+                onUpdateClick={() => setUpdateSkinModalModalOpen(true)}
+                onDeleteClick={async () => {
+                    const confirmed = await confirm({
+                        title: t.skins.delete,
+                        text: t.skins.deleteConfirm,
+                        confirm: t.skins.delete,
+                        cancel: t.common.cancel,
+                    });
+                    if (!confirmed) return;
+
+                    setSelectedSkin(null);
+
+                    const res = await deleteSkin(selectedSkin.id);
+                    if (res.success)
+                        toast.success(t.skins.deleteSuccess(selectedSkin.id));
+                    else
+                        toast.error(res.error.message);
+                }}
                 labels={{
                     title: selectedSkin.name,
                     id: t.skins.id,
@@ -90,7 +108,10 @@ export function SkinsPage() {
             <Modal onClose={() => setUpdateSkinModalModalOpen(false)}>
                 <UpdateSkinModal
                     onClose={() => setUpdateSkinModalModalOpen(false)}
-                    onUpdate={() => toast.success(t.skins.updateSuccess)}
+                    onUpdate={() => {
+                        setSelectedSkin(null);
+                        toast.success(t.skins.updateSuccess(selectedSkin.id));
+                    }}
                     skin={selectedSkin}
                     labels={{
                         title: t.skins.update,

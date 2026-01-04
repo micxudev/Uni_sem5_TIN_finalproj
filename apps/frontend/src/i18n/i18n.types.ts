@@ -7,11 +7,12 @@ export interface TranslationSchema {
         createdAt: string;
         createdBy: string;
         createSuccess: (id: number) => string;
-        updateSuccess: string;
-        deleteSuccess: string;
+        updateSuccess: (id: number) => string;
+        deleteSuccess: (id: number) => string;
         create: string;
         update: string;
         delete: string;
+        deleteConfirm: string;
     };
     users: {
         title: string;
@@ -50,6 +51,7 @@ export interface TranslationSchema {
         create: string;
         update: string;
         delete: string;
+        cancel: string;
     };
     errors: {
         serverNotResponded: string;
