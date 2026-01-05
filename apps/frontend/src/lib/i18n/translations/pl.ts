@@ -28,6 +28,7 @@ export const pl: TranslationSchema = {
         grant: "",
         noData: "",
         grantSuccess: "",
+        viewOwnedSkins: "",
     },
     users: {
         title: "",
@@ -36,6 +37,8 @@ export const pl: TranslationSchema = {
         role: "",
         createdAt: "",
         lastLootboxOpenedAt: "",
+        noData: "",
+        user: "",
     },
     auth: {
         signIn: "",
@@ -71,5 +74,9 @@ export const pl: TranslationSchema = {
     },
     errors: {
         serverNotResponded: "",
+        unauthenticated: "",
+        unauthorized: "",
+        authRequired: "",
+        adminRequired: "",
     },
 };

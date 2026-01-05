@@ -28,6 +28,7 @@ export const en: TranslationSchema = {
         grant: "Grant Skin",
         noData: "No owned skins found.",
         grantSuccess: "Skin granted successfully",
+        viewOwnedSkins: "View owned skins",
     },
     users: {
         title: "Users",
@@ -36,6 +37,8 @@ export const en: TranslationSchema = {
         role: "Role",
         createdAt: "Created at",
         lastLootboxOpenedAt: "Last lootbox opened at",
+        noData: "No users found.",
+        user: "User",
     },
     auth: {
         signIn: "Sign in",
@@ -71,5 +74,9 @@ export const en: TranslationSchema = {
     },
     errors: {
         serverNotResponded: "Server could not respond",
+        unauthenticated: "Not Authenticated",
+        unauthorized: "Not Authorized",
+        authRequired: "You must be logged in to access this page.",
+        adminRequired: "You must be an admin to access this page.",
     },
 };

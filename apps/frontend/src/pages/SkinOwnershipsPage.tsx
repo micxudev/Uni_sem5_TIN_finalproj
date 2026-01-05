@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {toast} from "react-toastify";
 import {type PaginatedResult, type SkinOwnership, UserRoleValues} from "@shared";
+import {ErrorFlash} from "../components/ErrorFlash.tsx";
 
 import {fetchSkinOwnerships} from "../api/api.skin-ownership.ts";
 
@@ -28,6 +29,10 @@ export function SkinOwnershipsPage() {
         {key: "obtainedAt", header: t.skin_ownership.obtainedAt, render: s => new Date(s.obtainedAt).toLocaleString()},
         {key: "skin", header: t.skin_ownership.skin, render: s => s.skin.name},
     ];
+
+    if (!user) {
+        return <ErrorFlash title={t.errors.unauthenticated} error={t.errors.authRequired}/>;
+    }
 
     function renderPaginatedTableHeader(result: PaginatedResult<SkinOwnership>) {
         return (
@@ -87,23 +92,21 @@ export function SkinOwnershipsPage() {
 
     return (
         <>
-            {user && (
-                <PaginatedTable<SkinOwnership>
-                    fetcher={(page, perPage) => fetchSkinOwnerships(user.id, page, perPage)}
-                    perPage={8}
-                    columns={columns}
-                    onRowClick={setSelectedSkinOwnership}
-                    refreshKey={tableVersion}
-                    header={renderPaginatedTableHeader}
-                    labels={{
-                        error: t.errors.serverNotResponded,
-                        noData: t.skin_ownership.noData,
-                        prev: t.pagination.prev,
-                        next: t.pagination.next,
-                        page: t.pagination.page,
-                    }}
-                />
-            )}
+            <PaginatedTable<SkinOwnership>
+                fetcher={(page, perPage) => fetchSkinOwnerships(user.id, page, perPage)}
+                perPage={8}
+                columns={columns}
+                onRowClick={setSelectedSkinOwnership}
+                refreshKey={tableVersion}
+                header={renderPaginatedTableHeader}
+                labels={{
+                    error: t.errors.serverNotResponded,
+                    noData: t.skin_ownership.noData,
+                    prev: t.pagination.prev,
+                    next: t.pagination.next,
+                    page: t.pagination.page,
+                }}
+            />
             {renderPreviewSkinModal()}
             {renderGrantSkinModal()}
         </>

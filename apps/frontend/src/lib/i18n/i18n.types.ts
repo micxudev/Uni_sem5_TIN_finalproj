@@ -26,6 +26,7 @@ export interface TranslationSchema {
         grant: string;
         noData: string;
         grantSuccess: string;
+        viewOwnedSkins: string;
     }
     users: {
         title: string;
@@ -34,6 +35,8 @@ export interface TranslationSchema {
         role: string;
         createdAt: string;
         lastLootboxOpenedAt: string;
+        noData: string;
+        user: string;
     };
     auth: {
         signIn: string;
@@ -69,5 +72,9 @@ export interface TranslationSchema {
     };
     errors: {
         serverNotResponded: string;
+        unauthenticated: string;
+        unauthorized: string;
+        authRequired: string;
+        adminRequired: string;
     };
 }
