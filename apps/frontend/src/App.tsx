@@ -4,6 +4,7 @@ import {toast} from "react-toastify";
 import {Header} from "./components/Header.tsx";
 import {AppLayout} from "./layouts/AppLayout";
 import {SkinsPage} from "./pages/SkinsPage";
+import {SkinOwnershipsPage} from "./pages/SkinOwnershipsPage.tsx";
 
 import {LanguageModal} from "./components/Modals/LanguageModal.tsx";
 import {AuthModal} from "./components/Modals/AuthModal.tsx";
@@ -160,6 +161,7 @@ export function App() {
     return (
         <AppLayout header={header}>
             <SkinsPage/>
+            <SkinOwnershipsPage/>
             {renderLanguageModal()}
             {renderAuthModal()}
             {renderProfileModal()}

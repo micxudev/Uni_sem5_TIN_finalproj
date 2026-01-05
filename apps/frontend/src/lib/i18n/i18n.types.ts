@@ -15,6 +15,18 @@ export interface TranslationSchema {
         deleteConfirm: string;
         noData: string;
     };
+    skin_ownership: {
+        title: string;
+        ownershipId: string;
+        source: string;
+        obtainedAt: string;
+        userId: string;
+        skinId: string;
+        skin: string;
+        grant: string;
+        noData: string;
+        grantSuccess: string;
+    }
     users: {
         title: string;
         id: string;

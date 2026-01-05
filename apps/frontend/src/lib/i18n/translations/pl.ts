@@ -17,6 +17,18 @@ export const pl: TranslationSchema = {
         deleteConfirm: "",
         noData: "",
     },
+    skin_ownership: {
+        title: "",
+        ownershipId: "",
+        source: "",
+        obtainedAt: "",
+        userId: "",
+        skinId: "",
+        skin: "",
+        grant: "",
+        noData: "",
+        grantSuccess: "",
+    },
     users: {
         title: "",
         id: "",

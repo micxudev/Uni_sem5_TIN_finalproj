@@ -17,6 +17,18 @@ export const en: TranslationSchema = {
         deleteConfirm: "Are you sure you want to delete skin?",
         noData: "No skins found.",
     },
+    skin_ownership: {
+        title: "owned skins",
+        ownershipId: "Ownership ID",
+        source: "Source",
+        obtainedAt: "Obtained at",
+        userId: "User ID",
+        skinId: "Skin ID",
+        skin: "Skin Name",
+        grant: "Grant Skin",
+        noData: "No owned skins found.",
+        grantSuccess: "Skin granted successfully",
+    },
     users: {
         title: "Users",
         id: "ID",
