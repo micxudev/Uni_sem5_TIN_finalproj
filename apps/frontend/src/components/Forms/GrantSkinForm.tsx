@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {type GrantSkinInput, GrantSkinInputSchema} from "@shared";
+import {Form, FormButton, FormFieldError} from "./Form.tsx";
 
 interface GrantSkinFormProps {
     onSubmit: (data: GrantSkinInput) => void;
@@ -25,30 +26,20 @@ export function GrantSkinForm({onSubmit, initValues, labels}: GrantSkinFormProps
     });
 
     return (
-        <form className="skin-form" onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
             <label>
                 <span>{labels.userId}</span>
                 <input type="text" defaultValue={initValues?.userId} {...register("userId")} />
-                {errors.userId && (
-                    <div className="field-error">{errors.userId.message}</div>
-                )}
+                <FormFieldError error={errors.userId?.message}></FormFieldError>
             </label>
 
             <label>
                 <span>{labels.skinId}</span>
                 <input type="text" defaultValue={initValues?.skinId} {...register("skinId")} />
-                {errors.skinId && (
-                    <div className="field-error">{errors.skinId.message}</div>
-                )}
+                <FormFieldError error={errors.skinId?.message}></FormFieldError>
             </label>
 
-            <button
-                type="submit"
-                className="skin-submit"
-                disabled={isSubmitting}
-            >
-                {labels.submit}
-            </button>
-        </form>
+            <FormButton disabled={isSubmitting} label={labels.submit}></FormButton>
+        </Form>
     );
 }

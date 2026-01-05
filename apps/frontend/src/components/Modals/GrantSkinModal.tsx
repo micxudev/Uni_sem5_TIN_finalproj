@@ -4,7 +4,6 @@ import {GrantSkinForm} from "../Forms/GrantSkinForm.tsx";
 import {type GrantSkinInput} from "@shared";
 import {grantSkin} from "../../api/api.skin-ownership.ts";
 import {ErrorFlash} from "../ErrorFlash.tsx";
-import "../../styles/components/Skin.css";
 
 interface GrantSkinModalProps {
     onClose: () => void;
@@ -33,23 +32,20 @@ export function GrantSkinModal({onClose, onGrant, labels}: GrantSkinModalProps) 
     }
 
     return (
-        <Modal onClose={onClose}>
-            <div className="skin-modal">
-                <h2 className="skin-title">
-                    {labels.title}
-                </h2>
+        <Modal
+            onClose={onClose}
+            titleText={labels.title}
+        >
+            <ErrorFlash error={error} closable={false}/>
 
-                <ErrorFlash error={error} closable={false}/>
-
-                <GrantSkinForm
-                    labels={{
-                        userId: labels.userId,
-                        skinId: labels.skinId,
-                        submit: labels.submit,
-                    }}
-                    onSubmit={handleSubmit}
-                />
-            </div>
+            <GrantSkinForm
+                labels={{
+                    userId: labels.userId,
+                    skinId: labels.skinId,
+                    submit: labels.submit,
+                }}
+                onSubmit={handleSubmit}
+            />
         </Modal>
     );
 }

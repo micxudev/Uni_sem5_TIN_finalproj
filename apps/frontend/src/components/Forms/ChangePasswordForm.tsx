@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {type ChangePasswordInput, ChangePasswordInputSchema} from "@shared";
+import {Form, FormButton, FormFieldError} from "./Form.tsx";
 
 interface ChangePasswordFormProps {
     onSubmit: (data: ChangePasswordInput) => void;
@@ -21,30 +22,20 @@ export function ChangePasswordForm({onSubmit, labels}: ChangePasswordFormProps) 
     });
 
     return (
-        <form className="change-password-form" onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
             <label>
                 <span>{labels.currentPassword}</span>
                 <input type="password" {...register("currentPassword")} />
-                {errors.currentPassword && (
-                    <div className="field-error">{errors.currentPassword.message}</div>
-                )}
+                <FormFieldError error={errors.currentPassword?.message}></FormFieldError>
             </label>
 
             <label>
                 <span>{labels.newPassword}</span>
                 <input type="password" {...register("newPassword")} />
-                {errors.newPassword && (
-                    <div className="field-error">{errors.newPassword.message}</div>
-                )}
+                <FormFieldError error={errors.newPassword?.message}></FormFieldError>
             </label>
 
-            <button
-                type="submit"
-                className="change-password-submit"
-                disabled={isSubmitting}
-            >
-                {labels.submit}
-            </button>
-        </form>
+            <FormButton disabled={isSubmitting} label={labels.submit}></FormButton>
+        </Form>
     );
 }

@@ -1,4 +1,4 @@
-.modal-container {
+.modal__container {
     position: fixed;
     inset: 0;
     display: flex;
@@ -8,9 +8,34 @@
     background-color: var(--color-shadow);
 }
 
-.modal-card {
+.modal__card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     background: var(--color-gray-800);
     padding: 20px;
     min-width: 300px;
     border-radius: 20px;
+}
+
+.modal__title {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.modal__actions-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.modal__action--info {
+    font-weight: normal;
+    color: var(--color-blue-300);
+}
+
+.modal__action--danger {
+    font-weight: bold;
+    color: var(--color-red-400);
 }

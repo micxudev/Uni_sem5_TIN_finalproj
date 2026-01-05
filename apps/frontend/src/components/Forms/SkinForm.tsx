@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {type SkinInput, SkinInputSchema, type SkinRarity, SkinRarityValues} from "@shared";
+import {Form, FormButton, FormFieldError} from "./Form.tsx";
 
 interface SkinFormProps {
     onSubmit: (data: SkinInput) => void;
@@ -25,13 +26,11 @@ export function SkinForm({onSubmit, initValues, labels}: SkinFormProps) {
     });
 
     return (
-        <form className="skin-form" onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
             <label>
                 <span>{labels.name}</span>
                 <input type="text" defaultValue={initValues?.name} {...register("name")} />
-                {errors.name && (
-                    <div className="field-error">{errors.name.message}</div>
-                )}
+                <FormFieldError error={errors.name?.message}></FormFieldError>
             </label>
 
             <label>
@@ -43,18 +42,10 @@ export function SkinForm({onSubmit, initValues, labels}: SkinFormProps) {
                         </option>
                     ))}
                 </select>
-                {errors.rarity && (
-                    <div className="field-error">{errors.rarity.message}</div>
-                )}
+                <FormFieldError error={errors.rarity?.message}></FormFieldError>
             </label>
 
-            <button
-                type="submit"
-                className="skin-submit"
-                disabled={isSubmitting}
-            >
-                {labels.submit}
-            </button>
-        </form>
+            <FormButton disabled={isSubmitting} label={labels.submit}></FormButton>
+        </Form>
     );
 }

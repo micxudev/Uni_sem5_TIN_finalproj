@@ -1,6 +1,5 @@
 import type {User} from "@shared";
-import {Modal} from "./Modal.tsx";
-import "../../styles/components/PreviewUserModal.css";
+import {Modal, ModalAction, ModalActions} from "./Modal.tsx";
 
 interface PreviewUserModalProps {
     user: User;
@@ -18,12 +17,19 @@ interface PreviewUserModalProps {
     };
 }
 
-export function PreviewUserModal({user, canViewUserSkins, onViewUserSkinsClick, onClose, labels,}: PreviewUserModalProps) {
+export function PreviewUserModal({
+                                     user,
+                                     canViewUserSkins,
+                                     onViewUserSkinsClick,
+                                     onClose,
+                                     labels,
+                                 }: PreviewUserModalProps) {
     return (
-        <Modal onClose={onClose}>
+        <Modal
+            onClose={onClose}
+            titleText={labels.title}
+        >
             <div>
-                <h2 className="user-title">{labels.title}</h2>
-
                 <p>
                     <strong>{labels.id}:</strong> {user.id}
                 </p>
@@ -43,15 +49,15 @@ export function PreviewUserModal({user, canViewUserSkins, onViewUserSkinsClick, 
                 <p>
                     <strong>{labels.lastLootboxOpenedAt}:</strong> {user.lastLootboxOpenedAt ? new Date(user.lastLootboxOpenedAt).toLocaleString() : "-"}
                 </p>
-
-                {(canViewUserSkins) && (
-                    <div className="user-actions-container">
-                        <button className="user-action view" onClick={() => onViewUserSkinsClick(user.id)}>
-                            {labels.viewSkins}
-                        </button>
-                    </div>
-                )}
             </div>
+
+            <ModalActions visible={canViewUserSkins}>
+                <ModalAction
+                    type="info"
+                    label={labels.viewSkins}
+                    onClick={() => onViewUserSkinsClick(user.id)}
+                ></ModalAction>
+            </ModalActions>
         </Modal>
     );
 }

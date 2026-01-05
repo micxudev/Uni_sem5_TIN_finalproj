@@ -1,6 +1,5 @@
 import type {Skin} from "@shared";
-import {Modal} from "./Modal.tsx";
-import "../../styles/components/PreviewSkinModal.css";
+import {Modal, ModalAction, ModalActions} from "./Modal.tsx";
 
 interface PreviewSkinModalProps {
     skin: Skin;
@@ -30,10 +29,11 @@ export function PreviewSkinModal(
         labels,
     }: PreviewSkinModalProps) {
     return (
-        <Modal onClose={onClose}>
+        <Modal
+            onClose={onClose}
+            titleText={skin.name}
+        >
             <div>
-                <h2 className="skin-title">{skin.name}</h2>
-
                 <p>
                     <strong>{labels.id}:</strong> {skin.id}
                 </p>
@@ -45,18 +45,22 @@ export function PreviewSkinModal(
                 <p>
                     <strong>{labels.createdAt}:</strong> {new Date(skin.createdAt).toLocaleString()}
                 </p>
-
-                {(canUpdate || canDelete) && (
-                    <div className="skin-actions-container">
-                        {canUpdate && (
-                            <button className="skin-action edit" onClick={onUpdateClick}>{labels.update}</button>
-                        )}
-                        {canDelete && (
-                            <button className="skin-action delete" onClick={onDeleteClick}>{labels.delete}</button>
-                        )}
-                    </div>
-                )}
             </div>
+
+            <ModalActions visible={canUpdate || canDelete}>
+                <ModalAction
+                    visible={canUpdate}
+                    type="info"
+                    label={labels.update}
+                    onClick={onUpdateClick}
+                ></ModalAction>
+                <ModalAction
+                    visible={canDelete}
+                    type="danger"
+                    label={labels.delete}
+                    onClick={onDeleteClick}
+                ></ModalAction>
+            </ModalActions>
         </Modal>
     );
 }

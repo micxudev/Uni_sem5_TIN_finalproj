@@ -44,34 +44,31 @@ export function AuthModal({onClose, onSignIn, onSignUp, labels}: AuthModalProps)
     }
 
     return (
-        <Modal onClose={onClose}>
-            <div className="auth-modal">
-                <h2 className="auth-title">
-                    {isSignIn ? labels.signIn : labels.signUp}
-                </h2>
+        <Modal
+            onClose={onClose}
+            titleText={isSignIn ? labels.signIn : labels.signUp}
+        >
+            <ErrorFlash error={error} closable={false}/>
 
-                <ErrorFlash error={error} closable={false}/>
+            <AuthForm
+                labels={{
+                    username: labels.username,
+                    password: labels.password,
+                    submit: isSignIn ? labels.signIn : labels.signUp,
+                }}
+                onSubmit={handleSubmit}
+            />
 
-                <AuthForm
-                    labels={{
-                        username: labels.username,
-                        password: labels.password,
-                        submit: isSignIn ? labels.signIn : labels.signUp,
-                    }}
-                    onSubmit={handleSubmit}
-                />
-
-                <div className="auth-switch">
+            <div className="auth-switch">
                 <span>
                     {isSignIn ? labels.noAccount : labels.alreadyHaveAccount}
                 </span>
-                    <a onClick={() => {
-                        setMode(isSignIn ? "signup" : "signin");
-                        setError(null);
-                    }}>
-                        {isSignIn ? labels.signUp : labels.signIn}
-                    </a>
-                </div>
+                <a onClick={() => {
+                    setMode(isSignIn ? "signup" : "signin");
+                    setError(null);
+                }}>
+                    {isSignIn ? labels.signUp : labels.signIn}
+                </a>
             </div>
         </Modal>
     );

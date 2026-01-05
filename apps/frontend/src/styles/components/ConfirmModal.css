@@ -1,14 +1,3 @@
-.confirm-modal__container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.confirm-modal__title {
-    text-align: center;
-    margin: 10px 0;
-}
-
 .confirm-modal__text {
     text-align: center;
 }

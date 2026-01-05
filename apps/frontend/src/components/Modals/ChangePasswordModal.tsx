@@ -4,7 +4,6 @@ import {type ChangePasswordInput} from "@shared";
 import {changePassword} from "../../api/api.auth.ts";
 import {ErrorFlash} from "../ErrorFlash.tsx";
 import {Modal} from "./Modal.tsx";
-import "../../styles/components/ChangePassword.css";
 
 interface ChangePasswordModalProps {
     onClose: () => void;
@@ -33,23 +32,20 @@ export function ChangePasswordModal({onClose, onChangePassword, labels}: ChangeP
     }
 
     return (
-        <Modal onClose={onClose}>
-            <div className="change-password-modal">
-                <h2 className="change-password-title">
-                    {labels.title}
-                </h2>
+        <Modal
+            onClose={onClose}
+            titleText={labels.title}
+        >
+            <ErrorFlash error={error} closable={false}/>
 
-                <ErrorFlash error={error} closable={false}/>
-
-                <ChangePasswordForm
-                    labels={{
-                        currentPassword: labels.currentPassword,
-                        newPassword: labels.newPassword,
-                        submit: labels.submit,
-                    }}
-                    onSubmit={handleSubmit}
-                />
-            </div>
+            <ChangePasswordForm
+                labels={{
+                    currentPassword: labels.currentPassword,
+                    newPassword: labels.newPassword,
+                    submit: labels.submit,
+                }}
+                onSubmit={handleSubmit}
+            />
         </Modal>
     );
 }

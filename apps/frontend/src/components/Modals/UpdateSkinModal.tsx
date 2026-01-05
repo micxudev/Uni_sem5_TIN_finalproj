@@ -4,7 +4,6 @@ import {SkinForm} from "../Forms/SkinForm.tsx";
 import {type Skin, type SkinInput} from "@shared";
 import {updateSkin} from "../../api/api.skins.ts";
 import {ErrorFlash} from "../ErrorFlash.tsx";
-import "../../styles/components/Skin.css";
 
 interface UpdateSkinModalProps {
     onClose: () => void;
@@ -34,27 +33,24 @@ export function UpdateSkinModal({onClose, onUpdate, skin, labels}: UpdateSkinMod
     }
 
     return (
-        <Modal onClose={onClose}>
-            <div className="skin-modal">
-                <h2 className="skin-title">
-                    {labels.title}
-                </h2>
+        <Modal
+            onClose={onClose}
+            titleText={labels.title}
+        >
+            <ErrorFlash error={error} closable={false}/>
 
-                <ErrorFlash error={error} closable={false}/>
-
-                <SkinForm
-                    labels={{
-                        name: labels.name,
-                        rarity: labels.rarity,
-                        submit: labels.submit,
-                    }}
-                    initValues={{
-                        name: skin.name,
-                        rarity: skin.rarity,
-                    }}
-                    onSubmit={handleSubmit}
-                />
-            </div>
+            <SkinForm
+                labels={{
+                    name: labels.name,
+                    rarity: labels.rarity,
+                    submit: labels.submit,
+                }}
+                initValues={{
+                    name: skin.name,
+                    rarity: skin.rarity,
+                }}
+                onSubmit={handleSubmit}
+            />
         </Modal>
     );
 }

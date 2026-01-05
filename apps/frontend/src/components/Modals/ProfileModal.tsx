@@ -1,6 +1,5 @@
 import type {User} from "@shared";
-import {Modal} from "./Modal.tsx";
-import "../../styles/components/ProfileModal.css";
+import {Modal, ModalAction, ModalActions} from "./Modal.tsx";
 
 interface ProfileModalProps {
     onClose: () => void;
@@ -21,10 +20,11 @@ interface ProfileModalProps {
 
 export function ProfileModal({onClose, user, onChangePasswordClick, onLogoutClick, labels,}: ProfileModalProps) {
     return (
-        <Modal onClose={onClose}>
+        <Modal
+            onClose={onClose}
+            titleText={labels.title}
+        >
             <div>
-                <h2 className="profile-title">{labels.title}</h2>
-
                 <p>
                     <strong>{labels.id}:</strong> {user.id}
                 </p>
@@ -44,20 +44,20 @@ export function ProfileModal({onClose, user, onChangePasswordClick, onLogoutClic
                 <p>
                     <strong>{labels.lastLootboxOpenedAt}:</strong> {user.lastLootboxOpenedAt ? new Date(user.lastLootboxOpenedAt).toLocaleString() : "-"}
                 </p>
-
-                <div className="profile-actions-container">
-                    <button
-                        className="profile-action change-password"
-                        onClick={onChangePasswordClick}>
-                        {labels.changePassword}
-                    </button>
-                    <button
-                        className="profile-action logout"
-                        onClick={onLogoutClick}>
-                        {labels.logout}
-                    </button>
-                </div>
             </div>
+
+            <ModalActions>
+                <ModalAction
+                    type="info"
+                    label={labels.changePassword}
+                    onClick={onChangePasswordClick}
+                ></ModalAction>
+                <ModalAction
+                    type="danger"
+                    label={labels.logout}
+                    onClick={onLogoutClick}
+                ></ModalAction>
+            </ModalActions>
         </Modal>
     );
 }

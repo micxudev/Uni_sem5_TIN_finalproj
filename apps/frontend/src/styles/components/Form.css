@@ -1,0 +1,15 @@
+.form__container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form__field-error {
+    font-size: 14px;
+    color: var(--color-red-500);
+    margin-top: 5px;
+}
+
+.form__button {
+    margin-top: 15px;
+}
