@@ -1,10 +1,10 @@
 import {useState} from "react";
-import {ChangePasswordForm} from "./ChangePasswordForm.tsx";
+import {ChangePasswordForm} from "../Forms/ChangePasswordForm.tsx";
 import {type ChangePasswordInput} from "@shared";
 import {changePassword} from "../../api/api.auth.ts";
-import {ErrorFlash} from "../ErrorFlash/ErrorFlash.tsx";
-import {Modal} from "../Modal/Modal.tsx";
-import "./ChangePassword.css";
+import {ErrorFlash} from "../ErrorFlash.tsx";
+import {Modal} from "./Modal.tsx";
+import "../../styles/components/ChangePassword.css";
 
 interface ChangePasswordModalProps {
     onClose: () => void;

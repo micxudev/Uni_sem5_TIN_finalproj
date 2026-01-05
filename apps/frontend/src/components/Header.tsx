@@ -1,5 +1,5 @@
 import type {User} from "@shared";
-import "./Header.css";
+import "../styles/components/Header.css";
 
 interface HeaderProps {
     user: User | null;

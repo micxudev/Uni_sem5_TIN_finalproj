@@ -5,12 +5,12 @@ import {type PaginatedResult, type Skin, UserRoleValues} from "@shared";
 import {deleteSkin, fetchSkins} from "../api/api.skins.ts";
 
 import {PaginatedTable} from "../components/PaginatedTable/PaginatedTable";
-import type {Column} from "../components/PaginatedTable/Table/types";
+import type {Column} from "../lib/types.ts";
 
-import {Modal} from "../components/Modal/Modal";
-import {PreviewSkinModal} from "../components/SkinModal/Preview/PreviewSkinModal.tsx";
-import {CreateSkinModal} from "../components/SkinModal/Actions/CreateSkinModal.tsx";
-import {UpdateSkinModal} from "../components/SkinModal/Actions/UpdateSkinModal.tsx";
+import {Modal} from "../components/Modals/Modal.tsx";
+import {PreviewSkinModal} from "../components/Modals/PreviewSkinModal.tsx";
+import {CreateSkinModal} from "../components/Modals/CreateSkinModal.tsx";
+import {UpdateSkinModal} from "../components/Modals/UpdateSkinModal.tsx";
 
 import {useI18n} from "../contexts/I18nContext.tsx";
 import {useUser} from "../contexts/AuthContext.tsx";

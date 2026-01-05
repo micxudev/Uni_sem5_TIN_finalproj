@@ -1,5 +1,5 @@
 import type {ReactNode} from "react";
-import {Footer} from "../components/Footer/Footer";
+import {Footer} from "../components/Footer.tsx";
 import "./Layout.css";
 
 interface AppLayoutProps {

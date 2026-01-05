@@ -1,6 +1,6 @@
 import {type Language, languages} from "../../lib/i18n";
-import {Modal} from "../Modal/Modal.tsx";
-import "./LanguageModal.css";
+import {Modal} from "./Modal.tsx";
+import "../../styles/components/LanguageModal.css";
 
 interface LanguageModalProps {
     current: Language;

@@ -1,6 +1,6 @@
 import {type ReactNode, useEffect, useRef} from "react";
 import {isTopModal, popModal, pushModal} from "../../lib/utils/modalStack.ts";
-import "./Modal.css";
+import "../../styles/components/Modal.css";
 
 interface ModalProps {
     children: ReactNode;

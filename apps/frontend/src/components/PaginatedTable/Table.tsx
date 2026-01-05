@@ -1,5 +1,5 @@
-import type {Column} from "./types.ts";
-import "./Table.css";
+import type {Column} from "../../lib/types.ts";
+import "../../styles/components/Table.css";
 
 interface TableProps<T> {
     data: T[];

@@ -1,5 +1,5 @@
-import "./ConfirmModal.css";
-import {Modal} from "../Modal/Modal.tsx";
+import "../../styles/components/ConfirmModal.css";
+import {Modal} from "./Modal.tsx";
 
 interface ConfirmModalProps {
     onConfirmClick: () => void;

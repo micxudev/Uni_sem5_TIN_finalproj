@@ -1,5 +1,5 @@
 import type {Skin} from "@shared";
-import "./PreviewSkinModal.css";
+import "../../styles/components/PreviewSkinModal.css";
 
 interface SkinModalProps {
     skin: Skin;

@@ -1,11 +1,11 @@
 import type {ReactNode} from "react";
 import {useEffect, useState} from "react";
 import type {ApiErrorPayload, ApiResponse, PaginatedResult} from "@shared";
-import type {Column} from "./Table/types.ts";
-import {Table} from "./Table/Table.tsx";
-import {PaginationControls} from "./PaginationControls/PaginationControls";
-import "./PaginatedTable.css";
-import {ErrorFlash} from "../ErrorFlash/ErrorFlash.tsx";
+import type {Column} from "../../lib/types.ts";
+import {Table} from "./Table.tsx";
+import {PaginationControls} from "./PaginationControls.tsx";
+import "../../styles/components/PaginatedTable.css";
+import {ErrorFlash} from "../ErrorFlash.tsx";
 
 interface PaginatedTableProps<T> {
     fetcher: (page: number, perPage: number) => Promise<ApiResponse<PaginatedResult<T>>>;

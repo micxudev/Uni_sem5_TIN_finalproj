@@ -1,5 +1,5 @@
 import {useState} from "react";
-import "./ErrorFlash.css";
+import "../styles/components/ErrorFlash.css";
 
 type ErrorFlashProps = {
     title?: string;

@@ -1,14 +1,14 @@
 import {useState} from "react";
 import {toast} from "react-toastify";
 
-import {Header} from "./components/Header/Header.tsx";
+import {Header} from "./components/Header.tsx";
 import {AppLayout} from "./layouts/AppLayout";
 import {SkinsPage} from "./pages/SkinsPage";
 
-import {LanguageModal} from "./components/LanguageModal/LanguageModal";
-import {AuthModal} from "./components/Auth/AuthModal.tsx";
-import {ProfileModal} from "./components/ProfileModal/ProfileModal";
-import {ChangePasswordModal} from "./components/ChangePasswordModal/ChangePasswordModal.tsx";
+import {LanguageModal} from "./components/Modals/LanguageModal.tsx";
+import {AuthModal} from "./components/Modals/AuthModal.tsx";
+import {ProfileModal} from "./components/Modals/ProfileModal.tsx";
+import {ChangePasswordModal} from "./components/Modals/ChangePasswordModal.tsx";
 
 import {logout} from "./api/api.auth.ts";
 

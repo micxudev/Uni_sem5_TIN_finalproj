@@ -1,13 +1,14 @@
 import {useState} from "react";
-import {SkinForm} from "./SkinForm.tsx";
+import {SkinForm} from "../Forms/SkinForm.tsx";
 import {type Skin, type SkinInput} from "@shared";
-import {createSkin} from "../../../api/api.skins.ts";
-import {ErrorFlash} from "../../ErrorFlash/ErrorFlash.tsx";
-import "./Skin.css";
+import {updateSkin} from "../../api/api.skins.ts";
+import {ErrorFlash} from "../ErrorFlash.tsx";
+import "../../styles/components/Skin.css";
 
 interface SkinActionModalProps {
     onClose: () => void;
-    onCreate: (skin: Skin) => void;
+    onUpdate: () => void;
+    skin: Skin;
     labels: {
         title: string;
         name: string;
@@ -16,18 +17,18 @@ interface SkinActionModalProps {
     }
 }
 
-export function CreateSkinModal({onClose, onCreate, labels}: SkinActionModalProps) {
+export function UpdateSkinModal({onClose, onUpdate, skin, labels}: SkinActionModalProps) {
     const [error, setError] = useState<string | null>(null);
 
     async function handleSubmit(data: SkinInput) {
-        const response = await createSkin(data);
+        const response = await updateSkin(skin.id, data);
 
         if (!response.success) {
             setError(response.error.message);
             return;
         }
 
-        onCreate(response.data);
+        onUpdate();
         onClose();
     }
 
@@ -44,6 +45,10 @@ export function CreateSkinModal({onClose, onCreate, labels}: SkinActionModalProp
                     name: labels.name,
                     rarity: labels.rarity,
                     submit: labels.submit,
+                }}
+                initValues={{
+                    name: skin.name,
+                    rarity: skin.rarity,
                 }}
                 onSubmit={handleSubmit}
             />

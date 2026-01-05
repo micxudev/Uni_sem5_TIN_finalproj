@@ -1,5 +1,5 @@
 import {createContext, type ReactNode, useContext, useState} from "react";
-import {ConfirmModal} from "../components/ConfirmModal/ConfirmModal.tsx";
+import {ConfirmModal} from "../components/Modals/ConfirmModal.tsx";
 
 type ConfirmProps = {
     title: string;

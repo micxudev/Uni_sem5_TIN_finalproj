@@ -1,4 +1,4 @@
-import "./PaginationControls.css";
+import "../../styles/components/PaginationControls.css";
 
 interface PaginationControlsProps {
     currentPage: number;

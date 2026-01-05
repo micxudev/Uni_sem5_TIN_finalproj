@@ -1,6 +1,6 @@
 import type {User} from "@shared";
-import {Modal} from "../Modal/Modal.tsx";
-import "./ProfileModal.css";
+import {Modal} from "./Modal.tsx";
+import "../../styles/components/ProfileModal.css";
 
 interface ProfileModalProps {
     onClose: () => void;

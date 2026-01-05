@@ -1,10 +1,10 @@
 import {useState} from "react";
-import {AuthForm} from "./AuthForm.tsx";
+import {AuthForm} from "../Forms/AuthForm.tsx";
 import {type AuthInput, type User} from "@shared";
 import {login, register} from "../../api/api.auth.ts";
-import {ErrorFlash} from "../ErrorFlash/ErrorFlash.tsx";
-import {Modal} from "../Modal/Modal.tsx";
-import "./Auth.css";
+import {ErrorFlash} from "../ErrorFlash.tsx";
+import {Modal} from "./Modal.tsx";
+import "../../styles/components/Auth.css";
 
 type AuthMode = "signin" | "signup";
 
