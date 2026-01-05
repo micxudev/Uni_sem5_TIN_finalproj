@@ -2,7 +2,7 @@ import type {Skin} from "@shared";
 import {Modal} from "./Modal.tsx";
 import "../../styles/components/PreviewSkinModal.css";
 
-interface SkinModalProps {
+interface PreviewSkinModalProps {
     skin: Skin;
     canUpdate: boolean;
     canDelete: boolean;
@@ -28,7 +28,7 @@ export function PreviewSkinModal(
         onDeleteClick,
         onClose,
         labels,
-    }: SkinModalProps) {
+    }: PreviewSkinModalProps) {
     return (
         <Modal onClose={onClose}>
             <div>

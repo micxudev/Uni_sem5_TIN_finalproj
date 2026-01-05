@@ -1,6 +1,6 @@
 import type {ReactNode} from "react";
 import {Footer} from "../components/Footer.tsx";
-import "./Layout.css";
+import "../styles/Layout.css";
 
 interface AppLayoutProps {
     children: ReactNode;

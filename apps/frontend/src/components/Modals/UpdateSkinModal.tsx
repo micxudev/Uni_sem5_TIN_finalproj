@@ -6,7 +6,7 @@ import {updateSkin} from "../../api/api.skins.ts";
 import {ErrorFlash} from "../ErrorFlash.tsx";
 import "../../styles/components/Skin.css";
 
-interface SkinActionModalProps {
+interface UpdateSkinModalProps {
     onClose: () => void;
     onUpdate: () => void;
     skin: Skin;
@@ -18,7 +18,7 @@ interface SkinActionModalProps {
     }
 }
 
-export function UpdateSkinModal({onClose, onUpdate, skin, labels}: SkinActionModalProps) {
+export function UpdateSkinModal({onClose, onUpdate, skin, labels}: UpdateSkinModalProps) {
     const [error, setError] = useState<string | null>(null);
 
     async function handleSubmit(data: SkinInput) {

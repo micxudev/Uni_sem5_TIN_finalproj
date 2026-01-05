@@ -2,7 +2,7 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {type GrantSkinInput, GrantSkinInputSchema} from "@shared";
 
-interface SkinFormProps {
+interface GrantSkinFormProps {
     onSubmit: (data: GrantSkinInput) => void;
     initValues?: {
         userId?: number;
@@ -15,7 +15,7 @@ interface SkinFormProps {
     }
 }
 
-export function GrantSkinForm({onSubmit, initValues, labels}: SkinFormProps) {
+export function GrantSkinForm({onSubmit, initValues, labels}: GrantSkinFormProps) {
     const {
         register,
         handleSubmit,

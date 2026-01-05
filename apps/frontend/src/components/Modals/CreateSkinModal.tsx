@@ -6,7 +6,7 @@ import {createSkin} from "../../api/api.skins.ts";
 import {ErrorFlash} from "../ErrorFlash.tsx";
 import "../../styles/components/Skin.css";
 
-interface SkinActionModalProps {
+interface CreateSkinModalProps {
     onClose: () => void;
     onCreate: (skin: Skin) => void;
     labels: {
@@ -17,7 +17,7 @@ interface SkinActionModalProps {
     }
 }
 
-export function CreateSkinModal({onClose, onCreate, labels}: SkinActionModalProps) {
+export function CreateSkinModal({onClose, onCreate, labels}: CreateSkinModalProps) {
     const [error, setError] = useState<string | null>(null);
 
     async function handleSubmit(data: SkinInput) {

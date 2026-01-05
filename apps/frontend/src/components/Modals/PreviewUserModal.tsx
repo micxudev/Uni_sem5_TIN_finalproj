@@ -2,7 +2,7 @@ import type {User} from "@shared";
 import {Modal} from "./Modal.tsx";
 import "../../styles/components/PreviewUserModal.css";
 
-interface SkinModalProps {
+interface PreviewUserModalProps {
     user: User;
     canViewUserSkins: boolean;
     onViewUserSkinsClick: (userId: number) => void;
@@ -18,7 +18,7 @@ interface SkinModalProps {
     };
 }
 
-export function PreviewUserModal({user, canViewUserSkins, onViewUserSkinsClick, onClose, labels,}: SkinModalProps) {
+export function PreviewUserModal({user, canViewUserSkins, onViewUserSkinsClick, onClose, labels,}: PreviewUserModalProps) {
     return (
         <Modal onClose={onClose}>
             <div>
