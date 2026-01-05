@@ -17,8 +17,8 @@ import {useConfirm} from "../contexts/ConfirmContext.tsx";
 
 export function SkinsPage() {
     const [selectedSkin, setSelectedSkin] = useState<Skin | null>(null);
-    const [isCreateSkinModalModalOpen, setCreateSkinModalModalOpen] = useState(false);
-    const [isUpdateSkinModalModalOpen, setUpdateSkinModalModalOpen] = useState(false);
+    const [isCreateSkinModalOpen, setCreateSkinModalOpen] = useState(false);
+    const [isUpdateSkinModalOpen, setUpdateSkinModalOpen] = useState(false);
 
     const t = useI18n();
     const user = useUser();
@@ -39,7 +39,7 @@ export function SkinsPage() {
             <div className="paginated-table__header">
                 <h2>{result.meta.total} {t.skins.title}</h2>
                 {isAdmin && (
-                    <button onClick={() => setCreateSkinModalModalOpen(true)}>
+                    <button onClick={() => setCreateSkinModalOpen(true)}>
                         {t.skins.create}
                     </button>
                 )}
@@ -55,7 +55,7 @@ export function SkinsPage() {
                 skin={selectedSkin}
                 canUpdate={isAdmin && isUserSkinOwner}
                 canDelete={isAdmin && isUserSkinOwner}
-                onUpdateClick={() => setUpdateSkinModalModalOpen(true)}
+                onUpdateClick={() => setUpdateSkinModalOpen(true)}
                 onDeleteClick={async () => {
                     const confirmed = await confirm({
                         title: t.skins.delete,
@@ -89,10 +89,10 @@ export function SkinsPage() {
     }
 
     function renderCreateSkinModal() {
-        if (!isCreateSkinModalModalOpen) return null;
+        if (!isCreateSkinModalOpen) return null;
         return (
             <CreateSkinModal
-                onClose={() => setCreateSkinModalModalOpen(false)}
+                onClose={() => setCreateSkinModalOpen(false)}
                 onCreate={(skin) => {
                     setTableVersion(v => v + 1);
                     toast.success(t.skins.createSuccess(skin.id));
@@ -108,10 +108,10 @@ export function SkinsPage() {
     }
 
     function renderUpdateSkinModal() {
-        if (!isUpdateSkinModalModalOpen || !selectedSkin) return null;
+        if (!isUpdateSkinModalOpen || !selectedSkin) return null;
         return (
             <UpdateSkinModal
-                onClose={() => setUpdateSkinModalModalOpen(false)}
+                onClose={() => setUpdateSkinModalOpen(false)}
                 onUpdate={() => {
                     setSelectedSkin(null);
                     setTableVersion(v => v + 1);
