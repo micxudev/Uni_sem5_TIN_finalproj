@@ -7,7 +7,6 @@ import {deleteSkin, fetchSkins} from "../api/api.skins.ts";
 import {PaginatedTable} from "../components/PaginatedTable/PaginatedTable";
 import type {Column} from "../lib/types.ts";
 
-import {Modal} from "../components/Modals/Modal.tsx";
 import {PreviewSkinModal} from "../components/Modals/PreviewSkinModal.tsx";
 import {CreateSkinModal} from "../components/Modals/CreateSkinModal.tsx";
 import {UpdateSkinModal} from "../components/Modals/UpdateSkinModal.tsx";
@@ -50,7 +49,8 @@ export function SkinsPage() {
 
     function renderPreviewSkinModal() {
         if (!selectedSkin) return null;
-        return <Modal onClose={() => setSelectedSkin(null)}>
+        const onClose = () => setSelectedSkin(null);
+        return (
             <PreviewSkinModal
                 skin={selectedSkin}
                 canUpdate={isAdmin && isUserSkinOwner}
@@ -65,7 +65,7 @@ export function SkinsPage() {
                     });
                     if (!confirmed) return;
 
-                    setSelectedSkin(null);
+                    onClose();
 
                     const res = await deleteSkin(selectedSkin.id);
                     if (res.success) {
@@ -75,6 +75,7 @@ export function SkinsPage() {
                         toast.error(res.error.message);
                     }
                 }}
+                onClose={onClose}
                 labels={{
                     title: selectedSkin.name,
                     id: t.skins.id,
@@ -84,50 +85,46 @@ export function SkinsPage() {
                     delete: t.common.delete,
                 }}
             />
-        </Modal>;
+        );
     }
 
     function renderCreateSkinModal() {
         if (!isCreateSkinModalModalOpen) return null;
         return (
-            <Modal onClose={() => setCreateSkinModalModalOpen(false)}>
-                <CreateSkinModal
-                    onClose={() => setCreateSkinModalModalOpen(false)}
-                    onCreate={(skin) => {
-                        setTableVersion(v => v + 1);
-                        toast.success(t.skins.createSuccess(skin.id));
-                    }}
-                    labels={{
-                        title: t.skins.create,
-                        name: t.skins.name,
-                        rarity: t.skins.rarity,
-                        submit: t.common.create,
-                    }}
-                />
-            </Modal>
+            <CreateSkinModal
+                onClose={() => setCreateSkinModalModalOpen(false)}
+                onCreate={(skin) => {
+                    setTableVersion(v => v + 1);
+                    toast.success(t.skins.createSuccess(skin.id));
+                }}
+                labels={{
+                    title: t.skins.create,
+                    name: t.skins.name,
+                    rarity: t.skins.rarity,
+                    submit: t.common.create,
+                }}
+            />
         );
     }
 
     function renderUpdateSkinModal() {
         if (!isUpdateSkinModalModalOpen || !selectedSkin) return null;
         return (
-            <Modal onClose={() => setUpdateSkinModalModalOpen(false)}>
-                <UpdateSkinModal
-                    onClose={() => setUpdateSkinModalModalOpen(false)}
-                    onUpdate={() => {
-                        setSelectedSkin(null);
-                        setTableVersion(v => v + 1);
-                        toast.success(t.skins.updateSuccess(selectedSkin.id));
-                    }}
-                    skin={selectedSkin}
-                    labels={{
-                        title: t.skins.update,
-                        name: t.skins.name,
-                        rarity: t.skins.rarity,
-                        submit: t.common.update,
-                    }}
-                />
-            </Modal>
+            <UpdateSkinModal
+                onClose={() => setUpdateSkinModalModalOpen(false)}
+                onUpdate={() => {
+                    setSelectedSkin(null);
+                    setTableVersion(v => v + 1);
+                    toast.success(t.skins.updateSuccess(selectedSkin.id));
+                }}
+                skin={selectedSkin}
+                labels={{
+                    title: t.skins.update,
+                    name: t.skins.name,
+                    rarity: t.skins.rarity,
+                    submit: t.common.update,
+                }}
+            />
         );
     }
 

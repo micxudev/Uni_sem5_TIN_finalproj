@@ -1,4 +1,5 @@
 import type {Skin} from "@shared";
+import {Modal} from "./Modal.tsx";
 import "../../styles/components/PreviewSkinModal.css";
 
 interface SkinModalProps {
@@ -7,6 +8,7 @@ interface SkinModalProps {
     canDelete: boolean;
     onUpdateClick: () => void;
     onDeleteClick: () => void;
+    onClose: () => void;
     labels: {
         title: string;
         id: string;
@@ -17,33 +19,44 @@ interface SkinModalProps {
     };
 }
 
-export function PreviewSkinModal({skin, canUpdate, canDelete, onUpdateClick, onDeleteClick, labels,}: SkinModalProps) {
+export function PreviewSkinModal(
+    {
+        skin,
+        canUpdate,
+        canDelete,
+        onUpdateClick,
+        onDeleteClick,
+        onClose,
+        labels,
+    }: SkinModalProps) {
     return (
-        <div>
-            <h2 className="skin-title">{skin.name}</h2>
+        <Modal onClose={onClose}>
+            <div>
+                <h2 className="skin-title">{skin.name}</h2>
 
-            <p>
-                <strong>{labels.id}:</strong> {skin.id}
-            </p>
+                <p>
+                    <strong>{labels.id}:</strong> {skin.id}
+                </p>
 
-            <p>
-                <strong>{labels.rarity}:</strong> {skin.rarity}
-            </p>
+                <p>
+                    <strong>{labels.rarity}:</strong> {skin.rarity}
+                </p>
 
-            <p>
-                <strong>{labels.createdAt}:</strong> {new Date(skin.createdAt).toLocaleString()}
-            </p>
+                <p>
+                    <strong>{labels.createdAt}:</strong> {new Date(skin.createdAt).toLocaleString()}
+                </p>
 
-            {(canUpdate || canDelete) && (
-                <div className="skin-actions-container">
-                    {canUpdate && (
-                        <button className="skin-action edit" onClick={onUpdateClick}>{labels.update}</button>
-                    )}
-                    {canDelete && (
-                        <button className="skin-action delete" onClick={onDeleteClick}>{labels.delete}</button>
-                    )}
-                </div>
-            )}
-        </div>
+                {(canUpdate || canDelete) && (
+                    <div className="skin-actions-container">
+                        {canUpdate && (
+                            <button className="skin-action edit" onClick={onUpdateClick}>{labels.update}</button>
+                        )}
+                        {canDelete && (
+                            <button className="skin-action delete" onClick={onDeleteClick}>{labels.delete}</button>
+                        )}
+                    </div>
+                )}
+            </div>
+        </Modal>
     );
 }

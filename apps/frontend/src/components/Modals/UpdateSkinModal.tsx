@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {Modal} from "./Modal.tsx";
 import {SkinForm} from "../Forms/SkinForm.tsx";
 import {type Skin, type SkinInput} from "@shared";
 import {updateSkin} from "../../api/api.skins.ts";
@@ -33,25 +34,27 @@ export function UpdateSkinModal({onClose, onUpdate, skin, labels}: SkinActionMod
     }
 
     return (
-        <div className="skin-modal">
-            <h2 className="skin-title">
-                {labels.title}
-            </h2>
+        <Modal onClose={onClose}>
+            <div className="skin-modal">
+                <h2 className="skin-title">
+                    {labels.title}
+                </h2>
 
-            <ErrorFlash error={error} closable={false}/>
+                <ErrorFlash error={error} closable={false}/>
 
-            <SkinForm
-                labels={{
-                    name: labels.name,
-                    rarity: labels.rarity,
-                    submit: labels.submit,
-                }}
-                initValues={{
-                    name: skin.name,
-                    rarity: skin.rarity,
-                }}
-                onSubmit={handleSubmit}
-            />
-        </div>
+                <SkinForm
+                    labels={{
+                        name: labels.name,
+                        rarity: labels.rarity,
+                        submit: labels.submit,
+                    }}
+                    initValues={{
+                        name: skin.name,
+                        rarity: skin.rarity,
+                    }}
+                    onSubmit={handleSubmit}
+                />
+            </div>
+        </Modal>
     );
 }

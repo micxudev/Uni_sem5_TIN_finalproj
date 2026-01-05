@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {Modal} from "./Modal.tsx";
 import {GrantSkinForm} from "../Forms/GrantSkinForm.tsx";
 import {type GrantSkinInput} from "@shared";
 import {grantSkin} from "../../api/api.skin-ownership.ts";
@@ -32,21 +33,23 @@ export function GrantSkinModal({onClose, onGrant, labels}: GrantSkinModalProps) 
     }
 
     return (
-        <div className="skin-modal">
-            <h2 className="skin-title">
-                {labels.title}
-            </h2>
+        <Modal onClose={onClose}>
+            <div className="skin-modal">
+                <h2 className="skin-title">
+                    {labels.title}
+                </h2>
 
-            <ErrorFlash error={error} closable={false}/>
+                <ErrorFlash error={error} closable={false}/>
 
-            <GrantSkinForm
-                labels={{
-                    userId: labels.userId,
-                    skinId: labels.skinId,
-                    submit: labels.submit,
-                }}
-                onSubmit={handleSubmit}
-            />
-        </div>
+                <GrantSkinForm
+                    labels={{
+                        userId: labels.userId,
+                        skinId: labels.skinId,
+                        submit: labels.submit,
+                    }}
+                    onSubmit={handleSubmit}
+                />
+            </div>
+        </Modal>
     );
 }

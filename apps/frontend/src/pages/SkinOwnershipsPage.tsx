@@ -7,7 +7,6 @@ import {fetchSkinOwnerships} from "../api/api.skin-ownership.ts";
 import {PaginatedTable} from "../components/PaginatedTable/PaginatedTable";
 import type {Column} from "../lib/types.ts";
 
-import {Modal} from "../components/Modals/Modal.tsx";
 import {PreviewSkinModal} from "../components/Modals/PreviewSkinModal.tsx";
 import {GrantSkinModal} from "../components/Modals/GrantSkinModal.tsx";
 
@@ -45,7 +44,7 @@ export function SkinOwnershipsPage() {
 
     function renderPreviewSkinModal() {
         if (!selectedSkinOwnership) return null;
-        return <Modal onClose={() => setSelectedSkinOwnership(null)}>
+        return (
             <PreviewSkinModal
                 skin={selectedSkinOwnership.skin}
                 canUpdate={false}
@@ -54,6 +53,7 @@ export function SkinOwnershipsPage() {
                 }}
                 onDeleteClick={() => {
                 }}
+                onClose={() => setSelectedSkinOwnership(null)}
                 labels={{
                     title: selectedSkinOwnership.skin.name,
                     id: t.skins.id,
@@ -63,27 +63,25 @@ export function SkinOwnershipsPage() {
                     delete: t.common.delete,
                 }}
             />
-        </Modal>;
+        );
     }
 
     function renderGrantSkinModal() {
         if (!isGrantSkinModalOpen) return null;
         return (
-            <Modal onClose={() => setGrantSkinModalOpen(false)}>
-                <GrantSkinModal
-                    onClose={() => setGrantSkinModalOpen(false)}
-                    onGrant={() => {
-                        setTableVersion(v => v + 1);
-                        toast.success(t.skin_ownership.grantSuccess);
-                    }}
-                    labels={{
-                        title: t.skin_ownership.grant,
-                        userId: t.skin_ownership.userId,
-                        skinId: t.skin_ownership.skinId,
-                        submit: t.skin_ownership.grant,
-                    }}
-                />
-            </Modal>
+            <GrantSkinModal
+                onClose={() => setGrantSkinModalOpen(false)}
+                onGrant={() => {
+                    setTableVersion(v => v + 1);
+                    toast.success(t.skin_ownership.grantSuccess);
+                }}
+                labels={{
+                    title: t.skin_ownership.grant,
+                    userId: t.skin_ownership.userId,
+                    skinId: t.skin_ownership.skinId,
+                    submit: t.skin_ownership.grant,
+                }}
+            />
         );
     }
 
