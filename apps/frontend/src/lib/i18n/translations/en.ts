@@ -64,7 +64,7 @@ export const en: TranslationSchema = {
         page: "Page",
     },
     languages: {
-        title: "Interface Language"
+        title: "Language"
     },
     common: {
         create: "Create",
