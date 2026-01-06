@@ -14,7 +14,6 @@ interface PaginatedTableProps<T> {
     refreshKey?: unknown;
     header?: (result: PaginatedResult<T>) => ReactNode;
     labels: {
-        error: string;
         noData: string;
         prev: string;
         next: string;
@@ -48,7 +47,7 @@ export function PaginatedTable<T>(
     }, [page, perPage, refreshKey]);
 
     if (error) {
-        return <ErrorFlash title={error.code} error={labels.error}/>;
+        return <ErrorFlash title={error.code} error={error.message}/>;
     }
 
     if (!result) {

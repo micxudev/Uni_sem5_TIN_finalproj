@@ -1,4 +1,6 @@
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+
 import {type PaginatedResult, type User, UserRoleValues} from "@shared";
 import {ErrorFlash} from "../components/ErrorFlash.tsx";
 
@@ -13,6 +15,7 @@ import {useI18n} from "../contexts/I18nContext.tsx";
 import {useUser} from "../contexts/AuthContext.tsx";
 
 export function UsersPage() {
+    const navigate = useNavigate();
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
     const t = useI18n();
@@ -38,7 +41,7 @@ export function UsersPage() {
     function renderPaginatedTableHeader(result: PaginatedResult<User>) {
         return (
             <div className="paginated-table__header">
-                <h2>{result.meta.total} {t.users.title}</h2>
+                <h2>{result.meta.total} {t.users.table_header_label}</h2>
             </div>
         );
     }
@@ -49,9 +52,7 @@ export function UsersPage() {
             <PreviewUserModal
                 user={selectedUser}
                 canViewUserSkins={isAdmin}
-                onViewUserSkinsClick={(userId) => {
-                    console.log("Display owned skins for user " + userId); // TODO: show owned user skins
-                }}
+                onViewUserSkinsClick={(userId) => navigate(`/owned-skins/${userId}`)}
                 onClose={() => setSelectedUser(null)}
                 labels={{
                     title: t.users.user,
@@ -75,7 +76,6 @@ export function UsersPage() {
                 onRowClick={setSelectedUser}
                 header={renderPaginatedTableHeader}
                 labels={{
-                    error: t.errors.serverNotResponded,
                     noData: t.users.noData,
                     prev: t.pagination.prev,
                     next: t.pagination.next,

@@ -62,7 +62,8 @@ export function App() {
             component: SkinsPage
         },
         {
-            path: "/owned-skins",
+            path: "/owned-skins/:userId",
+            navPath: "/owned-skins",
             iconPath: "/owned-skins.svg",
             label: t.skin_ownership.nav_label,
             component: SkinOwnershipsPage
@@ -206,8 +207,13 @@ export function App() {
             footer={footer}
         >
             <Routes>
-                {routes.map(({path, component: Page}) => (
-                    <Route key={path} path={path} element={<Page/>}/>
+                {routes.map(({path, navPath, component: Page}) => (
+                    <>
+                        <Route key={path} path={path} element={<Page/>}/>
+                        {navPath && (
+                            <Route key={navPath} path={navPath} element={<Page/>}/>
+                        )}
+                    </>
                 ))}
                 <Route path="*" element={<Navigate to={DEFAULT_ROUTE_PATH} replace/>}/>
             </Routes>

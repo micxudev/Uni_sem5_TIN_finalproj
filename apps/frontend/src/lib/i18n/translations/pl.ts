@@ -3,7 +3,7 @@ import type {TranslationSchema} from "../i18n.types.ts";
 export const pl: TranslationSchema = {
     skins: {
         nav_label: "",
-        title: "",
+        table_header_label: "",
         id: "",
         name: "",
         rarity: "",
@@ -20,7 +20,7 @@ export const pl: TranslationSchema = {
     },
     skin_ownership: {
         nav_label: "",
-        title: "",
+        table_header_label: "",
         ownershipId: "",
         source: "",
         obtainedAt: "",
@@ -34,7 +34,7 @@ export const pl: TranslationSchema = {
     },
     users: {
         nav_label: "",
-        title: "",
+        table_header_label: "",
         id: "",
         username: "",
         role: "",
@@ -76,7 +76,6 @@ export const pl: TranslationSchema = {
         cancel: "",
     },
     errors: {
-        serverNotResponded: "",
         unauthenticated: "",
         unauthorized: "",
         authRequired: "",

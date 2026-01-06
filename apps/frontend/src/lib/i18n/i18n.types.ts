@@ -1,7 +1,7 @@
 export interface TranslationSchema {
     skins: {
         nav_label: string;
-        title: string;
+        table_header_label: string;
         id: string;
         name: string;
         rarity: string;
@@ -18,7 +18,7 @@ export interface TranslationSchema {
     };
     skin_ownership: {
         nav_label: string;
-        title: string;
+        table_header_label: string;
         ownershipId: string;
         source: string;
         obtainedAt: string;
@@ -32,7 +32,7 @@ export interface TranslationSchema {
     }
     users: {
         nav_label: string;
-        title: string;
+        table_header_label: string;
         id: string;
         username: string;
         role: string;
@@ -74,7 +74,6 @@ export interface TranslationSchema {
         cancel: string;
     };
     errors: {
-        serverNotResponded: string;
         unauthenticated: string;
         unauthorized: string;
         authRequired: string;

@@ -1,5 +1,7 @@
 import {useState} from "react";
+import {useParams} from "react-router-dom";
 import {toast} from "react-toastify";
+
 import {type PaginatedResult, type SkinOwnership, UserRoleValues} from "@shared";
 import {ErrorFlash} from "../components/ErrorFlash.tsx";
 
@@ -15,6 +17,8 @@ import {useI18n} from "../contexts/I18nContext.tsx";
 import {useUser} from "../contexts/AuthContext.tsx";
 
 export function SkinOwnershipsPage() {
+    const {userId} = useParams<{ userId?: string }>();
+
     const [selectedSkinOwnership, setSelectedSkinOwnership] = useState<SkinOwnership | null>(null);
     const [isGrantSkinModalOpen, setGrantSkinModalOpen] = useState(false);
 
@@ -34,10 +38,16 @@ export function SkinOwnershipsPage() {
         return <ErrorFlash title={t.errors.unauthenticated} error={t.errors.authRequired}/>;
     }
 
+    const skinsForUserId = userId !== undefined ? Number(userId) : user.id;
+    const skinsForCurrentUser = skinsForUserId === user.id;
+
     function renderPaginatedTableHeader(result: PaginatedResult<SkinOwnership>) {
         return (
             <div className="paginated-table__header">
-                <h2>{result.meta.total} {t.skin_ownership.title}</h2>
+                <h2>
+                    {!skinsForCurrentUser ? t.users.user + "#" + skinsForUserId + " - " : ""}
+                    {result.meta.total} {t.skin_ownership.table_header_label}
+                </h2>
                 {isAdmin && (
                     <button onClick={() => setGrantSkinModalOpen(true)}>
                         {t.skin_ownership.grant}
@@ -93,14 +103,14 @@ export function SkinOwnershipsPage() {
     return (
         <>
             <PaginatedTable<SkinOwnership>
-                fetcher={(page, perPage) => fetchSkinOwnerships(user.id, page, perPage)}
+                key={skinsForUserId}
+                fetcher={(page, perPage) => fetchSkinOwnerships(skinsForUserId, page, perPage)}
                 perPage={8}
                 columns={columns}
                 onRowClick={setSelectedSkinOwnership}
                 refreshKey={tableVersion}
                 header={renderPaginatedTableHeader}
                 labels={{
-                    error: t.errors.serverNotResponded,
                     noData: t.skin_ownership.noData,
                     prev: t.pagination.prev,
                     next: t.pagination.next,

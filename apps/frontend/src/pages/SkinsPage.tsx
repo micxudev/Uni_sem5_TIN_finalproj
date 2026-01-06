@@ -37,7 +37,7 @@ export function SkinsPage() {
     function renderPaginatedTableHeader(result: PaginatedResult<Skin>) {
         return (
             <div className="paginated-table__header">
-                <h2>{result.meta.total} {t.skins.title}</h2>
+                <h2>{result.meta.total} {t.skins.table_header_label}</h2>
                 {isAdmin && (
                     <button onClick={() => setCreateSkinModalOpen(true)}>
                         {t.skins.create}
@@ -138,7 +138,6 @@ export function SkinsPage() {
                 refreshKey={tableVersion}
                 header={renderPaginatedTableHeader}
                 labels={{
-                    error: t.errors.serverNotResponded,
                     noData: t.skins.noData,
                     prev: t.pagination.prev,
                     next: t.pagination.next,

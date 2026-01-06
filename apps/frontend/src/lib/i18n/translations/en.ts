@@ -3,7 +3,7 @@ import type {TranslationSchema} from "../i18n.types.ts";
 export const en: TranslationSchema = {
     skins: {
         nav_label: "Skins",
-        title: "skins",
+        table_header_label: "skins",
         id: "ID",
         name: "Name",
         rarity: "Rarity",
@@ -20,7 +20,7 @@ export const en: TranslationSchema = {
     },
     skin_ownership: {
         nav_label: "Owned Skins",
-        title: "owned skins",
+        table_header_label: "owned skins",
         ownershipId: "Ownership ID",
         source: "Source",
         obtainedAt: "Obtained at",
@@ -34,7 +34,7 @@ export const en: TranslationSchema = {
     },
     users: {
         nav_label: "Users",
-        title: "users",
+        table_header_label: "users",
         id: "ID",
         username: "Username",
         role: "Role",
@@ -76,7 +76,6 @@ export const en: TranslationSchema = {
         cancel: "Cancel",
     },
     errors: {
-        serverNotResponded: "Server could not respond",
         unauthenticated: "Not Authenticated",
         unauthorized: "Not Authorized",
         authRequired: "You must be logged in to access this page.",

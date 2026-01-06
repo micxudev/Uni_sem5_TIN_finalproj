@@ -37,7 +37,7 @@ export function Sidebar({routes}: SidebarProps) {
                 {routes.map(route => (
                     <NavLink
                         key={route.path}
-                        to={route.path}
+                        to={route.navPath ?? route.path}
                         className={({isActive}) =>
                             `sidebar__item ${isActive ? "sidebar__item--active" : ""}`
                         }
