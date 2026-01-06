@@ -1,5 +1,11 @@
-import type {Column} from "../../lib/types.ts";
+import type {ReactNode} from "react";
 import "../../styles/components/Table.css";
+
+export interface Column<T> {
+    key: string;
+    header: string;
+    render: (row: T) => ReactNode;
+}
 
 interface TableProps<T> {
     data: T[];

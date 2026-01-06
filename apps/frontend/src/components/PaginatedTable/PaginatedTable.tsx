@@ -1,8 +1,7 @@
 import type {ReactNode} from "react";
 import {useEffect, useState} from "react";
 import type {ApiErrorPayload, ApiResponse, PaginatedResult} from "@shared";
-import type {Column} from "../../lib/types.ts";
-import {Table} from "./Table.tsx";
+import {type Column, Table} from "./Table.tsx";
 import {PaginationControls} from "./PaginationControls.tsx";
 import "../../styles/components/PaginatedTable.css";
 import {ErrorFlash} from "../ErrorFlash.tsx";

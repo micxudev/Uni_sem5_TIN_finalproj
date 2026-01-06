@@ -2,7 +2,7 @@ import {useState} from "react";
 import {toast} from "react-toastify";
 
 import {Header} from "./components/Header.tsx";
-import {AppLayout} from "./layouts/AppLayout";
+import {Layout} from "./Layout.tsx";
 import {SkinsPage} from "./pages/SkinsPage";
 import {SkinOwnershipsPage} from "./pages/SkinOwnershipsPage.tsx";
 import {UsersPage} from "./pages/UsersPage.tsx";
@@ -160,7 +160,7 @@ export function App() {
     // Render
     // ─────────────────────────────────────
     return (
-        <AppLayout header={header}>
+        <Layout header={header}>
             <SkinsPage/>
             <SkinOwnershipsPage/>
             <UsersPage/>
@@ -168,6 +168,6 @@ export function App() {
             {renderAuthModal()}
             {renderProfileModal()}
             {renderChangePasswordModal()}
-        </AppLayout>
+        </Layout>
     );
 }

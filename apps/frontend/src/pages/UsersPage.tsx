@@ -4,8 +4,8 @@ import {ErrorFlash} from "../components/ErrorFlash.tsx";
 
 import {fetchUsers} from "../api/api.users.ts";
 
+import type {Column} from "../components/PaginatedTable/Table.tsx";
 import {PaginatedTable} from "../components/PaginatedTable/PaginatedTable";
-import type {Column} from "../lib/types.ts";
 
 import {PreviewUserModal} from "../components/Modals/PreviewUserModal.tsx";
 

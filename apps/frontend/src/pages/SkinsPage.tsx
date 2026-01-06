@@ -4,8 +4,8 @@ import {type PaginatedResult, type Skin, UserRoleValues} from "@shared";
 
 import {deleteSkin, fetchSkins} from "../api/api.skins.ts";
 
+import type {Column} from "../components/PaginatedTable/Table.tsx";
 import {PaginatedTable} from "../components/PaginatedTable/PaginatedTable";
-import type {Column} from "../lib/types.ts";
 
 import {PreviewSkinModal} from "../components/Modals/PreviewSkinModal.tsx";
 import {CreateSkinModal} from "../components/Modals/CreateSkinModal.tsx";

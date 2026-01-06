@@ -5,8 +5,8 @@ import {ErrorFlash} from "../components/ErrorFlash.tsx";
 
 import {fetchSkinOwnerships} from "../api/api.skin-ownership.ts";
 
+import type {Column} from "../components/PaginatedTable/Table.tsx";
 import {PaginatedTable} from "../components/PaginatedTable/PaginatedTable";
-import type {Column} from "../lib/types.ts";
 
 import {PreviewSkinModal} from "../components/Modals/PreviewSkinModal.tsx";
 import {GrantSkinModal} from "../components/Modals/GrantSkinModal.tsx";

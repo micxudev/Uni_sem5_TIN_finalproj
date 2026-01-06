@@ -1,13 +1,13 @@
 import type {ReactNode} from "react";
-import {Footer} from "../components/Footer.tsx";
-import "../styles/Layout.css";
+import {Footer} from "./components/Footer.tsx";
+import "./styles/Layout.css";
 
 interface AppLayoutProps {
     children: ReactNode;
     header: ReactNode;
 }
 
-export function AppLayout({children, header}: AppLayoutProps) {
+export function Layout({children, header}: AppLayoutProps) {
     return (
         <div className="layout">
             {header}
