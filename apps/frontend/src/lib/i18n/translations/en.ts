@@ -61,6 +61,12 @@ export const en: TranslationSchema = {
         newPassword: "New Password",
         logoutConfirm: "Are you sure you want to logout?",
     },
+    lootboxes: {
+        nav_label: "Lootboxes",
+        open: "Open Lootbox",
+        success: (skin) => `Congrats! You got ${skin.name}!`,
+        cooldown: (time) => `Cooldown, available in ${time}.`,
+    },
     pagination: {
         prev: "Previous",
         next: "Next",

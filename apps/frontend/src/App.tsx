@@ -6,6 +6,7 @@ import type {AppRoute} from "./lib/types.ts";
 import {Header} from "./components/Header.tsx";
 import {Layout} from "./Layout.tsx";
 import {SkinsPage} from "./pages/SkinsPage";
+import {LootboxesPage} from "./pages/LootboxesPage";
 import {SkinOwnershipsPage} from "./pages/SkinOwnershipsPage";
 import {UsersPage} from "./pages/UsersPage";
 
@@ -60,6 +61,12 @@ export function App() {
             iconPath: "/skins.svg",
             label: t.skins.nav_label,
             component: SkinsPage
+        },
+        {
+            path: "/lootboxes",
+            iconPath: "/lootbox.svg",
+            label: t.lootboxes.nav_label,
+            component: LootboxesPage
         },
         {
             path: "/owned-skins/:userId",

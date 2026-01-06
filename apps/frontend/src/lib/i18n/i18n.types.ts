@@ -1,3 +1,5 @@
+import type {Skin} from "@shared";
+
 export interface TranslationSchema {
     skins: {
         nav_label: string;
@@ -58,6 +60,12 @@ export interface TranslationSchema {
         currentPassword: string;
         newPassword: string;
         logoutConfirm: string;
+    };
+    lootboxes: {
+        nav_label: string;
+        open: string;
+        success: (skin: Skin) => string;
+        cooldown: (time: string) => string;
     };
     pagination: {
         prev: string;

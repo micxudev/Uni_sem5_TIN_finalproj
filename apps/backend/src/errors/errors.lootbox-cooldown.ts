@@ -3,7 +3,7 @@ import {ErrorCodeValues} from "@shared";
 
 export class LootboxCooldownError extends CustomError {
     readonly statusCode = 400;
-    readonly errorCode = ErrorCodeValues.BAD_REQUEST;
+    readonly errorCode = ErrorCodeValues.COOLDOWN_ERROR;
 
     constructor(public remainingMs: number) {
         super(remainingMs.toString());
