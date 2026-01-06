@@ -2,6 +2,7 @@ import type {TranslationSchema} from "../i18n.types.ts";
 
 export const en: TranslationSchema = {
     skins: {
+        nav_label: "Skins",
         title: "skins",
         id: "ID",
         name: "Name",
@@ -18,6 +19,7 @@ export const en: TranslationSchema = {
         noData: "No skins found.",
     },
     skin_ownership: {
+        nav_label: "Owned Skins",
         title: "owned skins",
         ownershipId: "Ownership ID",
         source: "Source",
@@ -31,7 +33,8 @@ export const en: TranslationSchema = {
         viewOwnedSkins: "View owned skins",
     },
     users: {
-        title: "Users",
+        nav_label: "Users",
+        title: "users",
         id: "ID",
         username: "Username",
         role: "Role",

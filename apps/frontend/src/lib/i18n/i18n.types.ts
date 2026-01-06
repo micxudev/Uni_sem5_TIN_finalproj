@@ -1,5 +1,6 @@
 export interface TranslationSchema {
     skins: {
+        nav_label: string;
         title: string;
         id: string;
         name: string;
@@ -16,6 +17,7 @@ export interface TranslationSchema {
         noData: string;
     };
     skin_ownership: {
+        nav_label: string;
         title: string;
         ownershipId: string;
         source: string;
@@ -29,6 +31,7 @@ export interface TranslationSchema {
         viewOwnedSkins: string;
     }
     users: {
+        nav_label: string;
         title: string;
         id: string;
         username: string;

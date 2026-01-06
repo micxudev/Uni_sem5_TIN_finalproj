@@ -2,11 +2,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5px 0;
+    padding-bottom: 5px;
     margin-top: auto;
 }
 
-.text {
-    color: var(--color-gray-400);
+.footer__text {
+    color: var(--color-gray-500);
     font-size: 12px;
 }

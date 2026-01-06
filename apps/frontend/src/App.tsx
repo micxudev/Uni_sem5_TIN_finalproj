@@ -1,11 +1,13 @@
 import {useState} from "react";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {toast} from "react-toastify";
 
+import type {AppRoute} from "./lib/types.ts";
 import {Header} from "./components/Header.tsx";
 import {Layout} from "./Layout.tsx";
 import {SkinsPage} from "./pages/SkinsPage";
-import {SkinOwnershipsPage} from "./pages/SkinOwnershipsPage.tsx";
-import {UsersPage} from "./pages/UsersPage.tsx";
+import {SkinOwnershipsPage} from "./pages/SkinOwnershipsPage";
+import {UsersPage} from "./pages/UsersPage";
 
 import {LanguageModal} from "./components/Modals/LanguageModal.tsx";
 import {AuthModal} from "./components/Modals/AuthModal.tsx";
@@ -17,6 +19,8 @@ import {logout} from "./api/api.auth.ts";
 import {useI18n, useLanguage, useSetLanguage} from "./contexts/I18nContext.tsx";
 import {useIsLoading, useLogin, useLogout, useUser} from "./contexts/AuthContext.tsx";
 import {useConfirm} from "./contexts/ConfirmContext.tsx";
+import {Sidebar} from "./components/Sidebar.tsx";
+import {Footer} from "./components/Footer.tsx";
 
 export function App() {
     // ─────────────────────────────────────
@@ -45,6 +49,32 @@ export function App() {
         return null; // Loading state (show nothing for now, later maybe loader)
     }
 
+    // ─────────────────────────────────────
+    // Elements
+    // ─────────────────────────────────────
+    const DEFAULT_ROUTE_PATH = "/skins";
+
+    const routes: AppRoute[] = [
+        {
+            path: DEFAULT_ROUTE_PATH,
+            iconPath: "/skins.svg",
+            label: t.skins.nav_label,
+            component: SkinsPage
+        },
+        {
+            path: "/owned-skins",
+            iconPath: "/owned-skins.svg",
+            label: t.skin_ownership.nav_label,
+            component: SkinOwnershipsPage
+        },
+        {
+            path: "/users",
+            iconPath: "/profile.svg",
+            label: t.users.nav_label,
+            component: UsersPage
+        },
+    ];
+
     const header = (
         <Header
             user={user}
@@ -57,6 +87,16 @@ export function App() {
                 profile: t.auth.profile,
             }}
         />
+    );
+
+    const sidebar = (
+        <Sidebar
+            routes={routes}
+        />
+    );
+
+    const footer = (
+        <Footer/>
     );
 
     // ─────────────────────────────────────
@@ -160,14 +200,24 @@ export function App() {
     // Render
     // ─────────────────────────────────────
     return (
-        <Layout header={header}>
-            <SkinsPage/>
-            <SkinOwnershipsPage/>
-            <UsersPage/>
-            {renderLanguageModal()}
-            {renderAuthModal()}
-            {renderProfileModal()}
-            {renderChangePasswordModal()}
-        </Layout>
+        <BrowserRouter>
+            <Layout
+                sidebar={sidebar}
+                header={header}
+                footer={footer}
+            >
+                <Routes>
+                    {routes.map(({path, component: Page}) => (
+                        <Route key={path} path={path} element={<Page/>}/>
+                    ))}
+                    <Route path="*" element={<Navigate to={DEFAULT_ROUTE_PATH} replace/>}/>
+                </Routes>
+
+                {renderLanguageModal()}
+                {renderAuthModal()}
+                {renderProfileModal()}
+                {renderChangePasswordModal()}
+            </Layout>
+        </BrowserRouter>
     );
 }

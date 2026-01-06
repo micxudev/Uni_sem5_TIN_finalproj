@@ -26,7 +26,6 @@ button {
     color: inherit;
     background-color: var(--color-gray-700);
     cursor: pointer;
-    transition: border-color 0.25s;
     outline: none;
     white-space: nowrap;
 }

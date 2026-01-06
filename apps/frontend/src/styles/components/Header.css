@@ -5,25 +5,30 @@
     gap: 10px;
     padding: 10px;
     background-color: var(--color-gray-800);
-    overflow: auto;
+    border-bottom: 1px solid var(--color-gray-700);
 }
 
-.logo {
-    height: 40px;
+.header__title {
+    color: var(--color-gray-200);
 }
 
-.buttons-container {
+.header__actions {
     display: flex;
     gap: 10px;
 }
 
-.header-button {
+.header__action {
     display: flex;
     align-items: center;
     padding: 10px;
     gap: 5px;
 }
 
-.header-button-img {
+.header__action-icon {
     height: 20px;
+    aspect-ratio: 1;
+}
+
+.header__action-label {
+    color: var(--color-gray-200);
 }

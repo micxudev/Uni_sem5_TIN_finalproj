@@ -16,23 +16,50 @@ interface HeaderProps {
 export function Header({user, onLanguageClick, onAuthClick, onProfileClick, labels}: HeaderProps) {
     return (
         <header className="header">
-            <img className="logo" src="/logo.svg" alt="Logo"/>
-            <div className="buttons-container">
+            <span className="header__title">s30173</span>
 
-                <button className="header-button" onClick={onLanguageClick}>
-                    <img className="header-button-img" src="/language.svg" alt="Language"/>
-                    {labels.language}
+            <div className="header__actions">
+                <button
+                    className="header__action"
+                    onClick={onLanguageClick}
+                >
+                    <img
+                        className="header__action-icon"
+                        src="/language.svg"
+                        alt=""
+                    />
+                    <span className="header__action-label">
+                        {labels.language}
+                    </span>
                 </button>
 
                 {!user ? (
-                    <button className="header-button" onClick={onAuthClick}>
-                        <img className="header-button-img" src="/auth.svg" alt="Auth"/>
-                        {labels.signIn}
+                    <button
+                        className="header__action"
+                        onClick={onAuthClick}
+                    >
+                        <img
+                            className="header__action-icon"
+                            src="/auth.svg"
+                            alt=""
+                        />
+                        <span className="header__action-label">
+                            {labels.signIn}
+                        </span>
                     </button>
                 ) : (
-                    <button className="header-button" onClick={onProfileClick}>
-                        <img className="header-button-img" src="/profile.svg" alt="Profile"/>
-                        {labels.profile}
+                    <button
+                        className="header__action"
+                        onClick={onProfileClick}
+                    >
+                        <img
+                            className="header__action-icon"
+                            src="/profile.svg"
+                            alt=""
+                        />
+                        <span className="header__action-label">
+                            {labels.profile}
+                        </span>
                     </button>
                 )}
             </div>

@@ -1,3 +1,9 @@
+.paginated-table {
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+}
+
 .paginated-table__header {
     display: flex;
     justify-content: space-between;
