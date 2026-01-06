@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {toast} from "react-toastify";
 
 import type {AppRoute} from "./lib/types.ts";
@@ -200,24 +200,22 @@ export function App() {
     // Render
     // ─────────────────────────────────────
     return (
-        <BrowserRouter>
-            <Layout
-                sidebar={sidebar}
-                header={header}
-                footer={footer}
-            >
-                <Routes>
-                    {routes.map(({path, component: Page}) => (
-                        <Route key={path} path={path} element={<Page/>}/>
-                    ))}
-                    <Route path="*" element={<Navigate to={DEFAULT_ROUTE_PATH} replace/>}/>
-                </Routes>
+        <Layout
+            sidebar={sidebar}
+            header={header}
+            footer={footer}
+        >
+            <Routes>
+                {routes.map(({path, component: Page}) => (
+                    <Route key={path} path={path} element={<Page/>}/>
+                ))}
+                <Route path="*" element={<Navigate to={DEFAULT_ROUTE_PATH} replace/>}/>
+            </Routes>
 
-                {renderLanguageModal()}
-                {renderAuthModal()}
-                {renderProfileModal()}
-                {renderChangePasswordModal()}
-            </Layout>
-        </BrowserRouter>
+            {renderLanguageModal()}
+            {renderAuthModal()}
+            {renderProfileModal()}
+            {renderChangePasswordModal()}
+        </Layout>
     );
 }
